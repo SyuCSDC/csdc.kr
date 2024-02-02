@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <h2>Profile List</h2>
+    <ul>
+        {% for profile in profiles %}
+        <li>
+            <a href="{% url 'profile_detail' profile.pk %}">{{ profile.user.username }}</a> - {{ profile.department }}
+        </li>
+        {% endfor %}
+    </ul>
+</html>
