@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Report</title>
+</head>
+<body>
+<h1>Submit Report</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ file_formset.management_form }}
+    {% for form in file_formset %}
+        {{ form.as_p }}
+    {% endfor %}
+    <button type="submit">Submit</button>
+</form>
+
+
+</body>
+</html>

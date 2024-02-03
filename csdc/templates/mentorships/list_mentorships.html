@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mentorships</title>
+    </head>
+    <body>
+        <h1>Your Mentorships</h1>
+        <ul>
+            {% for mentorship in mentorships %}
+            <li>
+                {{ mentorship.mentor.username }} mentoring {{ mentorship.mentee.username }} - {{ mentorship.status }}
+            </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

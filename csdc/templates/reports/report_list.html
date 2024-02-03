@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Report List</title>
+    </head>
+    <body>
+        <h1>Report List</h1>
+        <ul>
+            {% for report in reports %}
+            <li>
+                <a href="{% url 'report:report_detail' report.pk %}">{{ report.book.title }}</a> - Submitted by
+                {{report.submitter.username }}
+            </li>
+
+            {% endfor %}
+        </ul>
+    </body>
+</html>
