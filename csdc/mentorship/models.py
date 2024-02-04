@@ -12,4 +12,4 @@ class Mentorship(models.Model):
     status = models.CharField(max_length=20, choices=(('Active', 'Active'), ('Completed', 'Completed'), ('Pending', 'Pending')))
 
     def __str__(self):
-        return f"{self.mentor.username} mentoring {self.mentee.username} for {self.book.title}"
+        return f"{self.mentor.user.username} mentoring {self.mentee.user.username} for {self.book.title}"

@@ -13,5 +13,5 @@ class UserProfile(models.Model):
 
     def __str__(self):
         # User 모델의 first_name과 last_name을 사용하여 전체 이름 반환
-        full_name = f"{self.user.first_name} {self.user.last_name}".strip()
+        full_name = f"{self.user.last_name}{self.user.first_name} ".strip()
         return full_name if full_name else self.user.username
