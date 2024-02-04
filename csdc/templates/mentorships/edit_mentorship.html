@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Mentorship</title>
+    <title>Edit Mentorship</title>
 </head>
 <body>
-    <h1>Create Mentorship</h1>
+    <h1>Edit Mentorship</h1>
     <form method="post">
         {% csrf_token %}
-        <!-- <div class="form-group">
-            <label for="{{ form.mentor.id_for_label }}">Mentor:</label>
-            {{ form.mentor }}
-        </div> -->
+        <!-- 멘토 필드는 자동으로 설정되므로, 폼에서 렌더링하지 않음 -->
         <div class="form-group">
             <label for="{{ form.mentee.id_for_label }}">Mentee:</label>
             {{ form.mentee }}
@@ -32,7 +29,9 @@
             <label for="{{ form.status.id_for_label }}">Status:</label>
             {{ form.status }}
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <!-- 취소 버튼 또는 뒤로 가기 링크 추가 -->
+        <a href="{% url 'mentorship:list_mentorships' %}" class="btn btn-secondary">Cancel</a>
     </form>
 </body>
 </html>

@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Report Detail</title>
-</head>
-<body>
-<h1>Report: {{ report.book.title }}</h1>
-<p>Submitted by: {{ report.submitter.last_name }} {{ report.submitter.first_name }}</p>
-<h2>Files:</h2>
-<ul>
-    {% for file in report.files.all %}
-    <li><a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a></li>
-    {% endfor %}
-</ul>
-</body>
+    <head>
+        <title>Report Detail</title>
+    </head>
+    <body>
+    <h1>Report: {{ report.book.title }}</h1>
+        <p>Submitted by: {{ report.submitter.last_name }} {{ report.submitter.first_name }}</p>
+     
+    <h2>Files:</h2>
+    <ul>
+        {% for file in report.files.all %}
+        <li><a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a></li>
+        {% endfor %}
+    </ul>
+      
+    <p>
+        <a href="{% url 'report:report_update' report.id %}">수정하기</a>
+    </p>
+    </body>
 </html>

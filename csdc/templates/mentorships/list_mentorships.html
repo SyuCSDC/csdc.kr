@@ -4,11 +4,26 @@
         <title>Mentorships</title>
     </head>
     <body>
-        <h1>Your Mentorships</h1>
+        <h1> Mentorship List </h1>
         <ul>
             {% for mentorship in mentorships %}
             <li>
-                {{ mentorship.mentor.username }} mentoring {{ mentorship.mentee.username }} - {{ mentorship.status }}
+                {{ mentorship.mentor.user.last_name }}{{ mentorship.mentor.user.first_name }} mentoring {{ mentorship.mentee.user.last_name }}{{ mentorship.mentee.user.first_name }} - {{ mentorship.status }}
+                
+                / Start Date: {{ mentorship.start_date }} - End Date: {{ mentorship.end_date }}
+             
+                / Book: {{ mentorship.book.title }} by {{ mentorship.book.author }}
+                
+                {% if request.user.userprofile.role == 'Mentor' and mentorship.mentor.user == request.user %}
+                    <a href="{% url 'mentorship:edit_mentorship' pk=mentorship.pk %}" >수정하기</a>
+                {% endif %}
+
+                {% if request.user.userprofile.role == 'Mentor' and mentorship.mentor.user == request.user %}
+                    <form method="post" action="{% url 'mentorship:delete_mentorship' pk=mentorship.pk %}">
+                        {% csrf_token %}
+                        <button type="submit">삭제하기</button>
+                    </form>
+                {% endif %}
             </li>
             {% endfor %}
         </ul>

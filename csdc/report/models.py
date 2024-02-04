@@ -17,9 +17,10 @@ class Book(models.Model):
 class Report(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     submitter = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)  # 날짜 필드 추가
 
     def __str__(self):
-        return f'Report on {self.book.title} by {self.submitter.username}'
+        return f'Report on {self.book.title} by {self.submitter.username} on {self.date}'
     
 class ReportFile(models.Model):
     report = models.ForeignKey(Report, related_name='files', on_delete=models.CASCADE)

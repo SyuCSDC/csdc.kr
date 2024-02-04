@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>책 신청</title>
+</head>
+<body>
+    <h1>책 신청</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">신청</button>
+    </form>
+</body>
+</html>

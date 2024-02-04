@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book List</title>
+</head>
+<body>
+    <h1>Book List</h1>
+    <ul>
+        {% for book in books %}
+        <li>
+            {{ book.title }} by {{ book.author }} - 신청자: {{ book.requester.last_name }}{{ book.requester.first_name }} 
+            <!-- 기타 책 정보 표시 -->
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+
+

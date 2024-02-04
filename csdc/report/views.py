@@ -1,17 +1,10 @@
-# from django.views.generic import ListView, CreateView, DetailView
-# from django.shortcuts import redirect
-# from django.urls import reverse_lazy
-# from django.contrib.auth.mixins import LoginRequiredMixin
-
-# from .models import Report
-# from .forms import ReportFileForm 
+from django.views.generic import ListView, CreateView, DetailView , UpdateView
+from django.shortcuts import redirect , render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Report, ReportFile
-from .forms import ReportForm, ReportFileFormSet
 
+from .models import Report , ReportFile , Book
+from .forms import ReportForm , ReportFileFormSet , BookRequestForm
 
 class ReportListView(LoginRequiredMixin, ListView):
     model = Report
@@ -50,8 +43,57 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
         else:
             return self.form_invalid(form)
         return super().form_valid(form)
-        
+    
+
+class ReportUpdateView(LoginRequiredMixin, UpdateView):
+    model = Report
+    form_class = ReportForm
+    template_name = 'reports/report_update_form.html'
+    success_url = reverse_lazy('report:report_list')  # 성공 URL은 필요에 따라 조정
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.method == 'POST':
+            # POST 요청시, 현재 Report 인스턴스와 관련된 파일들로 ReportFileFormSet 초기화
+            context['file_formset'] = ReportFileFormSet(self.request.POST, self.request.FILES, 
+                                                        queryset=ReportFile.objects.filter(report=self.object))
+        else:
+            # GET 요청시, 동일하게 현재 Report 인스턴스와 관련된 파일들로 초기화
+            context['file_formset'] = ReportFileFormSet(queryset=ReportFile.objects.filter(report=self.object))
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        file_formset = context['file_formset']
+        if form.is_valid() and file_formset.is_valid():
+            self.object = form.save()
+            # file_formset에는 instance 키워드를 사용하지 않습니다. 대신 formset의 save 메서드를 호출하여 변경사항 저장
+            file_formset.save()
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
 class ReportDetailView(LoginRequiredMixin, DetailView):
     model = Report
     context_object_name = 'report'
     template_name = 'reports/report_detail.html'
+
+
+class BookcreateView(LoginRequiredMixin, CreateView):
+    model = Book
+    form_class = BookRequestForm
+    template_name = 'reports/book_request.html'
+    success_url = reverse_lazy('report:report_list')  # 성공 URL은 필요에 따라 조정
+    def form_valid(self, form):
+        # 현재 로그인한 사용자를 requester로 설정
+        form.instance.requester = self.request.user
+        return super().form_valid(form)
+    
+
+class BookListView(LoginRequiredMixin, ListView):
+    model = Book
+    context_object_name = 'books'
+    template_name = 'reports/book_list.html'
+    def get_queryset(self):
+        return Book.objects.all()

@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Submit Report</title>
-    
-</head>
-<body>
-<h1>Submit Report</h1>
-
+<h2>Edit Report</h2>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
@@ -14,9 +6,5 @@
     {% for form in file_formset %}
         {{ form.as_p }}
     {% endfor %}
-    <button type="submit">Submit</button>
+    <button type="submit">Update</button>
 </form>
-
-
-</body>
-</html>

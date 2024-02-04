@@ -8,8 +8,9 @@
         <ul>
             {% for report in reports %}
             <li>
-                <a href="{% url 'report:report_detail' report.pk %}">{{ report.book.title }}</a> - Submitted by
-                {{report.submitter.username }}
+                <a href="{% url 'report:report_detail' report.pk %}">{{ report.book.title }}</a> - 제출자:
+                {{ report.submitter.last_name }}{{ report.submitter.first_name }}
+                / {{report.date}}
             </li>
 
             {% endfor %}
