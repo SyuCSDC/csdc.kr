@@ -1,16 +1,26 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block content %}
 <!DOCTYPE html>
 <html>
-<head>
-    <title>책 신청</title>
-</head>
 <body>
-    <h1>책 신청</h1>
-    <form method="post">
+    <h1>도서 신청</h1>
+    <form method="post" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">신청</button>
+        <div class="mb-3">
+            <label for="{{ form.title.id_for_label }}" class="form-label">제목</label>
+            {{ form.title|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.author.id_for_label }}" class="form-label">저자</label>
+            {{ form.author|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.needed_copies.id_for_label }}" class="form-label">필요권수</label>
+            {{ form.needed_copies|add_class:"form-control"}}
+        </div>
+        <!-- 폼 필드 추가 -->
+        <button type="submit" class="btn btn-primary">신청</button>
     </form>
 </body>
 </html>

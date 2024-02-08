@@ -84,7 +84,7 @@ class BookcreateView(LoginRequiredMixin, CreateView):
     model = Book
     form_class = BookRequestForm
     template_name = 'reports/book_request.html'
-    success_url = reverse_lazy('report:report_list')  # 성공 URL은 필요에 따라 조정
+    success_url = reverse_lazy('report:book_list')  # 성공 URL은 필요에 따라 조정
     def form_valid(self, form):
         # 현재 로그인한 사용자를 requester로 설정
         form.instance.requester = self.request.user

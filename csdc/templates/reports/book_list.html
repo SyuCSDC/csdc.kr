@@ -1,20 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Book List</title>
 </head>
 <body>
-    <h1>Book List</h1>
-    <ul>
+    <h1 style="text-align: center; padding-top: 20px;">Book List</h1>
+    <ul class="list-group list-group-flush">
         {% for book in books %}
-        <li>
-            {{ book.title }} by {{ book.author }} - 신청자: {{ book.requester.last_name }}{{ book.requester.first_name }} 
+        <li class="list-group-item">
+            {{ book.title }} by {{ book.author }} - 신청자: {{ book.requester.last_name }}{{ book.requester.first_name }} - 필요권수: {{book.needed_copies}}  
             <!-- 기타 책 정보 표시 -->
         </li>
         {% endfor %}
     </ul>
 </body>
 </html>
-
-
+{% endblock %}
 
