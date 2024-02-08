@@ -8,7 +8,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('/reports/report_list/')
+            return redirect('/reports/book_list/')
     else:
         form = UserRegisterForm()
     return render(request, 'user/register.html', {'form': form})

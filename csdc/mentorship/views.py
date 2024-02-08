@@ -27,6 +27,8 @@ def list_mentorships(request):
 def create_mentorship_request(request):
     if request.method == 'POST':
         form = MentorshipForm(request.POST)
+        print(form.is_valid())
+        print(form.errors)
         if form.is_valid():
             # 폼에서 입력받은 데이터로 Mentorship 객체 생성
             mentorship = form.save(commit=False)
