@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% block content %}
-    <h1>도서 신청</h1>
-    <form method="post" class="form">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="{{ form.title.id_for_label }}" class="form-label">제목</label>
-            {{ form.title|add_class:"form-control" }}
-        </div>
-        <div class="mb-3">
-            <label for="{{ form.author.id_for_label }}" class="form-label">저자</label>
-            {{ form.author|add_class:"form-control" }}
-        </div>
-        <div class="mb-3">
-            <label for="{{ form.needed_copies.id_for_label }}" class="form-label">필요권수</label>
-            {{ form.needed_copies|add_class:"form-control"}}
-        </div>
-        <!-- 폼 필드 추가 -->
-        <button type="submit" class="btn btn-primary">신청</button>
-    </form>
+    <h1 style="text-align: center;">도서 신청</h1>
+    <div class="container">
+        <form method="post" class="form">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ form.title.id_for_label }}" class="form-label">제목</label>
+                {{ form.title|add_class:"form-control" }}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.author.id_for_label }}" class="form-label">저자</label>
+                {{ form.author|add_class:"form-control" }}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.needed_copies.id_for_label }}" class="form-label">필요권수</label>
+                {{ form.needed_copies|add_class:"form-control"}}
+            </div>
+            <!-- 폼 필드 추가 -->
+            <button type="submit" class="btn btn-primary">신청</button>
+        </form>
+    </div>
 {% endblock %}

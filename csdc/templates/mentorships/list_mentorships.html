@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Mentorships</title>
-    </head>
-    <body>
+{% extends 'base.html' %}
+{% block content %}
         <h1> Mentorship List </h1>
         <ul>
             {% for mentorship in mentorships %}
@@ -15,17 +11,18 @@
                 / Book: {{ mentorship.book.title }} by {{ mentorship.book.author }}
                 
                 {% if request.user.userprofile.role == 'Mentor' and mentorship.mentor.user == request.user %}
-                    <a href="{% url 'mentorship:edit_mentorship' pk=mentorship.pk %}" >수정하기</a>
+                <a href="{% url 'mentorship:edit_mentorship' pk=mentorship.pk %}" >수정하기</a>
+                <span style="display: inline-block; margin-left: 10px;"> <!-- 인라인 블록으로 폼을 래핑하고 마진 추가 -->
+                    <form method="post" action="{% url 'mentorship:delete_mentorship' pk=mentorship.pk %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none; padding: 0; color: #007bff; cursor: pointer;">삭제하기</button>
+                    </form>
+                </span>
                 {% endif %}
 
-                {% if request.user.userprofile.role == 'Mentor' and mentorship.mentor.user == request.user %}
-                    <form method="post" action="{% url 'mentorship:delete_mentorship' pk=mentorship.pk %}">
-                        {% csrf_token %}
-                        <button type="submit">삭제하기</button>
-                    </form>
-                {% endif %}
+            
             </li>
             {% endfor %}
         </ul>
-    </body>
-</html>
+ {% endblock %}
+

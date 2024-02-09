@@ -15,7 +15,6 @@ ReportFileFormSet = modelformset_factory(
     can_delete=True
 )
 
-
 class BookRequestForm(forms.ModelForm):
     class Meta:
         model = Book

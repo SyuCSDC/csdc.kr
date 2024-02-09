@@ -20,6 +20,7 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
     model = Report
     form_class = ReportForm
     template_name = 'reports/report_form.html'
+    login_url = '/users/login/'
     success_url = reverse_lazy('report:report_list')  # URL 이름은 프로젝트에 맞게 수정해야 합니다.
 
     def get_context_data(self, **kwargs):
@@ -84,6 +85,7 @@ class BookcreateView(LoginRequiredMixin, CreateView):
     model = Book
     form_class = BookRequestForm
     template_name = 'reports/book_request.html'
+    login_url = '/users/login/'
     success_url = reverse_lazy('report:book_list')  # 성공 URL은 필요에 따라 조정
     def form_valid(self, form):
         # 현재 로그인한 사용자를 requester로 설정

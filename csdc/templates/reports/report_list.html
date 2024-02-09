@@ -8,6 +8,9 @@
                 <a href="{% url 'report:report_detail' report.pk %}">{{ report.book.title }}</a> - 제출자:
                 {{ report.submitter.last_name }}{{ report.submitter.first_name }}
                 / {{report.date}}
+                {% if report.submitter == request.user %}
+                    <a href="{% url 'report:report_update' pk=report.pk %}">수정하기</a>
+                {% endif %}
             </li>
 
             {% endfor %}
