@@ -1,23 +1,100 @@
 {% extends 'base.html' %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Submit Report</title>
-    
-</head>
-<body>
+
+<script
+  src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+  integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+  crossorigin="anonymous"
+></script>
+
 <h1>Submit Report</h1>
 
 <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {{ file_formset.management_form }}
-    {% for form in file_formset %}
-        {{ form.as_p }}
-    {% endfor %}
-    <button type="submit">Submit</button>
+  {% csrf_token %}
+  {{ form.as_p }}
+  {{ file_formset.management_form }}
+  <div id="dynamic-field-1" class="form-group dynamic-field">
+    <label for="field" class="font-weight-bold"></label>
+    <input type="file" id="form-0-file" class="form-control" name="form-0-file" data-name="form-0-file" />
+  </div>
+  <div class="clearfix mt-4">
+    <button type="button" id="add-button" class="btn btn-secondary">추가</button>
+    <button type="button" id="remove-button" class="btn btn-secondary" disabled="disabled">제거</button>
+    <button type="submit" class="btn btn-primary">업로드</button>
+  </div>
 </form>
-</body>
-</html>
+
+<script>
+  $(document).ready(function () {
+    var buttonAdd = $("#add-button");
+    var buttonRemove = $("#remove-button");
+    var className = ".dynamic-field";
+    var count = 0;
+    var field = "";
+    var maxFields = 5;
+
+    function totalFields() {
+      return $(className).length;
+    }
+
+    function addNewField() {
+      count = totalFields() + 1;
+      field = $("#dynamic-field-1").clone();
+      field.attr("id", "dynamic-field-" + count);
+      field.children("label").attr("for", "form-" + (count - 1) + "-file");
+      field.children("input").attr("id", "form-" + (count - 1) + "-file");
+      field.children("input").attr("data-name", "form-" + (count - 1) + "-file");
+      field.children("input").attr("name", "form-" + (count - 1) + "-file");
+      field.find("input").val("");
+      $(className + ":last").after($(field));
+    }
+
+    function removeLastField() {
+      if (totalFields() > 1) {
+        $(className + ":last").remove();
+      }
+    }
+
+    function enableButtonRemove() {
+      if (totalFields() === 2) {
+        buttonRemove.removeAttr("disabled");
+        buttonRemove.addClass("shadow-sm");
+      }
+    }
+
+    function disableButtonRemove() {
+      if (totalFields() === 1) {
+        buttonRemove.attr("disabled", "disabled");
+        buttonRemove.removeClass("shadow-sm");
+      }
+    }
+
+    function disableButtonAdd() {
+      if (totalFields() === maxFields) {
+        buttonAdd.attr("disabled", "disabled");
+        buttonAdd.removeClass("shadow-sm");
+      }
+    }
+
+    function enableButtonAdd() {
+      if (totalFields() === maxFields - 1) {
+        buttonAdd.removeAttr("disabled");
+        buttonAdd.addClass("shadow-sm");
+      }
+    }
+
+    buttonAdd.click(function () {
+      addNewField();
+      enableButtonRemove();
+      disableButtonAdd();
+    });
+
+    buttonRemove.click(function () {
+      removeLastField();
+      disableButtonRemove();
+      enableButtonAdd();
+    });
+  });
+</script>
+
 {% endblock %}
