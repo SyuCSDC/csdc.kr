@@ -26,6 +26,7 @@ urlpatterns = [
     path('users/', include('user.urls') ),
     path('reports/' , include('report.urls')),
     path('mentorship/' , include('mentorship.urls')),
+    path('posts/', include('posts.urls')),
     ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # media 경로 추가

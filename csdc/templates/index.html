@@ -1,6 +1,42 @@
 <!-- index.html -->
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
+<div id="holder">
+    <style>
+        @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+          * {
+            font-family: 'NanumSquare', sans-serif;
+          }
+          .bg-light {
+            background-color: #f7f6f6 !important;
+          }
+          #holder {
+            position: relative;
+            height: 300px;
+            background-color: black;
+          }
+          #msg {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            font-size: 40px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: fade 8s linear infinite;
+          }
+          @keyframes fade {
+            0%,
+            100% {
+              opacity: 0;
+            }
+            50% {
+              opacity: 1;
+            }
+          }
+    </style>
+</div>
 <header class="py-5">
     <div  class="container-xxl">
         <div class=" p-lg-5 bg-light rounded-3 text-center">
@@ -62,4 +98,7 @@
         </div>
     </div>
 </section>
+<script src="{% static 'js/effect.js' %}"></script>
+
+
 {% endblock %}

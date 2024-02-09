@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>
+    Post_list
+</h1>
+<ul>
+    {% for post in posts %}
+    <li>
+        <a href="{% url 'posts:post_detail' post.pk %}">{{ post.title }}</a> by {{post.author}} - {{post.author.student_id}}
+        {% if post.author.user == request.user %}
+                    <a href="{% url 'posts:post_update' post_id=post.pk %}" >수정하기</a>
+                    <a href="{% url 'posts:post_delete' post_id=post.pk %}">글 삭제하기</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+<p>
+    <a href="{% url 'posts:post_create' %}">글 작성하기</a>
+</p>
+{% endblock %}

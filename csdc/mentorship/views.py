@@ -73,6 +73,7 @@ def delete_mentorship(request, pk):
     
     return render(request, 'mentorships/delete_mentorship.html', {'mentorship': mentorship})
 
+
 # @login_required
 # def mentorship_detail(request, id):
 #     mentorship = get_object_or_404(Mentorship, id=id)

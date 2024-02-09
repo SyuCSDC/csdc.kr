@@ -1,21 +1,23 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Register</title>
-    </head>
-    <body>
-        <h1>Register</h1>
-        <form method="post">
-            {% csrf_token %} {{ form.as_p }}
-            <button type="submit">Register</button>
+    <h1 style="text-align: center;">Register</h1>
+    <div class="container">
+        <form method="post" class="form">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3 row">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field|add_class:"form-control" }}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Register</button>
             {% if form.errors %}
-            <div class="error">
+            <div class="error alert alert-danger mt-3">
                 <p>회원가입에 실패했습니다. 입력 정보를 확인해 주세요.</p>
             </div>
             {% endif %}
         </form>
-    </body>
-</html>
+    </div>
+    
 {% endblock %}

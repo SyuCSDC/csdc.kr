@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
-
+from config import settings
+from django.urls import reverse_lazy
 app_name = "user"
 
 urlpatterns = [

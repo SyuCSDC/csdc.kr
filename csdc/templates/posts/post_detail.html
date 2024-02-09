@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="post-detail">
+        <h1>{{ post.title }}</h1>
+        <p><strong>게시일:</strong> {{ post.created_date }}</p>
+        <p><strong>작성자:</strong> {{ post.author.user.last_name }}{{ post.author.user.first_name }}</p> <!-- 저자의 사용자명을 표시하고자 할 때 -->
+        <p><strong>학번:</strong> {{ post.author.student_id }}</p> <!-- 저자의 학번을 표시하고자 할 때 -->
+        <div class="content">
+            {{ post.content|linebreaks }} <!-- linebreaks 필터는 줄바꿈 문자를 <br> 태그로 변환합니다. -->
+        </div>
+    </div>
+    <!-- 뒤로가기 링크 또는 버튼 -->
+    <a href="{% url 'posts:post_list' %}">게시글 목록으로 돌아가기</a>
+{% endblock %}

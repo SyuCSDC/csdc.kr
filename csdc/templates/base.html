@@ -1,5 +1,4 @@
 {% load django_bootstrap5  %}
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -24,12 +23,23 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
               </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <!-- 로그아웃 폼 -->
+                <form action="{% url 'user:logout' %}" method="post" style="display: inline;">
+                  {% csrf_token %}
+                  <input type="hidden" name="next" value="{{ request.path }}">
+                  <button type="submit" class="nav-link btn btn-link">Logout</button>
+                </form>
+              </li>
+              {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:login' %}">Sign In</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'user:register' %}">Sing Up</a>
               </li>
+              {% endif %}
               <li class="nav-item">
                 <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
               </li>
@@ -38,7 +48,7 @@
         </div>
       </nav>
 
-    <main role="main" class="container flex-shrink-0">
+    <main role="main" >
         {% block content %}
         
         {% endblock %}
@@ -61,5 +71,6 @@
         </div>
     </footer>
     {% bootstrap_javascript  %}
+
 </body>
 </html>
