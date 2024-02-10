@@ -75,9 +75,11 @@ class ReportUpdateView(LoginRequiredMixin, UpdateView):
                 instance.save()
 
             # file_formset에서 'DELETE' 폼을 처리합니다.
-            for form in file_formset.deleted_forms:
-                instance = form.instance
-                instance.delete()  # 데이터베이스에서 인스턴스를 삭제합니다.
+            for obj in file_formset.deleted_objects:
+                obj.delete()
+            # for form in file_formset.deleted_forms:
+            #     instance = form.instance
+            #     instance.delete()  # 데이터베이스에서 인스턴스를 삭제합니다.
             # 나머지 formset 관리 로직...
             return super().form_valid(form)
         else:
