@@ -68,8 +68,17 @@ class ReportUpdateView(LoginRequiredMixin, UpdateView):
         file_formset = context['file_formset']
         if form.is_valid() and file_formset.is_valid():
             self.object = form.save()
-            # file_formset에는 instance 키워드를 사용하지 않습니다. 대신 formset의 save 메서드를 호출하여 변경사항 저장
-            file_formset.save()
+            # file_formset에 instance를 설정합니다.
+            instances = file_formset.save(commit=False)
+            for instance in instances:
+                instance.report = self.object  # Report 인스턴스를 ReportFile 인스턴스에 연결합니다.
+                instance.save()
+
+            # file_formset에서 'DELETE' 폼을 처리합니다.
+            for form in file_formset.deleted_forms:
+                instance = form.instance
+                instance.delete()  # 데이터베이스에서 인스턴스를 삭제합니다.
+            # 나머지 formset 관리 로직...
             return super().form_valid(form)
         else:
             return self.form_invalid(form)
