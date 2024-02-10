@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>
-    Post_list
+<h1 style="text-align: center;">
+    자유 게시판
 </h1>
-<ul>
-    {% for post in posts %}
-    <li>
-        <a href="{% url 'posts:post_detail' post.pk %}">{{ post.title }}</a> by {{post.author}} - {{post.author.student_id}}
-        {% if post.author.user == request.user %}
-                    <a href="{% url 'posts:post_update' post_id=post.pk %}" >수정하기</a>
-                    <a href="{% url 'posts:post_delete' post_id=post.pk %}">글 삭제하기</a>
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
-<p>
-    <a href="{% url 'posts:post_create' %}">글 작성하기</a>
-</p>
+<div class="container">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{% url 'posts:post_create' %}" role="button" class="btn btn-primary " style="margin-bottom: 20px;">글 작성하기</a>
+    </div>
+    <ul class="list-group list-group-flush">
+        {% for post in posts %}
+        <script> function url() {location.href="{% url 'posts:post_detail' post.pk %}"} </script>
+            <li class="list-group-item" onclick="url()" style="cursor: pointer;">
+               {{ post.title }} by {{post.author}} - {{post.author.student_id}}
+                {% if post.author.user == request.user %}
+                            <a href="{% url 'posts:post_update' post_id=post.pk %}" role="button" class="btn btn-primary" >수정하기</a>
+                            <a href="{% url 'posts:post_delete' post_id=post.pk %}" role="button" class="btn btn-danger" >글 삭제하기</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
 {% endblock %}

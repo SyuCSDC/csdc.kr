@@ -112,3 +112,10 @@ class BookListView(LoginRequiredMixin, ListView):
     template_name = 'reports/book_list.html'
     def get_queryset(self):
         return Book.objects.all()
+    
+
+class BookUpdateView(LoginRequiredMixin, UpdateView): 
+    model = Book
+    form_class = BookRequestForm
+    template_name = 'reports/book_update.html'
+    success_url = reverse_lazy('report:book_list')  # 성공적으로 업데이트한 후 리디렉션될 URL

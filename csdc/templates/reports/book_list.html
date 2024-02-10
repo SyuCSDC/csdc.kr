@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<body>
+
     <div class="container">
         <h1 style="text-align: center; padding-top: 20px;">Book List</h1>
         <ul class="list-group list-group-flush">
@@ -9,6 +9,9 @@
             <li class="list-group-item">
                 {{ book.title }} by {{ book.author }} - 신청자: {{ book.requester.last_name }}{{ book.requester.first_name }} - 필요권수: {{book.needed_copies}}  
                 <!-- 기타 책 정보 표시 -->
+                {% if book.requester == request.user %}
+                <a href="{% url 'report:book_update' pk=book.pk %}" role="button" class="btn btn-primary">수정하기</a>
+                {% endif %}
             </li>
             {% endfor %}
         </ul>
