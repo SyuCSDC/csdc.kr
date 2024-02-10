@@ -36,14 +36,16 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
         context = self.get_context_data()
         file_formset = context['file_formset']
         self.object = form.save()
-        if file_formset.is_valid():
+        if file_formset.is_valid() and any(form.cleaned_data.get('file') for form in file_formset.forms):
+            self.object = form.save()
             report_files = file_formset.save(commit=False)
             for file in report_files:
                 file.report = self.object
                 file.save()
+            return super().form_valid(form)
         else:
+            form.add_error(None, "You must upload at least one file.")
             return self.form_invalid(form)
-        return super().form_valid(form)
     
 
 class ReportUpdateView(LoginRequiredMixin, UpdateView):
