@@ -1,10 +1,138 @@
-<h2>Edit Report</h2>
+{% extends 'base.html' %}
+{% block content %}
+
+<script
+  src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+  integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+  crossorigin="anonymous"
+></script>
+
+<style>
+  .form-control {
+    display: inline;
+    width: auto;
+  }
+  .form-group {
+    padding: 15px;
+  }
+  input[type=checkbox] {
+    margin-inline: 5px;
+    transform : scale(2);
+  }
+</style>
+
+<h1>Edit Report</h1>
+
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     {{ file_formset.management_form }}
     {% for form in file_formset %}
-        {{ form.as_p }}
+    {% if form.instance.pk %}
+      <a href="{{ form.instance.file.url }}">{{ form.instance.file.name }}</a><br>
+      <div id="dynamic-field" class="form-group dynamic-field">
+        <label for="field" class="font-weight-bold"></label>
+        <input type="file" id="form-{{ forloop.counter0 }}-file" class="form-control" name="form-{{ forloop.counter0 }}-file" data-name="form-{{ forloop.counter0 }}-file" />
+        <input type="checkbox" name="form-{{ forloop.counter0 }}-DELETE" id="id_form-{{ forloop.counter0 }}-DELETE">
+        <input type="hidden" name="form-{{ forloop.counter0 }}-id" value="{{ form.instance.pk }}" id="id_form-{{ forloop.counter0 }}-id">
+      </div>
+    {% endif %}
     {% endfor %}
-    <button type="submit">Update</button>
+    <div id="dynamic-fieldss" class="form-group dynamic-field newFields">
+    </div>
+    <div class="clearfix mt-4">
+      <button type="button" id="add-button" class="btn btn-secondary">추가</button>
+      <button type="button" id="remove-button" class="btn btn-secondary" disabled="disabled">제거</button>
+      <button type="submit" class="btn btn-primary">업로드</button>
+    </div>
 </form>
+
+<script>
+  const count = document.querySelectorAll('.dynamic-field').length - 1;
+  if (count < 5) {
+    document.getElementById('dynamic-fieldss').innerHTML = `
+      <label for="field" class="font-weight-bold"></label>
+      <input type="file" id="form-${count}-file" class="form-control" name="form-${count}-file" data-name="form-${count}-file" />`;
+  }
+</script>
+
+<script>
+  $(document).ready(function () {
+    var buttonAdd = $("#add-button");
+    var buttonRemove = $("#remove-button");
+    var className = ".dynamic-field";
+    var count = 0;
+    var field = "";
+    var maxFields = 5;
+
+    function newFields() {
+      return $(".newFields").length;
+    }
+
+    function totalFields() {
+      return $(className).length;
+    }
+
+    function addNewField() {
+      count = totalFields() + 1;
+      field = $("#dynamic-fieldss").clone();
+      field.attr("id", "dynamic-fieldss");
+      field.children("label").attr("for", "form-" + (count - 1) + "-file");
+      field.children("input").attr("id", "form-" + (count - 1) + "-file");
+      field.children("input").attr("data-name", "form-" + (count - 1) + "-file");
+      field.children("input").attr("name", "form-" + (count - 1) + "-file");
+      field.find("input").val("");
+      $(className + ":last").after($(field));
+    }
+
+    function removeLastField() {
+      if (newFields() > 1) {
+        $(className + ":last").remove();
+      }
+    }
+
+    function enableButtonRemove() {
+      if (newFields() === 2) {
+        buttonRemove.removeAttr("disabled");
+        buttonRemove.addClass("shadow-sm");
+      }
+    }
+
+    function disableButtonRemove() {
+      if (newFields() === 1) {
+        buttonRemove.attr("disabled", "disabled");
+        buttonRemove.removeClass("shadow-sm");
+      }
+    }
+
+    function disableButtonAdd() {
+      if (totalFields() >= maxFields) {
+        buttonAdd.attr("disabled", "disabled");
+        buttonAdd.removeClass("shadow-sm");
+      }
+    }
+
+    function enableButtonAdd() {
+      if (totalFields() === maxFields - 1) {
+        buttonAdd.removeAttr("disabled");
+        buttonAdd.addClass("shadow-sm");
+      }
+    }
+
+    buttonAdd.click(function () {
+      addNewField();
+      enableButtonRemove();
+      disableButtonAdd();
+    });
+
+    buttonRemove.click(function () {
+      removeLastField();
+      disableButtonRemove();
+      enableButtonAdd();
+    });
+
+    disableButtonAdd();
+  });
+</script>
+
+{% endblock %}

@@ -13,14 +13,14 @@
   {% csrf_token %}
   {{ form.as_p }}
   {{ file_formset.management_form }}
-  <div id="dynamic-field-1" class="form-group dynamic-field">
+  <div id="dynamic-field" class="form-group dynamic-field">
     <label for="field" class="font-weight-bold"></label>
     <input type="file" id="form-0-file" class="form-control" name="form-0-file" data-name="form-0-file" />
   </div>
   <div class="clearfix mt-4">
     <button type="button" id="add-button" class="btn btn-secondary">추가</button>
     <button type="button" id="remove-button" class="btn btn-secondary" disabled="disabled">제거</button>
-    <button type="submit" class="btn btn-primary">업로드</button>
+    <button type="submit" class="btn btn-primary">첨부하기</button>
   </div>
 </form>
 
@@ -39,8 +39,8 @@
 
     function addNewField() {
       count = totalFields() + 1;
-      field = $("#dynamic-field-1").clone();
-      field.attr("id", "dynamic-field-" + count);
+      field = $("#dynamic-field").clone();
+      field.attr("id", "dynamic-field");
       field.children("label").attr("for", "form-" + (count - 1) + "-file");
       field.children("input").attr("id", "form-" + (count - 1) + "-file");
       field.children("input").attr("data-name", "form-" + (count - 1) + "-file");
@@ -70,7 +70,7 @@
     }
 
     function disableButtonAdd() {
-      if (totalFields() === maxFields) {
+      if (totalFields() >= maxFields) {
         buttonAdd.attr("disabled", "disabled");
         buttonAdd.removeClass("shadow-sm");
       }

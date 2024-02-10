@@ -16,7 +16,7 @@ class ReportFileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ReportFileForm, self).__init__(*args, **kwargs)
-        self.fields['file'].widget.attrs.update({'class': 'minseong'})
+        self.fields['file'].widget.attrs.update({'class': 'form-control'})
 
 
 ReportFileFormSet = modelformset_factory(
@@ -24,7 +24,7 @@ ReportFileFormSet = modelformset_factory(
     form=ReportFileForm,
     fields=('file',),
     extra=5,
-    can_delete=True
+    can_delete=True,
 )
 
 class BookRequestForm(forms.ModelForm):
