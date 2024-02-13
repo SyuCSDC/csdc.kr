@@ -44,7 +44,7 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
                 file.save()
             return super().form_valid(form)
         else:
-            form.add_error(None, "You must upload at least one file.")
+            form.add_error(None, "하나 이상의 파일을 첨부해야 합니다.")
             return self.form_invalid(form)
     
 

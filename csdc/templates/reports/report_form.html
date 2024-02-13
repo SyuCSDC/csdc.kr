@@ -2,11 +2,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
-<script
-  src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-  integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
-  crossorigin="anonymous"
-></script>
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 
 <script>
   document.getElementById("msg").innerHTML = "레포트 제출";
@@ -19,21 +15,21 @@
       레포트 제출 페이지 입니다.
     </div>
     <div style="color: gray; margin: 15px">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-      ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not
-      only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
-      with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
-      PageMaker including versions of Lorem Ipsum.
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+      when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+      into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+      passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
     </div>
   </div>
   <hr />
   <div style="margin: 25px">
     <form method="post" enctype="multipart/form-data">
-      {% csrf_token %} {{ form }} {{ file_formset.management_form }}
+      {% csrf_token %} {% for f in form %} {% if not f.non_field_errors %} {{ f }} {% endif %} {% endfor %} {{ file_formset.management_form }}
       <div id="dynamic-field" class="form-group dynamic-field">
         <label for="field" class="font-weight-bold"></label>
         <input type="file" id="form-0-file" class="form-control" name="form-0-file" data-name="form-0-file" />
       </div>
+      <div style="margin-block: 10px; color: red">{% for error in form.non_field_errors %} {{ error }} {% endfor %}</div>
       <div class="float-end" style="padding-block: 20px">
         <button type="button" id="add-button" class="btn btn-secondary">추가</button>
         <button type="button" id="remove-button" class="btn btn-secondary" disabled="disabled">제거</button>

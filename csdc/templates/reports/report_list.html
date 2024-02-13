@@ -1,19 +1,48 @@
-{% extends 'base.html' %}
-{% block content %}
-        <title>Report List</title>
-        <h1>Report List</h1>
-        <ul>
-            {% for report in reports %}
-            <li>
-                <a href="{% url 'report:report_detail' report.pk %}">{{ report.book.title }}</a> - 제출자:
-                {{ report.submitter.last_name }}{{ report.submitter.first_name }}
-                / {{report.date}}
-                {% if report.submitter == request.user %}
-                    <a href="{% url 'report:report_update' pk=report.pk %}">수정하기</a>
-                {% endif %}
-            </li>
+{% extends 'base.html' %} {% block content %}
 
-            {% endfor %}
-        </ul>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+<script>
+  document.getElementById("msg").innerHTML = "레포트 제출 목록";
+</script>
+
+<div class="container" style="padding: 60px">
+  <div style="margin: 25px">
+    <div style="font-size: 25pt; font-weight: bold; margin-block: 15px">
+      <i class="bi bi-info-circle"></i>
+      레포트 제출 목록 페이지 입니다.
+    </div>
+    <div style="color: gray; margin: 15px">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+      when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+      into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+      passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </div>
+  </div>
+  <hr />
+  <div class="table-responsive-lg">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">책 제목</th>
+          <th scope="col">제출자</th>
+          <th scope="col">날짜</th>
+          <th scope="col">-</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for report in reports %}
+        <tr>
+          <th scope="row"><a href="{% url 'report:report_detail' report.pk %}">{{ report.book.title }}</a></th>
+          <td>{{ report.submitter.last_name }}{{ report.submitter.first_name }}</td>
+          <td>{{report.date}}</td>
+          {% if report.submitter == request.user %}
+          <td><a href="{% url 'report:report_update' pk=report.pk %}">수정하기</a></td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}
-
