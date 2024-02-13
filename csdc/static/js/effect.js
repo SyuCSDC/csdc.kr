@@ -117,7 +117,7 @@
       var Waves = this
       var width = Waves.holder.offsetWidth
       // var height = Waves.holder.offsetHeight
-      var height = 300
+      var height = 500
       Waves.scale = window.devicePixelRatio || 1
       Waves.width = width * Waves.scale
       Waves.height = height * Waves.scale

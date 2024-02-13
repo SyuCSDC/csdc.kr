@@ -9,6 +9,7 @@
     {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
     {% bootstrap_javascript %}
+  
 </head>
 <body class="d-flex flex-column min-vh-100">
         <!-- 네비게이션 바, 로고 등 헤더 내용 -->
@@ -83,8 +84,33 @@
             </div>
           </div>
         </nav>
-                
-        
+        <div id="holder">
+          <style>
+              @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+                * {
+                  font-family: 'NanumSquare', sans-serif;
+                }
+                .bg-light {
+                  background-color: #f7f6f6 !important;
+                }
+                #holder {
+                  position: relative;
+                  height: 500px;
+                  background-color: black;
+                }
+                #msg {
+                  position: absolute;
+                  color: white;
+                  font-weight: bold;
+                  font-size: 40px;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                }
+          </style>
+          <div id="msg">T E S T</div>
+      </div>
+
     <main role="main" >
         {% block content %}
         
@@ -118,4 +144,7 @@
         </div>
     </footer>
 </body>
+<script src="{% static 'js/effect.js' %}">
+  
+</script>
 </html>
