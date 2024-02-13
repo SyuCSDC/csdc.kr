@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-        <h1> Mentorship List </h1>
+<script>
+    document.getElementById('msg').innerHTML="<span >Mentorships List</span>"
+</script>
+    <div class="container" style="padding: 50px;">
         <ul>
             {% for mentorship in mentorships %}
             <li>
@@ -24,5 +27,6 @@
             </li>
             {% endfor %}
         </ul>
+    </div>
  {% endblock %}
 

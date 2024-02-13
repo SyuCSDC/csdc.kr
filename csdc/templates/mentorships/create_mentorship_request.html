@@ -6,36 +6,40 @@
     <title>Create Mentorship</title>
 </head>
 <body>
-    <h1>Create Mentorship</h1>
-    <form method="post">
-        {% csrf_token %}
-        <!-- <div class="form-group">
-            <label for="{{ form.mentor.id_for_label }}">Mentor:</label>
-            {{ form.mentor }}
-        </div> -->
-        <div class="form-group">
-            <label for="{{ form.mentee.id_for_label }}">Mentee:</label>
-            {{ form.mentee }}
-            <small class="form-text text-muted">{{ form.mentee.help_text }}</small>
-        </div>
-        <div class="form-group">
-            <label for="{{ form.book.id_for_label }}">Book:</label>
-            {{ form.book }}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.start_date.id_for_label }}">Start Date:</label>
-            {{ form.start_date }}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.end_date.id_for_label }}">End Date:</label>
-            {{ form.end_date }}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.status.id_for_label }}">Status:</label>
-            {{ form.status }}
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <script>
+        document.getElementById('msg').innerHTML="<span >Mentorships Create</span>"
+    </script>
+    <div class="container" style="padding: 50px;">
+        <form method="post">
+            {% csrf_token %}
+            <!-- <div class="form-group">
+                <label for="{{ form.mentor.id_for_label }}">Mentor:</label>
+                {{ form.mentor }}
+            </div> -->
+            <div class="form-group">
+                <!-- <label for="{{ form.mentee.id_for_label }}">Mentee:</label> -->
+                {{ form.mentee }}
+                <small class="form-text text-muted">{{ form.mentee.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <!-- <label for="{{ form.book.id_for_label }}">Book:</label> -->
+                {{ form.book }}
+            </div>
+            <div class="form-group">
+                <!-- <label for="{{ form.start_date.id_for_label }}">Start Date:</label> -->
+                {{ form.start_date }}
+            </div>
+            <div class="form-group">
+                <!-- <label for="{{ form.end_date.id_for_label }}">End Date:</label> -->
+                {{ form.end_date }}
+            </div>
+            <div class="form-group">
+                <!-- <label for="{{ form.status.id_for_label }}">Status:</label> -->
+                {{ form.status }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </body>
 </html>
 {% endblock %}

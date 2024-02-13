@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% block content %}
-    <h1 style="text-align: center;">도서 신청</h1>
-    <div class="container">
+<script>
+    document.getElementById('msg').innerHTML="<span >도서 신청</span>"
+</script>
+    <div class="container" style="padding: 50px;">
         <form method="post" class="form">
             {% csrf_token %}
             <div class="mb-3">
@@ -18,7 +20,7 @@
                 {{ form.needed_copies|add_class:"form-control"}}
             </div>
             <!-- 폼 필드 추가 -->
-            <button type="submit" class="btn btn-primary">신청</button>
+            <button type="submit" class="btn btn-primary" style="float: right;">신청</button>
         </form>
     </div>
 {% endblock %}
