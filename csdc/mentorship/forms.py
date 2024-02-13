@@ -16,7 +16,6 @@ class MentorshipForm(forms.ModelForm):
         empty_label="멘티 선택",
         widget=forms.Select(attrs={'name': 'mentee'})
     )
-
     
     class Meta:
         model = Mentorship
@@ -24,10 +23,8 @@ class MentorshipForm(forms.ModelForm):
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'}),
-            'status': forms.Select(attrs={'placeholder': 'Add notes to question here'}),
         }
 
     def __init__(self, *args, **kwargs):
         super(MentorshipForm, self).__init__(*args, **kwargs)
         self.fields['book'].empty_label = "책을 선택해주세요."
-        self.fields['status'].empty_label = None
