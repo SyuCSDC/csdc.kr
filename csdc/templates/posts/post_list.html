@@ -1,30 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
 <script>
-    document.getElementById('msg').innerHTML="<span>Post List</span>"
+    document.getElementById('msg').innerHTML = "<span>Post List</span>";
 </script>
-<div class="container">
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding: 20px;">
-        <a href="{% url 'posts:post_create' %}" role="button" class="btn btn-primary " style="padding: 7px;">글 작성하기</a>
+<div class="container" style="padding: 20px;">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{% url 'posts:post_create' %}" role="button" class="btn btn-primary">글 작성하기</a>
     </div>
-    <ul class="list-group list-group-flush">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">글 제목</th>
+          <th scope="col">작성자</th>
+          <th scope="col">학번</th>
+          <th scope="col">관리</th> <!-- 관리 버튼을 위한 열 추가 -->
+        </tr>
+      </thead>
+      <tbody>
         {% for post in posts %}
         <script> function url() {location.href="{% url 'posts:post_detail' post.pk %}"} </script>
-        <li class="list-group-item" onclick="url()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-                {{ post.title }} by {{post.author}} - {{post.author.student_id}}
-            </div>
-            <div>
-                {% if post.author.user == request.user %} 
-                    <a href="{% url 'posts:post_update' post_id=post.pk %}" role="button" class="btn btn-primary" style="padding:7px; margin-right: 5px;">수정하기</a>
-                    <a href="{% url 'posts:post_delete' post_id=post.pk %}" role="button" class="btn btn-danger" style="padding: 7px " >글 삭제하기</a>
-                {% endif %}
-            </div>
-        </li>
-        
-
+        <tr onclick="url()" style="cursor: pointer;">
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ post.title }}</td>
+          <td>{{ post.author.user.last_name }}{{ post.author.user.first_name }}</td>
+          <td>{{ post.author.student_id }}</td>
+          <td>
+            {% if post.author.user == request.user %} 
+                <a href="{% url 'posts:post_update' post_id=post.pk %}" style="margin-right: 5px;">수정하기</a>
+                <a href="{% url 'posts:post_delete' post_id=post.pk %}">글 삭제하기</a>
+            {% endif %}
+          </td>
+        </tr>
         {% endfor %}
-    </ul>
+      </tbody>
+    </table>
 </div>
-
 {% endblock %}
+
+
+
+<script> function url() {location.href="{% url 'posts:post_detail' post.pk %}"} </script>

@@ -1,14 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="post-detail">
-        <h1>{{ post.title }}</h1>
-        <p><strong>게시일:</strong> {{ post.created_date }}</p>
-        <p><strong>작성자:</strong> {{ post.author.user.last_name }}{{ post.author.user.first_name }}</p> <!-- 저자의 사용자명을 표시하고자 할 때 -->
-        <p><strong>학번:</strong> {{ post.author.student_id }}</p> <!-- 저자의 학번을 표시하고자 할 때 -->
-        <div class="content">
-            {{ post.content|linebreaks }} <!-- linebreaks 필터는 줄바꿈 문자를 <br> 태그로 변환합니다. -->
+<script>
+    document.getElementById("msg").innerHTML = "Board Detail";
+</script>
+
+<div class="container" style="padding: 60px;">
+    <a href="{% url 'posts:post_list' %}" class="btn btn-primary mb-3">게시글 목록으로 돌아가기</a>
+    <div style="margin: 25px">
+        <div style="font-size: 25pt; font-weight: bold; margin-block: 15px">
+          <i class="bi bi-info-circle"></i>
+           게시글 세부 내용 페이지입니다.
+        </div>
+        <div style="color: gray; margin: 15px">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+          when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+          into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+          passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </div>
+      </div>
+      <hr />
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <h1 class="d-inline">{{ post.title }}</h1>
+        </div>
+        <div class="col-md-4">
+            <p class="d-inline"><strong>게시일:</strong> {{ post.created_date|date:"Y-m-d" }}</p>
+            <p class="d-inline ms-3"><strong>작성자:</strong> {{ post.author.user.last_name }}{{ post.author.user.first_name }} -  {{ post.author.student_id }}</p>
         </div>
     </div>
-    <!-- 뒤로가기 링크 또는 버튼 -->
-    <a href="{% url 'posts:post_list' %}">게시글 목록으로 돌아가기</a>
+    <hr>
+    <div class="post-detail">
+        <div class="content">
+            {{ post.content|linebreaks }}
+        </div>
+    </div>
+</div>
 {% endblock %}
