@@ -27,7 +27,7 @@
           <th scope="col">책 제목</th>
           <th scope="col">제출자</th>
           <th scope="col">날짜</th>
-          <th scope="col">-</th>
+          <th scope="col">관리</th>
         </tr>
       </thead>
       <tbody>
@@ -36,9 +36,11 @@
           <th scope="row"><a href="{% url 'report:report_detail' report.pk %}">{{ report.book.title }}</a></th>
           <td>{{ report.submitter.last_name }}{{ report.submitter.first_name }}</td>
           <td>{{report.date}}</td>
-          {% if report.submitter == request.user %}
-          <td><a href="{% url 'report:report_update' pk=report.pk %}">수정하기</a></td>
-          {% endif %}
+          <td>
+            {% if report.submitter == request.user %}
+            <a href="{% url 'report:report_update' pk=report.pk %}">수정하기</a>
+            {% endif %}
+          </td>
         </tr>
         {% endfor %}
       </tbody>

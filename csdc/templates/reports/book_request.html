@@ -1,26 +1,40 @@
-{% extends 'base.html' %}
-{% load widget_tweaks %}
-{% block content %}
+{% extends 'base.html' %} {% load widget_tweaks %} {% block content %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
 <script>
-    document.getElementById('msg').innerHTML="<span >도서 신청</span>"
+  document.getElementById("msg").innerHTML = "도서 신청";
 </script>
-    <div class="container" style="padding: 50px;">
-        <form method="post" class="form">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="{{ form.title.id_for_label }}" class="form-label">제목</label>
-                {{ form.title|add_class:"form-control" }}
-            </div>
-            <div class="mb-3">
-                <label for="{{ form.author.id_for_label }}" class="form-label">저자</label>
-                {{ form.author|add_class:"form-control" }}
-            </div>
-            <div class="mb-3">
-                <label for="{{ form.needed_copies.id_for_label }}" class="form-label">필요권수</label>
-                {{ form.needed_copies|add_class:"form-control"}}
-            </div>
-            <!-- 폼 필드 추가 -->
-            <button type="submit" class="btn btn-primary" style="float: right;">신청</button>
-        </form>
+
+<div class="container" style="padding: 60px">
+  <div style="margin: 25px">
+    <div style="font-size: 25pt; font-weight: bold; margin-block: 15px">
+      <i class="bi bi-info-circle"></i>
+      도서 신청 페이지 입니다.
     </div>
+    <div style="color: gray; margin: 15px">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+      when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+      into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+      passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </div>
+  </div>
+  <hr />
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="{{ form.title.id_for_label }}" class="form-label">책 제목</label>
+      {{ form.title | add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+      <label for="{{ form.author.id_for_label }}" class="form-label">책 저자</label>
+      {{ form.author | add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+      <label for="{{ form.needed_copies.id_for_label }}" class="form-label">필요권 수</label>
+      {{ form.needed_copies | add_class:"form-control" }}
+    </div>
+    <button type="submit" class="btn btn-primary" style="float: right">신청</button>
+  </form>
+</div>
 {% endblock %}
