@@ -7,6 +7,12 @@ class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
         fields = ['book']  # submitter는 뷰에서 처리
+    
+    def __init__(self, *args, **kwargs):
+        super(ReportForm, self).__init__(*args, **kwargs)
+        self.fields['book'].label = ''
+        self.fields['book'].empty_label = '책을 선택해주세요.'
+        self.fields['book'].widget.attrs.update({'class': 'form-select'})
 
 
 class ReportFileForm(forms.ModelForm):
