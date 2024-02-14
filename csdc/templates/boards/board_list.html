@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<script>
+    document.getElementById('msg').innerHTML = "<span>Board List</span>";
+</script>
+<div class="container" style="padding: 20px;">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{% url 'board:board_create' %}" role="button" class="btn btn-primary">글 작성하기</a>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">글 제목</th>
+          <th scope="col">작성자</th>
+          <th scope="col">학번</th>
+          <th scope="col">관리</th> <!-- 관리 버튼을 위한 열 추가 -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for board in boards %}
+        <script> function url() {location.href="{% url 'board:board_detail' board.pk %}"} </script>
+        <tr onclick="url()" style="cursor: pointer;">
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ board.title }}</td>
+          <td>{{ board.author.user.last_name }}{{ board.author.user.first_name }}</td>
+          <td>{{ board.author.student_id }}</td>
+          <td>
+            {% if board.author.user == request.user %} 
+                <a href="{% url 'board:board_update' board_id=board.pk %}" style="margin-right: 5px;">수정하기</a>
+                <a href="{% url 'board:board_delete' board_id=board.pk %}">글 삭제하기</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock %}
+
+
+
+<script> function url() {location.href="{% url 'board:board_detail' board.pk %}"} </script>
