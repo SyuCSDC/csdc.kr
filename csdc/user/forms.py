@@ -28,3 +28,7 @@ class UserRegisterForm(UserCreationForm):
                 bio=self.cleaned_data['bio'],
             )
         return user
+    
+    def __init__(self, *args, **kwargs):
+        super(UserRegisterForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = '아이디'
