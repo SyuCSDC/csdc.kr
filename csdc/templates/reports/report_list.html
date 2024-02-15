@@ -20,19 +20,21 @@
     <table class="table">
       <thead>
         <tr>
+          <th scope="col">-</th>
           <th scope="col">책 제목</th>
           <th scope="col">제출자</th>
           <th scope="col">날짜</th>
-          <th scope="col">관리</th>
+          <th scope="col" style="text-align: right">관리</th>
         </tr>
       </thead>
       <tbody>
         {% for report in reports %}
         <tr>
-          <th scope="row"><a href="{% url 'report:report_detail' report.pk %}">{{ report.book.title }}</a></th>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td><a href="{% url 'report:report_detail' report.pk %}">{{ report.book.title }}</a></td>
           <td>{{ report.submitter.last_name }}{{ report.submitter.first_name }}</td>
           <td>{{report.date}}</td>
-          <td>
+          <td style="text-align: right">
             {% if report.submitter == request.user %}
             <a href="{% url 'report:report_update' pk=report.pk %}">수정하기</a>
             {% endif %}
