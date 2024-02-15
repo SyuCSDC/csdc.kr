@@ -28,20 +28,7 @@
             z-index: -1; /* 내용 뒤에 위치하도록 */
             background-color: #000011 ; /* 배경색 설정 */; /* 배경색 설정 */
             }
-    
-            .parallax-content {
-                position: relative;
-                z-index: 1; /* 캔버스 위에 위치 */
-                /* 스크롤에 따라 내용이 움직이는 효과를 주기 위한 추가 스타일링이 필요할 수 있음 */
-            }
-    
-            .content {
-                /* 내용 스타일링 */
-                margin: 20vh auto;
-                width: 50vh;
-                padding: 20px;
 
-            }
             .msg{
                 position: absolute;
                 color: rgb(255, 255, 255);
@@ -60,9 +47,7 @@
                 font-size: 15pt;
                 font-weight: 300;
                 font-family: "Noto Sans KR", serif;
-            }
-            
-    
+            }    
             @media (width < 768px) {
                 .footer {
                 flex-direction: column-reverse;
@@ -115,16 +100,16 @@
                 max-width: 144px;
                 overflow: hidden;
             }
-    
+
             .sponsor img {
                 display: flex;
                 flex-wrap: wrap;
                 max-width: initial;
 
             }
-          
         </style>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
             <div class="container-fluid">
               <a class="navbar-brand" href="https://www.syu.ac.kr/">Sahmyook UNIV</a>
               <button
@@ -222,103 +207,178 @@
                 </ul>
               </div>
             </div>
-          </nav>
-          <header>
-            <div  style="height: 100vh;">
-                <div class="msg">
-                    <h1>Sahmyook UNIV CSDC</h1>
-                </div>
+        </nav>
+
+
+        <header>
+        <div style="height: 100vh;">
+            <div class="msg">
+                <h1>Sahmyook UNIV CSDC</h1>
             </div>
-          </header>
+        </div>
+        </header>
     
-    <canvas id="networkCanvas"></canvas>
-    <div class="parallax-content"> <!-- 패럴렉스 적용할 내용 -->
-        <!-- 여기에 패럴렉스 효과를 적용할 내용을 추가합니다. -->
-        <div style="height: 100vh; padding: 40px;">
-            <div class="content" style="float: left; color: white;" >
-                <h1>도서 신청</h1>
-                <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
-                    <i class="bi bi-info-circle"></i>
-                    도서 신청 페이지 입니다.
-                </div>
-                <hr>
-                <div style="color: gray; margin: 15px">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                    into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </div>
-            </div>
-        </div>
-        <div style="height: 100vh; padding: 40px;">
-            <div class="content" style="float: right; color: white;" >
-                <h1 style="float: right; ">멘토쉽 신청</h1>
-                <div style="font-size: 20pt; font-weight: bold; margin-block: 20px; clear: both; text-align: right;">
-                    <i class="bi bi-info-circle"></i>
-                    도서 신청 페이지 입니다.
-                </div>
-                <hr>
-                <div style="color: gray; margin: 15px">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                    into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        <canvas id="networkCanvas"></canvas>
+        <!-- <div class="parallax-content"> 
+            <div style="height: 100vh; padding: 100px;">
+                <div class="content" style="float: left; color: white;" >
+                    <h1>도서 신청</h1>
+                    <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
+                        <i class="bi bi-info-circle"></i>
+                        도서 신청 페이지 입니다.
+                    </div>
+                    <hr>
+                    <div style="color: gray; margin: 15px">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                        into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                        passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    </div>
                 </div>
             </div>
-        </div>
-        <div style="height: 100vh; padding: 40px;">
-            <div class="content" style="float: left; color: white;" >
-                <h1>레포트 제출</h1>
-                <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
-                    <i class="bi bi-info-circle"></i>
-                    레포트 제출 페이지 입니다.
-                </div>
-                <hr>
-                <div style="color: gray; margin: 15px">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                    into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            <div style="height: 100vh; padding: 100px;">
+                <div class="content" style="float: right; color: white;" >
+                    <h1 style="float: right; ">멘토쉽 신청</h1>
+                    <div style="font-size: 20pt; font-weight: bold; margin-block: 20px; clear: both; text-align: right;">
+                        <i class="bi bi-info-circle"></i>
+                        도서 신청 페이지 입니다.
+                    </div>
+                    <hr>
+                    <div style="color: gray; margin: 15px">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                        into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                        passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="footer">
-        <div class="flex-1">
-          <span class="logo" style="color: white;">© 2024 CSDC.</span>
-            <ul class="flex-2">
-              {% if user.is_authenticated %}
-              <li class="nav-item">
-                <form action="{% url 'user:logout' %}" method="post" style="display: inline">
-                  {% csrf_token %}
-                  <input type="hidden" name="next" value="{{ request.path }}" />
-                  <button type="submit" class="nav-link btn btn-link" style="color: rgb(255, 255, 255)">Logout</button>
-                </form>
-              </li>
-              {% else %}
-              <li class="nav-item">
-                <button class="nav-link btn btn-link active" onclick="location.href='/users/login'" style="color: rgb(255, 255, 255)">Sign In</button>
-              </li>
-              <li class="nav-item">
-                <button class="nav-link btn btn-link active" onclick="location.href='/users/register'" style="color: rgb(255, 255, 255)">Sign Up</button>
-              </li>
-              {% endif %}
-            </ul>
-          </div>
-      </div>
-
-    <div class="sponsor">
-        <span class="sponsor-text" style="color: white;">Powered by</span>
-        <div class="sponsor-img-cloud">
-        <img src="https://t1.kakaocdn.net/kakaoicloud/portal/images/logo_black_230116.png" width="160" />
-        </div>
-        <!-- <div class="sponsor-img-school">
-        <img src="https://www.syu.ac.kr/wp-content/uploads/2018/05/pg_logo4.png" width="160" />
+            <div style="height: 100vh; padding: 100px;">
+                <div class="content" style="float: left; color: white;" >
+                    <h1>레포트 제출</h1>
+                    <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
+                        <i class="bi bi-info-circle"></i>
+                        레포트 제출 페이지 입니다.
+                    </div>
+                    <hr>
+                    <div style="color: gray; margin: 15px">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                        into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                        passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    </div>
+                </div>
+            </div>
         </div> -->
-    </div>
-    <script src="{% static 'js/network.js' %}"></script>
+        <script type="module" src="{% static 'js/parallax.js' %}"></script>
+        <main class="sticky-container" id="sticky-container">
+            <div class="sticky">
+                <div class="slide-container" >
+                    <div id="scroll-down"></div>
+                    <div class="slide" id="slide1" style=" color: white; text-align: left; padding: 60px; justify-content: left;" >
+                        <h1><a href="{% url 'report:book_request' %}" style="color: white; text-decoration: none;">도서 신청</a></h1>
+                        <div class="container">
+                            <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
+                                <i class="bi bi-info-circle"></i>
+                                알고 계셨나요?
+                            </div>
+                            <hr>
+                            <div style="color: gray; margin: 15px">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                                passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="slide" id="slide2" style=" color: white; text-align: right; padding: 60px;  position: absolute; right: 0;" >
+                        <h1><a href="{% url 'mentorship:create_mentorship_request'%}"  style="color: white; text-decoration: none;">멘토쉽 신청</a></h1>
+                        <div class="container" style="text-align: right;">
+                            <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
+                                <i class="bi bi-info-circle"></i>
+                                알고 계셨나요?
+                            </div>
+                            <hr>
+                            <div style="color: gray; margin: 15px">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                                passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            </div>
+                        </div>  
+                    </div>
+                 
+                    <div class="slide" id="slide3" style="color: white; text-align: left; padding: 60px;">
+                        <h1><a href="{% url 'board:board_list'%}"  style="color: white; text-decoration: none;">자유 게시판</a></h1>
+                            <div class="container">
+                                <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
+                                    <i class="bi bi-info-circle"></i>
+                                    알고 계셨나요?
+                                </div>
+                                <hr>
+                                <div style="color: gray; margin: 15px">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                                    into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                </div>
+                            </div>
+                            
+                    </div>
+                    <div class="slide" id="slide4" style="color: white; text-align: right; padding: 60px; position: absolute; right: 0;">
+                            <h1><a href="{% url 'report:report_create' %}" style="text-decoration: none; color: white;">레포트 제출</a></h1>
+                            <div class="container">
+                                <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
+                                    <i class="bi bi-info-circle"></i>
+                                    알고 계셨나요?
+                                </div>
+                                <hr>
+                                <div style="color: gray; margin: 15px">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                                    into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                </div>
+                            </div>  
+                    </div>
+                    <!-- <div class="slide slide-left" id="slide5"></div> -->
+              </div>
+            </div>
+          </main>
 
+        <div class="footer">
+            <div class="flex-1">
+            <span class="logo" style="color: white;">© 2024 CSDC.</span>
+                <ul class="flex-2">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <form action="{% url 'user:logout' %}" method="post" style="display: inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}" />
+                    <button type="submit" class="nav-link btn btn-link" style="color: rgb(255, 255, 255)">Logout</button>
+                    </form>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <button class="nav-link btn btn-link active" onclick="location.href='/users/login'" style="color: rgb(255, 255, 255)">Sign In</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn btn-link active" onclick="location.href='/users/register'" style="color: rgb(255, 255, 255)">Sign Up</button>
+                </li>
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="sponsor">
+            <span class="sponsor-text" style="color: white;">Powered by</span>
+            <div class="sponsor-img-cloud">
+            <img src="https://t1.kakaocdn.net/kakaoicloud/portal/images/logo_black_230116.png" width="160" />
+            </div>
+            <!-- <div class="sponsor-img-school">
+            <img src="https://www.syu.ac.kr/wp-content/uploads/2018/05/pg_logo4.png" width="160" />
+            </div> -->
+        </div>
+        <script src="{% static 'js/network.js' %}"></script>
     </body>
 <!-- <section class="pt-4">
     <div class="container px-lg-5">
