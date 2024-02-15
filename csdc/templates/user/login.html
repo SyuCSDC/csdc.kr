@@ -179,8 +179,10 @@
                 </div>
                 {% endfor %}
                 <div class="col-lg-12 loginbttm">
-                  <div class="col-lg-6 login-btm login-text">
-                    <!-- Error Message -->
+                  <div class="login-text">
+                    {% if form.errors %} {% for field, errors in form.errors.items %} {% for error in errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %} {% endfor %} {% endif %}
                   </div>
                   <div class="login-button">
                     <button type="submit" class="btn-login">로그인</button>
