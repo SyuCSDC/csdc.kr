@@ -1,343 +1,200 @@
 <!-- index.html -->
 
-{% load django_bootstrap5 %}
-{% load static %}
+{% load django_bootstrap5 %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>{% block title %}Sahmyook CSDC{% endblock title %}</title>
-        {% bootstrap_css %}
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-        <link rel="stylesheet" href="{% static 'css/mystyle.css' %}" />
-        {% bootstrap_javascript %}
-        <style>
-          @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
-          @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-        </style>
-    </head>
-    <body>
-       
-        
-        <style>
-            canvas#networkCanvas {
-            position: fixed; /* 배경으로 고정 */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* 내용 뒤에 위치하도록 */
-            background-color: #000011 ; /* 배경색 설정 */; /* 배경색 설정 */
-            }
-
-            .msg{
-                position: absolute;
-                color: rgb(255, 255, 255);
-                font-weight: bold;
-                font-size: 40px;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-family: "NanumSquare", sans-serif;
-                } 
-    
-            .footer {
-                display: flex;
-                justify-content: center;
-                padding-inline: 40px;
-                font-size: 15pt;
-                font-weight: 300;
-                font-family: "Noto Sans KR", serif;
-            }    
-            @media (width < 768px) {
-                .footer {
-                flex-direction: column-reverse;
-                }
-            }
-    
-            .logo {
-                font-weight: bold;
-            }
-    
-            ul {
-                list-style: none;
-            }
-    
-            .flex-1 {
-                display: flex;
-                justify-content: center;
-                padding: 5px;
-            }
-    
-            .flex-2 {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-    
-            .flex-2 > li {
-                margin-inline: 10px;
-            }
-    
-            .sponsor {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-wrap: wrap;
-                padding-block: 20px;
-                font-size: 15pt;
-                font-weight: 300;
-                font-family: "Noto Sans KR", serif;
-            }
-    
-            .sponsor-img-cloud {
-                padding-inline: 6px;
-                max-width: 131px;
-                overflow: hidden;
-            }
-    
-            .sponsor-img-school {
-                padding-inline: 4px;
-                max-width: 144px;
-                overflow: hidden;
-            }
-
-            .sponsor img {
-                display: flex;
-                flex-wrap: wrap;
-                max-width: initial;
-            }
-            /* .navbar {
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s linear 0.5s, opacity 0.5s linear;
-            } */
-
-        </style>
-
-    <!-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        const navbar = document.querySelector('.navbar');
-        console.log(navbar)
-        // 네비게이션 바 영역에 마우스가 들어갔을 때 처리
-        navbar.addEventListener('mouseenter', function() {
-            navbar.style.visibility = 'visible';
-            navbar.style.opacity = 1;
-            navbar.style.transitionDelay = '0s';
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>{% block title %}Sahmyook CSDC{% endblock title %}</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}" />
+    {% bootstrap_javascript %}
+  </head>
+  <body>
+    <script>
+      window.onload = function () {
+        const navbar = document.querySelector("nav");
+        navbar.addEventListener("mouseover", function () {
+          navbar.style.opacity = 1;
         });
-        
-        // 네비게이션 바 영역에서 마우스가 나갔을 때 처리
-        navbar.addEventListener('mouseleave', function() {
-            navbar.style.visibility = 'hidden';
-            navbar.style.opacity = 0;
-            navbar.style.transitionDelay = '0.5s';
+        navbar.addEventListener("mouseout", function () {
+          navbar.style.opacity = 0;
         });
-        });
+      };
     </script>
-      -->
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="https://www.syu.ac.kr/">Sahmyook UNIV</a>
-                    <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                    >
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                        <button class="nav-link btn btn-link active" onclick="location.href='/'">Home</button>
-                        </li>
-                        <li class="nav-item dropdown">
-                        <button
-                            class="nav-link btn btn-link dropdown-toggle active"
-                            id="navbarDropdown"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            Book
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'report:book_request' %}">도서 신청</a></li>
-                            <li><a class="dropdown-item" href="{% url 'report:book_list' %}">신청 도서 목록</a></li>
-                        </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                        <button
-                            class="nav-link btn btn-link dropdown-toggle active"
-                            id="navbarDropdown"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            Mentorship
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'mentorship:create_mentorship_request' %}">멘토쉽 신청</a></li>
-                            <li><a class="dropdown-item" href="{% url 'mentorship:list_mentorships' %}">멘토쉽 현황 게시판</a></li>
-                        </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                        <button
-                            class="nav-link btn btn-link dropdown-toggle active"
-                            id="navbarDropdown"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            Report
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'report:report_create' %}">레포트 작성</a></li>
-                            <li><a class="dropdown-item" href="{% url 'report:report_list' %}">레포트 목록</a></li>
-                        </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                        <button
-                            class="nav-link btn btn-link dropdown-toggle active"
-                            id="navbarDropdown"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            Post
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'board:board_list' %}">자유게시판</a></li>
-                        </ul>
-                        </li>
-                    </ul>
-            
-                    <!-- 로그인/로그아웃 항목을 오른쪽으로 정렬 -->
-                    <!-- 이전에 중첩된 <ul> 태그를 제거하고 ms-auto를 바깥쪽 <ul> 태그에 직접 적용 -->
-                    <ul class="navbar-nav ms-auto">
-                        {% if user.is_authenticated %}
-                        <li class="nav-item">
-                        <form action="{% url 'user:logout' %}" method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="next" value="{{ request.path }}" />
-                            <button type="submit" class="nav-link btn btn-link">Logout</button>
-                        </form>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user:login' %}">Sign In</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user:register' %}">Sign Up</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                    </div>
-                </div>
-        </nav> 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="https://www.syu.ac.kr/">Sahmyook UNIV</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <button class="nav-link btn btn-link active" onclick="location.href='/'">Home</button>
+            </li>
+            <li class="nav-item dropdown">
+              <button class="nav-link btn btn-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">Book</button>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'report:book_request' %}">도서 신청</a></li>
+                <li><a class="dropdown-item" href="{% url 'report:book_list' %}">신청 도서 목록</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <button class="nav-link btn btn-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Mentorship
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'mentorship:create_mentorship_request' %}">멘토쉽 신청</a></li>
+                <li><a class="dropdown-item" href="{% url 'mentorship:list_mentorships' %}">멘토쉽 현황 게시판</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <button class="nav-link btn btn-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">Report</button>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'report:report_create' %}">레포트 작성</a></li>
+                <li><a class="dropdown-item" href="{% url 'report:report_list' %}">레포트 목록</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <button class="nav-link btn btn-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">Post</button>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'board:board_list' %}">자유게시판</a></li>
+              </ul>
+            </li>
+          </ul>
 
-        
-        <header>
-        <div style="height: 100vh;">
-            <div class="msg">
-                <h1>Sahmyook UNIV CSDC</h1>
-            </div>
+          <!-- 로그인/로그아웃 항목을 오른쪽으로 정렬 -->
+          <!-- 이전에 중첩된 <ul> 태그를 제거하고 ms-auto를 바깥쪽 <ul> 태그에 직접 적용 -->
+          <ul class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <form action="{% url 'user:logout' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}" />
+                <button type="submit" class="nav-link btn btn-link">Logout</button>
+              </form>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user:login' %}">Sign In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user:register' %}">Sign Up</a>
+            </li>
+            {% endif %}
+          </ul>
         </div>
-        </header>
-    
-        <canvas id="networkCanvas"></canvas>
-        <script type="module" src="{% static 'js/parallax.js' %}"></script>
-        <main class="sticky-container" id="sticky-container">
-            <div class="sticky">
-                <div class="slide-container" >
-                    <div id="scroll-down"></div>
-                    <div class="slide" id="slide1" style=" color: white; text-align: left; padding: 60px; justify-content: left;" >
-                        <h1><a href="{% url 'report:book_request' %}" style="color: white; text-decoration: none;">도서 신청</a></h1>
-                        <div class="container">
-                            <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
-                                <i class="bi bi-info-circle"></i>
-                                알고 계셨나요?
-                            </div>
-                            <hr>
-                            <div class="tags-description" style="color: gray; margin: 15px"></div>
-                        </div>
-                    </div>
-                
-                    <div class="slide" id="slide2" style=" color: white; text-align: right; padding: 60px;  position: absolute; right: 0;" >
-                        <h1><a href="{% url 'mentorship:create_mentorship_request'%}"  style="color: white; text-decoration: none;">멘토쉽 신청</a></h1>
-                        <div class="container" style="text-align: right;">
-                            <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
-                                <i class="bi bi-info-circle"></i>
-                                알고 계셨나요?
-                            </div>
-                            <hr>
-                            <div class="tags-description" style="color: gray; margin: 15px">
-                            </div>
-                        </div>  
-                    </div>
-                 
-                    <div class="slide" id="slide3" style="color: white; text-align: left; padding: 60px;">
-                        <h1><a href="{% url 'board:board_list'%}"  style="color: white; text-decoration: none;">자유 게시판</a></h1>
-                            <div class="container">
-                                <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
-                                    <i class="bi bi-info-circle"></i>
-                                    알고 계셨나요?
-                                </div>
-                                <hr>
-                                <div class="tags-description"  style="color: gray; margin: 15px">
-                                </div>
-                            </div>
-                            
-                    </div>
-                    <div class="slide" id="slide4" style="color: white; text-align: right; padding: 60px; position: absolute; right: 0;">
-                            <h1><a href="{% url 'report:report_create' %}" style="text-decoration: none; color: white;">레포트 제출</a></h1>
-                            <div class="container">
-                                <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
-                                    <i class="bi bi-info-circle"></i>
-                                    알고 계셨나요?
-                                </div>
-                                <hr>
-                                <div class="tags-description" style="color: gray; margin: 15px">
-                                </div>
-                            </div>  
-                    </div>
-                    <!-- <div class="slide slide-left" id="slide5"></div> -->
+      </div>
+    </nav>
+
+    <header>
+      <div style="height: 100vh">
+        <div class="msg">
+          <h1>Sahmyook UNIV CSDC</h1>
+        </div>
+      </div>
+    </header>
+
+    <canvas id="networkCanvas"></canvas>
+    <script type="module" src="{% static 'js/parallax.js' %}"></script>
+    <main class="sticky-container" id="sticky-container">
+      <div class="sticky">
+        <div class="slide-container">
+          <div id="scroll-down"></div>
+          <div class="slide" id="slide1" style="color: white; text-align: left; padding: 60px; justify-content: left">
+            <h1><a href="{% url 'report:book_request' %}" style="color: white; text-decoration: none">도서 신청</a></h1>
+            <div class="container">
+              <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
+                <i class="bi bi-info-circle"></i>
+                알고 계셨나요?
               </div>
+              <hr />
+              <div class="tags-description" style="color: gray; margin: 15px"></div>
             </div>
-          </main>
+          </div>
 
-        <div class="footer">
-            <div class="flex-1">
-            <span class="logo" style="color: white;">© 2024 CSDC.</span>
-                <ul class="flex-2">
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <form action="{% url 'user:logout' %}" method="post" style="display: inline">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.path }}" />
-                    <button type="submit" class="nav-link btn btn-link" style="color: rgb(255, 255, 255)">Logout</button>
-                    </form>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <button class="nav-link btn btn-link active" onclick="location.href='/users/login'" style="color: rgb(255, 255, 255)">Sign In</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link btn btn-link active" onclick="location.href='/users/register'" style="color: rgb(255, 255, 255)">Sign Up</button>
-                </li>
-                {% endif %}
-                </ul>
+          <div class="slide" id="slide2" style="color: white; text-align: right; padding: 60px; position: absolute; right: 0">
+            <h1><a href="{% url 'mentorship:create_mentorship_request'%}" style="color: white; text-decoration: none">멘토쉽 신청</a></h1>
+            <div class="container" style="text-align: right">
+              <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
+                <i class="bi bi-info-circle"></i>
+                알고 계셨나요?
+              </div>
+              <hr />
+              <div class="tags-description" style="color: gray; margin: 15px"></div>
             </div>
-        </div>
-        <div class="sponsor">
-            <span class="sponsor-text" style="color: white;">Powered by</span>
-            <div class="sponsor-img-cloud">
-            <img src="https://t1.kakaocdn.net/kakaoicloud/portal/images/logo_black_230116.png" width="160" />
-            </div>
-        </div>
-        <script src="{% static 'js/network.js' %}"></script>
-        <script src="{% static 'js/tags-description.js' %}"></script>
-    </body>
+          </div>
 
+          <div class="slide" id="slide3" style="color: white; text-align: left; padding: 60px">
+            <h1><a href="{% url 'board:board_list'%}" style="color: white; text-decoration: none">자유 게시판</a></h1>
+            <div class="container">
+              <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
+                <i class="bi bi-info-circle"></i>
+                알고 계셨나요?
+              </div>
+              <hr />
+              <div class="tags-description" style="color: gray; margin: 15px"></div>
+            </div>
+          </div>
+          <div class="slide" id="slide4" style="color: white; text-align: right; padding: 60px; position: absolute; right: 0">
+            <h1><a href="{% url 'report:report_create' %}" style="text-decoration: none; color: white">레포트 제출</a></h1>
+            <div class="container">
+              <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
+                <i class="bi bi-info-circle"></i>
+                알고 계셨나요?
+              </div>
+              <hr />
+              <div class="tags-description" style="color: gray; margin: 15px"></div>
+            </div>
+          </div>
+          <!-- <div class="slide slide-left" id="slide5"></div> -->
+        </div>
+      </div>
+    </main>
+
+    <div class="footer">
+      <div class="flex-1">
+        <span class="logo" style="color: white">© 2024 CSDC.</span>
+        <ul class="flex-2">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <form action="{% url 'user:logout' %}" method="post" style="display: inline">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ request.path }}" />
+              <button type="submit" class="nav-link btn btn-link" style="color: rgb(255, 255, 255)">Logout</button>
+            </form>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <button class="nav-link btn btn-link active" onclick="location.href='/users/login'" style="color: rgb(255, 255, 255)">Sign In</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link btn btn-link active" onclick="location.href='/users/register'" style="color: rgb(255, 255, 255)">Sign Up</button>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <div class="sponsor">
+      <span class="sponsor-text" style="color: white">Powered by</span>
+      <div class="sponsor-img-cloud">
+        <img src="https://t1.kakaocdn.net/kakaoicloud/portal/images/logo_black_230116.png" width="160" />
+      </div>
+    </div>
+    <script src="{% static 'js/network.js' %}"></script>
+    <script src="{% static 'js/tags-description.js' %}"></script>
+  </body>
 </html>
