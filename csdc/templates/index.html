@@ -18,6 +18,8 @@
         </style>
     </head>
     <body>
+       
+        
         <style>
             canvas#networkCanvas {
             position: fixed; /* 배경으로 고정 */
@@ -105,111 +107,137 @@
                 display: flex;
                 flex-wrap: wrap;
                 max-width: initial;
-
             }
+            .navbar {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+            }
+
         </style>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const navbar = document.querySelector('.navbar');
+        console.log(navbar)
+        // 네비게이션 바 영역에 마우스가 들어갔을 때 처리
+        navbar.addEventListener('mouseenter', function() {
+            navbar.style.visibility = 'visible';
+            navbar.style.opacity = 1;
+            navbar.style.transitionDelay = '0s';
+        });
+        
+        // 네비게이션 바 영역에서 마우스가 나갔을 때 처리
+        navbar.addEventListener('mouseleave', function() {
+            navbar.style.visibility = 'hidden';
+            navbar.style.opacity = 0;
+            navbar.style.transitionDelay = '0.5s';
+        });
+        });
+    </script>
+     
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-            <div class="container-fluid">
-              <a class="navbar-brand" href="https://www.syu.ac.kr/">Sahmyook UNIV</a>
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <button class="nav-link btn btn-link active" onclick="location.href='/'">Home</button>
-                  </li>
-                  <li class="nav-item dropdown">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="https://www.syu.ac.kr/">Sahmyook UNIV</a>
                     <button
-                      class="nav-link btn btn-link dropdown-toggle active"
-                      id="navbarDropdown"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
                     >
-                      Book
+                    <span class="navbar-toggler-icon"></span>
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="{% url 'report:book_request' %}">도서 신청</a></li>
-                      <li><a class="dropdown-item" href="{% url 'report:book_list' %}">신청 도서 목록</a></li>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                        <button class="nav-link btn btn-link active" onclick="location.href='/'">Home</button>
+                        </li>
+                        <li class="nav-item dropdown">
+                        <button
+                            class="nav-link btn btn-link dropdown-toggle active"
+                            id="navbarDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Book
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'report:book_request' %}">도서 신청</a></li>
+                            <li><a class="dropdown-item" href="{% url 'report:book_list' %}">신청 도서 목록</a></li>
+                        </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                        <button
+                            class="nav-link btn btn-link dropdown-toggle active"
+                            id="navbarDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Mentorship
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'mentorship:create_mentorship_request' %}">멘토쉽 신청</a></li>
+                            <li><a class="dropdown-item" href="{% url 'mentorship:list_mentorships' %}">멘토쉽 현황 게시판</a></li>
+                        </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                        <button
+                            class="nav-link btn btn-link dropdown-toggle active"
+                            id="navbarDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Report
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'report:report_create' %}">레포트 작성</a></li>
+                            <li><a class="dropdown-item" href="{% url 'report:report_list' %}">레포트 목록</a></li>
+                        </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                        <button
+                            class="nav-link btn btn-link dropdown-toggle active"
+                            id="navbarDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Post
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'board:board_list' %}">자유게시판</a></li>
+                        </ul>
+                        </li>
                     </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <button
-                      class="nav-link btn btn-link dropdown-toggle active"
-                      id="navbarDropdown"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Mentorship
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="{% url 'mentorship:create_mentorship_request' %}">멘토쉽 신청</a></li>
-                      <li><a class="dropdown-item" href="{% url 'mentorship:list_mentorships' %}">멘토쉽 현황 게시판</a></li>
+            
+                    <!-- 로그인/로그아웃 항목을 오른쪽으로 정렬 -->
+                    <!-- 이전에 중첩된 <ul> 태그를 제거하고 ms-auto를 바깥쪽 <ul> 태그에 직접 적용 -->
+                    <ul class="navbar-nav ms-auto">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                        <form action="{% url 'user:logout' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}" />
+                            <button type="submit" class="nav-link btn btn-link">Logout</button>
+                        </form>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user:login' %}">Sign In</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user:register' %}">Sign Up</a>
+                        </li>
+                        {% endif %}
                     </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <button
-                      class="nav-link btn btn-link dropdown-toggle active"
-                      id="navbarDropdown"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Report
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="{% url 'report:report_create' %}">레포트 작성</a></li>
-                      <li><a class="dropdown-item" href="{% url 'report:report_list' %}">레포트 목록</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <button
-                      class="nav-link btn btn-link dropdown-toggle active"
-                      id="navbarDropdown"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Post
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="{% url 'board:board_list' %}">자유게시판</a></li>
-                    </ul>
-                  </li>
-                </ul>
-      
-                <!-- 로그인/로그아웃 항목을 오른쪽으로 정렬 -->
-                <!-- 이전에 중첩된 <ul> 태그를 제거하고 ms-auto를 바깥쪽 <ul> 태그에 직접 적용 -->
-                <ul class="navbar-nav ms-auto">
-                  {% if user.is_authenticated %}
-                  <li class="nav-item">
-                    <form action="{% url 'user:logout' %}" method="post">
-                      {% csrf_token %}
-                      <input type="hidden" name="next" value="{{ request.path }}" />
-                      <button type="submit" class="nav-link btn btn-link">Logout</button>
-                    </form>
-                  </li>
-                  {% else %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'user:login' %}">Sign In</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'user:register' %}">Sign Up</a>
-                  </li>
-                  {% endif %}
-                </ul>
-              </div>
-            </div>
-        </nav>
+                    </div>
+                </div>
+        </nav> 
 
-
+        
         <header>
         <div style="height: 100vh;">
             <div class="msg">
@@ -219,56 +247,6 @@
         </header>
     
         <canvas id="networkCanvas"></canvas>
-        <!-- <div class="parallax-content"> 
-            <div style="height: 100vh; padding: 100px;">
-                <div class="content" style="float: left; color: white;" >
-                    <h1>도서 신청</h1>
-                    <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
-                        <i class="bi bi-info-circle"></i>
-                        도서 신청 페이지 입니다.
-                    </div>
-                    <hr>
-                    <div style="color: gray; margin: 15px">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                        into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                        passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </div>
-                </div>
-            </div>
-            <div style="height: 100vh; padding: 100px;">
-                <div class="content" style="float: right; color: white;" >
-                    <h1 style="float: right; ">멘토쉽 신청</h1>
-                    <div style="font-size: 20pt; font-weight: bold; margin-block: 20px; clear: both; text-align: right;">
-                        <i class="bi bi-info-circle"></i>
-                        도서 신청 페이지 입니다.
-                    </div>
-                    <hr>
-                    <div style="color: gray; margin: 15px">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                        into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                        passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </div>
-                </div>
-            </div>
-            <div style="height: 100vh; padding: 100px;">
-                <div class="content" style="float: left; color: white;" >
-                    <h1>레포트 제출</h1>
-                    <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
-                        <i class="bi bi-info-circle"></i>
-                        레포트 제출 페이지 입니다.
-                    </div>
-                    <hr>
-                    <div style="color: gray; margin: 15px">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                        into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                        passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <script type="module" src="{% static 'js/parallax.js' %}"></script>
         <main class="sticky-container" id="sticky-container">
             <div class="sticky">
@@ -357,109 +335,9 @@
             <div class="sponsor-img-cloud">
             <img src="https://t1.kakaocdn.net/kakaoicloud/portal/images/logo_black_230116.png" width="160" />
             </div>
-            <!-- <div class="sponsor-img-school">
-            <img src="https://www.syu.ac.kr/wp-content/uploads/2018/05/pg_logo4.png" width="160" />
-            </div> -->
         </div>
         <script src="{% static 'js/network.js' %}"></script>
         <script src="{% static 'js/tags-description.js' %}"></script>
     </body>
-<!-- <section class="pt-4">
-    <div class="container px-lg-5">
-        <div class="row gx-lg-5">
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-3 pt-lg-3">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4">
-                            <i class="bi bi-collection">
-                            </i>
-                        </div>
-                            <h4 >
-                                <a href="{% url 'report:book_request' %}"  style="text-decoration: none; color: inherit; " >
-                                도서 신청
-                                </a>
-                            </h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-3 pt-lg-3">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4">
-                            <i class="bi bi-collection">
-                            </i>
-                        </div>
-                            <h4>
-                                <a href="{% url 'mentorship:create_mentorship_request' %}"  style="text-decoration: none; color: inherit;" >
-                                멘토링 신청
-                                </a>  
-                            </h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-3 pt-lg-3">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4">
-                            <i class="bi bi-collection">
-                            </i>
-                        </div>
-                            <h4>
-                                <a href="{% url 'report:report_create' %}"  style="text-decoration: none; color: inherit;" >
-                                레포트 제출
-                                </a>
-                            </h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-3 pt-lg-3">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4">
-                            <i class="bi bi-collection">
-                            </i>
-                        </div>
-                            <h4>
-                                <a href="{% url 'report:book_list' %}"  style="text-decoration: none; color: inherit;" >
-                                신청 도서 목록
-                                </a>
-                            </h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-3 pt-lg-3">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4">
-                            <i class="bi bi-collection">
-                            </i>
-                        </div>
-                            <h4>
-                                <a href="{% url 'mentorship:list_mentorships' %}"  style="text-decoration: none; color: inherit;" >
-                                멘토링 목록
-                                </a>
-                            </h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-3 pt-lg-3">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4">
-                            <i class="bi bi-collection">
-                            </i>
-                        </div>
-                            <h4>
-                                <a href="{% url 'report:report_list' %}"  style="text-decoration: none; color: inherit;" >
-                                레포트 목록
-                                </a>
-                            </h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
-
 
 </html>
