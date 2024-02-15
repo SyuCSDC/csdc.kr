@@ -14,6 +14,9 @@
     display: inline;
     width: auto;
   } */
+  .dynamic-field {
+    margin-block: 15px;
+  }
   input[type="checkbox"] {
     margin-inline: 5px;
     transform: scale(1.5);
@@ -24,33 +27,57 @@
   <div style="margin: 25px">
     <div style="font-size: 25pt; font-weight: bold; margin-block: 15px">
       <i class="bi bi-info-circle"></i>
-      레포트 제출 페이지 입니다.
+      레포트 수정 페이지 입니다.
     </div>
     <div class="tags-description" style="color: gray; margin: 15px"></div>
   </div>
   <hr />
   <div style="margin: 25px">
     <form method="post" enctype="multipart/form-data">
-      {% csrf_token %} {{ form }} {{ file_formset.management_form }} {% for form in file_formset %} {% if form.instance.pk %}
-      <div style="padding-block: 10px">* 제출된 파일: <a href="{{ form.instance.file.url }}">{{ form.instance.file.name }}</a></div>
-      <div id="dynamic-field" class="form-group dynamic-field" style="display: flex; flex-direction: row">
-        <label for="field" class="font-weight-bold"></label>
-        <input
-          type="file"
-          id="form-{{ forloop.counter0 }}-file"
-          class="form-control"
-          name="form-{{ forloop.counter0 }}-file"
-          data-name="form-{{ forloop.counter0 }}-file"
-        />
-        <input type="checkbox" name="form-{{ forloop.counter0 }}-DELETE" id="id_form-{{ forloop.counter0 }}-DELETE" />
-        <input type="hidden" name="form-{{ forloop.counter0 }}-id" value="{{ form.instance.pk }}" id="id_form-{{ forloop.counter0 }}-id" />
+      {% csrf_token %} {{ file_formset.management_form }}
+      <div style="margin-block: 20px">{{ form }}</div>
+      <div style="margin-block: 25px">
+        <span style="color: gray">제출된 파일</span>
+        <div class="table-responsive-lg">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">파일명</th>
+                <th scope="col" style="text-align: right">삭제</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for form in file_formset %} {% if form.instance.pk %}
+              <tr>
+                <td><a href="{{ form.instance.file.url }}">{{ form.instance.file.name | slice:"8:" }}</a></td>
+                <td style="text-align: right">
+                  <input type="checkbox" name="form-{{ forloop.counter0 }}-DELETE" id="id_form-{{ forloop.counter0 }}-DELETE" />
+                </td>
+              </tr>
+              <div id="dynamic-field" class="form-group dynamic-field" style="display: none; flex-direction: row">
+                <input
+                  type="file"
+                  id="form-{{ forloop.counter0 }}-file"
+                  class="form-control"
+                  name="form-{{ forloop.counter0 }}-file"
+                  data-name="form-{{ forloop.counter0 }}-file"
+                />
+                <input type="checkbox" name="form-{{ forloop.counter0 }}-DELETE" id="id_form-{{ forloop.counter0 }}-DELETE" />
+                <input type="hidden" name="form-{{ forloop.counter0 }}-id" value="{{ form.instance.pk }}" id="id_form-{{ forloop.counter0 }}-id" />
+              </div>
+              {% endif %} {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
-      {% endif %} {% endfor %}
-      <div id="dynamic-fieldss" class="form-group dynamic-field newFields"></div>
-      <div class="float-end" style="padding-block: 20px">
-        <button type="button" id="add-button" class="btn btn-secondary">추가</button>
-        <button type="button" id="remove-button" class="btn btn-secondary" disabled="disabled">제거</button>
-        <button type="submit" class="btn btn-primary">수정하기</button>
+      <div style="margin-block: 25px">
+        <span style="color: gray">추가할 파일</span>
+        <div id="dynamic-fieldss" class="form-group dynamic-field newFields"></div>
+        <div style="padding-block: 20px; text-align: right">
+          <button type="button" id="add-button" class="btn btn-secondary">추가</button>
+          <button type="button" id="remove-button" class="btn btn-secondary" disabled="disabled">제거</button>
+          <button type="submit" class="btn btn-primary">수정하기</button>
+        </div>
       </div>
     </form>
   </div>

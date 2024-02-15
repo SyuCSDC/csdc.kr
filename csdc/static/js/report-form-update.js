@@ -2,7 +2,6 @@ const count = document.querySelectorAll(".dynamic-field").length - 1;
 
 if (count < 5) {
   document.getElementById("dynamic-fieldss").innerHTML = `
-      <label for="field" class="font-weight-bold"></label>
       <input type="file" id="form-${count}-file" class="form-control" name="form-${count}-file" data-name="form-${count}-file" />`;
 }
 

@@ -20,13 +20,13 @@
   <hr />
   <div style="margin: 25px">
     <form method="post" enctype="multipart/form-data">
-      {% csrf_token %} {% for f in form %} {% if not f.non_field_errors %} {{ f }} {% endif %} {% endfor %} {{ file_formset.management_form }}
+      {% csrf_token %} {{ file_formset.management_form }} {% for f in form %} {% if not f.non_field_errors %} {{ f }} {% endif %} {% endfor %}
       <div id="dynamic-field" class="form-group dynamic-field">
         <label for="field" class="font-weight-bold"></label>
         <input type="file" id="form-0-file" class="form-control" name="form-0-file" data-name="form-0-file" />
       </div>
       <div style="margin-block: 10px; color: red">{% for error in form.non_field_errors %} {{ error }} {% endfor %}</div>
-      <div class="float-end" style="padding-block: 20px">
+      <div style="padding-block: 20px; text-align: right">
         <button type="button" id="add-button" class="btn btn-secondary">추가</button>
         <button type="button" id="remove-button" class="btn btn-secondary" disabled="disabled">제거</button>
         <button type="submit" class="btn btn-primary">첨부하기</button>
