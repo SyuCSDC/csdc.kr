@@ -21,7 +21,7 @@
       <span>제출자: {{ report.submitter.last_name }}{{ report.submitter.first_name }}</span>
     </div>
     <div style="margin-block: 25px">
-      <span>날짜: {{ report.date }}</span>
+      <span>날짜: {{ report.date | date:"Y-m-d H:i:s" }}</span>
     </div>
     <div style="margin-block: 25px">
       <span style="color: gray">제출된 파일</span>

@@ -33,7 +33,7 @@
           <th scope="row">{{ forloop.counter }}</th>
           <td><a href="{% url 'report:report_detail' report.pk %}">{{ report.book.title }}</a></td>
           <td>{{ report.submitter.last_name }}{{ report.submitter.first_name }}</td>
-          <td>{{report.date}}</td>
+          <td>{{ report.date | date:"Y-m-d H:i:s" }}</td>
           <td style="text-align: right">
             {% if report.submitter == request.user %}
             <a href="{% url 'report:report_update' pk=report.pk %}">수정하기</a>
