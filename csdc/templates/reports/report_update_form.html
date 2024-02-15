@@ -1,46 +1,64 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
 <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 
+<script>
+  document.getElementById("msg").innerHTML = "레포트 수정";
+</script>
+
 <style>
-  .form-control {
+  /* .form-control {
     display: inline;
     width: auto;
-  }
-  .form-group {
-    padding: 15px;
-  }
+  } */
   input[type="checkbox"] {
     margin-inline: 5px;
-    transform: scale(2);
+    transform: scale(1.5);
   }
 </style>
 
-<h1>Edit Report</h1>
-
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %} {{ form.as_p }} {{ file_formset.management_form }} {% for form in file_formset %} {% if form.instance.pk %}
-  <a href="{{ form.instance.file.url }}">{{ form.instance.file.name }}</a><br />
-  <div id="dynamic-field" class="form-group dynamic-field">
-    <label for="field" class="font-weight-bold"></label>
-    <input
-      type="file"
-      id="form-{{ forloop.counter0 }}-file"
-      class="form-control"
-      name="form-{{ forloop.counter0 }}-file"
-      data-name="form-{{ forloop.counter0 }}-file"
-    />
-    <input type="checkbox" name="form-{{ forloop.counter0 }}-DELETE" id="id_form-{{ forloop.counter0 }}-DELETE" />
-    <input type="hidden" name="form-{{ forloop.counter0 }}-id" value="{{ form.instance.pk }}" id="id_form-{{ forloop.counter0 }}-id" />
+<div class="container" style="padding: 60px">
+  <div style="margin: 25px">
+    <div style="font-size: 25pt; font-weight: bold; margin-block: 15px">
+      <i class="bi bi-info-circle"></i>
+      레포트 제출 페이지 입니다.
+    </div>
+    <div style="color: gray; margin: 15px">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+      when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+      into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+      passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </div>
   </div>
-  {% endif %} {% endfor %}
-  <div id="dynamic-fieldss" class="form-group dynamic-field newFields"></div>
-  <div class="clearfix mt-4">
-    <button type="button" id="add-button" class="btn btn-secondary">추가</button>
-    <button type="button" id="remove-button" class="btn btn-secondary" disabled="disabled">제거</button>
-    <button type="submit" class="btn btn-primary">업로드</button>
+  <hr />
+  <div style="margin: 25px">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %} {{ form }} {{ file_formset.management_form }} {% for form in file_formset %} {% if form.instance.pk %}
+      <div style="padding-block: 10px">* 제출된 파일: <a href="{{ form.instance.file.url }}">{{ form.instance.file.name }}</a></div>
+      <div id="dynamic-field" class="form-group dynamic-field" style="display: flex; flex-direction: row">
+        <label for="field" class="font-weight-bold"></label>
+        <input
+          type="file"
+          id="form-{{ forloop.counter0 }}-file"
+          class="form-control"
+          name="form-{{ forloop.counter0 }}-file"
+          data-name="form-{{ forloop.counter0 }}-file"
+        />
+        <input type="checkbox" name="form-{{ forloop.counter0 }}-DELETE" id="id_form-{{ forloop.counter0 }}-DELETE" />
+        <input type="hidden" name="form-{{ forloop.counter0 }}-id" value="{{ form.instance.pk }}" id="id_form-{{ forloop.counter0 }}-id" />
+      </div>
+      {% endif %} {% endfor %}
+      <div id="dynamic-fieldss" class="form-group dynamic-field newFields"></div>
+      <div class="float-end" style="padding-block: 20px">
+        <button type="button" id="add-button" class="btn btn-secondary">추가</button>
+        <button type="button" id="remove-button" class="btn btn-secondary" disabled="disabled">제거</button>
+        <button type="submit" class="btn btn-primary">수정하기</button>
+      </div>
+    </form>
   </div>
-</form>
+</div>
 
 <script src="{% static 'js/report-form-update.js' %}"></script>
 
