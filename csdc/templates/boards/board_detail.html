@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 <script>
     document.getElementById("msg").innerHTML = "Board Detail";
 </script>
-
+<script src="{% static 'js/tags-description.js' %}"></script>
 <div class="container" style="padding: 60px;">
     <a href="{% url 'board:board_list' %}" class="btn btn-primary mb-3">게시글 목록으로 돌아가기</a>
     <div style="margin: 25px">
@@ -11,12 +12,7 @@
           <i class="bi bi-info-circle"></i>
            게시글 세부 내용 페이지입니다.
         </div>
-        <div style="color: gray; margin: 15px">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-          into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-          passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </div>
+        <div class="tags-description" style="color: gray; margin: 15px"></div>
       </div>
       <hr />
     <div class="row mb-3">
