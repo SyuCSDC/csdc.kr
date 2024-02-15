@@ -1,0 +1,7 @@
+.dynamic-field {
+  margin-block: 15px;
+}
+input[type="checkbox"] {
+  margin-inline: 5px;
+  transform: scale(1.5);
+}
