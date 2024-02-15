@@ -8,7 +8,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     grade = models.CharField(max_length=10)
     student_id = models.CharField(max_length=20)
-    role = models.CharField(max_length=10, choices=(('Mentor', 'Mentor'), ('Mentee', 'Mentee')))
+    role = models.CharField(max_length=10, choices=(('', '역할을 선택해주세요.'), ('Mentor', 'Mentor'), ('Mentee', 'Mentee')))
     bio = models.TextField('한 줄 소개')
 
     def __str__(self):

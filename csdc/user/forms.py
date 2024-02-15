@@ -12,7 +12,7 @@ class UserLoginForm(AuthenticationForm):
 class UserRegisterForm(UserCreationForm):
     grade = forms.CharField(max_length=10, required=False, label='학년')
     student_id = forms.CharField(max_length=20, required=False, label='학번')
-    role = forms.ChoiceField(choices=(('Mentor', 'Mentor'), ('Mentee', 'Mentee')), required=True, label='Role')
+    role = forms.ChoiceField(choices=(('', '역할을 선택해주세요.'), ('Mentor', 'Mentor'), ('Mentee', 'Mentee')), required=True, label='Role')
     bio = forms.CharField(widget=forms.Textarea, required=False, label='한 줄 소개')
 
     class Meta:
@@ -74,9 +74,8 @@ class UserRegisterForm(UserCreationForm):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
         
         for field in self.fields:
-            if field == 'username':
-                self.fields[field].label = '아이디'
-            if field == 'role':
-                self.fields[field].widget.attrs.update({'class': 'form-select'})
             self.fields[field].widget.attrs.update({'class': 'form-control'})
+            
+        self.fields['username'].label = '아이디'
+        self.fields['role'].widget.attrs.update({'class': 'form-select'})
         
