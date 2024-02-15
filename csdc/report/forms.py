@@ -1,6 +1,7 @@
 
 from django import forms
 from django.forms import modelformset_factory
+from django.core.exceptions import ValidationError
 from .models import Report, ReportFile , Book
 
 class ReportForm(forms.ModelForm):
@@ -37,6 +38,16 @@ class BookRequestForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ['title', 'author', 'needed_copies' , ]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        needed_copies = cleaned_data.get('needed_copies')
+
+        if needed_copies is not None and needed_copies <= 0:
+            # 필드별 에러 메시지 추가
+            self.add_error('needed_copies', '수량은 0보다 커야 합니다.')
+        
+        return cleaned_data
 
 
 

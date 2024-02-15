@@ -30,6 +30,13 @@
       <label for="{{ form.needed_copies.id_for_label }}" class="form-label">필요권 수</label>
       {{ form.needed_copies | add_class:"form-control" }}
     </div>
+    {% if form.needed_copies.errors %}
+      <div class="alert alert-danger">
+        {% for error in form.needed_copies.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
     <button type="submit" class="btn btn-primary" style="float: right">수정하기</button>
     <a href="/reports/book_list/" class="btn btn-secondary" style="float: right">취소하기</a>
   </form>

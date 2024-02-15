@@ -104,7 +104,6 @@ class BookcreateView(LoginRequiredMixin, CreateView):
         # 현재 로그인한 사용자를 requester로 설정
         form.instance.requester = self.request.user
         return super().form_valid(form)
-    
 
 class BookListView(LoginRequiredMixin, ListView):
     model = Book
