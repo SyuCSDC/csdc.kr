@@ -7,11 +7,7 @@
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
 <div class="container" style="padding: 60px">
-  <div style="margin: 25px">
-    {% include 'desc.html' %}
-    <div class="tags-description" style="color: gray; margin: 15px"></div>
-  </div>
-  <hr />
+  {% include 'desc.html' %}
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <a href="{% url 'board:board_create' %}" role="button" class="btn btn-primary">글 작성하기</a>
   </div>
