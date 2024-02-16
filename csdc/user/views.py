@@ -1,23 +1,29 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .forms import UserLoginForm, UserRegisterForm
-
 from django.contrib.auth.views import LoginView
+from django.views.generic import TemplateView
+
+from .forms import UserLoginForm, UserRegisterForm
 
 class UserLoginView(LoginView):
     template_name = 'user/login.html'
     authentication_form = UserLoginForm
 
-
-def register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('/reports/book_list/')
-    else:
+class UserRegisterView(TemplateView):
+    template_name = 'user/register.html'
+    
+    def get(self, request):
         form = UserRegisterForm()
-    return render(request, 'user/register.html', {'form': form})
-
-
+        
+        return render(request, self.template_name, { 'form': form })
+    
+    def post(self, request):
+        form = UserRegisterForm(request.POST)
+        
+        if not form.is_valid():
+            return render(request, self.template_name, { 'form': form })
+        
+        user = form.save()
+        login(request, user)
+        
+        return redirect('/')
