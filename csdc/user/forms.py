@@ -2,12 +2,21 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
 from .models import UserProfile
 
 class UserLoginForm(AuthenticationForm):
+    error_messages = {
+        "invalid_login": mark_safe("아이디 또는 비밀번호를 잘못 입력했습니다. <br /> 입력하신 내용을 다시 확인해주세요."),
+    }
+    
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
+        
         self.fields['username'].label = '아이디'
+        self.fields['username'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password'].label = '비밀번호'
+        self.fields['password'].widget.attrs.update({'class': 'form-control'})
 
 class UserRegisterForm(UserCreationForm):
     grade = forms.CharField(max_length=10, required=False, label='학년')

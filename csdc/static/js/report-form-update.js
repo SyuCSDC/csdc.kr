@@ -25,11 +25,9 @@ $(document).ready(function () {
     count = totalFields() + 1;
     field = $("#dynamic-fieldss").clone();
     field.attr("id", "dynamic-fieldss");
-    field.children("label").attr("for", "form-" + (count - 1) + "-file");
     field.children("input").attr("id", "form-" + (count - 1) + "-file");
     field.children("input").attr("data-name", "form-" + (count - 1) + "-file");
     field.children("input").attr("name", "form-" + (count - 1) + "-file");
-    field.find("input").val("");
     $(className + ":last").after($(field));
   }
 

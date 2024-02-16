@@ -1,35 +1,31 @@
-{% extends 'base.html' %}
-{% load widget_tweaks %}
-{% load static %}
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <script>
     document.getElementById('msg').innerHTML="<span>게시글 작성</span>"
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
-<div class="container" style="padding:60px">
-    <div style="margin: 25px">
-        <div style="font-size: 25pt; font-weight: bold; margin-block: 15px">
-          <i class="bi bi-info-circle"></i>
-           게시글 작성 페이지 입니다.
-        </div>
-        <div class="tags-description" style="color: gray; margin: 15px"></div>
-      </div>
-      <hr />
-
-    <form method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="{{ form.title.id_for_label }}" class="form-label">제목</label>
-            {% render_field form.title class="form-control" %}
-            <div id="{{ form.title.id_for_label }}Help" class="form-text">게시글의 제목을 입력해주세요.</div>
-        </div>
-        <div class="mb-3">
-            <label for="{{ form.content.id_for_label }}" class="form-label">내용</label>
-            {% render_field form.content class="form-control" %}
-        </div>
-        <button type="submit" class="btn btn-primary">게시글 생성</button>
-    </form>
+<div class="container" style="padding: 60px">
+  <div style="margin: 25px">
+    <div style="font-size: 25pt; font-weight: bold; margin-block: 15px">
+      <i class="bi bi-info-circle"></i>
+      게시글 작성 페이지 입니다.
+    </div>
+    <div class="tags-description" style="color: gray; margin: 15px"></div>
+  </div>
+  <hr />
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="{{ form.title.id_for_label }}" class="form-label">제목</label>
+      {{ form.title }}
+      <div id="{{ form.title.id_for_label }}Help" class="form-text">게시글의 제목을 입력해주세요.</div>
+    </div>
+    <div class="mb-3">
+      <label for="{{ form.content.id_for_label }}" class="form-label">내용</label>
+      {{ form.content }}
+    </div>
+    <button type="submit" class="btn btn-primary">게시글 생성</button>
+  </form>
 </div>
 
 {% endblock %}

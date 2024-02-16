@@ -38,7 +38,14 @@ class BookRequestForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ['title', 'author', 'needed_copies' , ]
-
+    
+    def __init__(self, *args, **kwargs):
+        super(BookRequestForm, self).__init__(*args, **kwargs)
+        
+        self.fields['title'].widget.attrs.update({'class': 'form-control'})
+        self.fields['author'].widget.attrs.update({'class': 'form-control'})
+        self.fields['needed_copies'].widget.attrs.update({'class': 'form-control'})
+    
     def clean(self):
         cleaned_data = super().clean()
         needed_copies = cleaned_data.get('needed_copies')

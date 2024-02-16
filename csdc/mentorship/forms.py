@@ -7,16 +7,23 @@ class CustomModelChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         # obj는 UserProfile 객체입니다. 여기서 원하는 문자열 형태로 반환합니다.
         return f"{obj.student_id} - {obj.user.last_name}{obj.user.first_name}"
-    
 
 class MentorshipForm(forms.ModelForm):
     mentee = CustomModelChoiceField(
         queryset=UserProfile.objects.filter(role='Mentee').order_by('student_id'),
-        label="멘티 선택",
-        help_text="멘토링을 받을 멘티를 선택해주세요.",
-        empty_label="멘티 선택",
         widget=forms.Select(attrs={'name': 'mentee'})
     )
+    
+    def __init__(self, *args, **kwargs):
+        super(MentorshipForm, self).__init__(*args, **kwargs)
+        
+        self.fields['mentee'].empty_label = '멘티를 선택해주세요.'
+        self.fields['mentee'].widget.attrs.update({'class': 'form-select'})
+        self.fields['book'].empty_label = '책을 선택해주세요.'
+        self.fields['book'].widget.attrs.update({'class': 'form-select'})
+        self.fields['start_date'].widget.attrs.update({'class': 'form-control'})
+        self.fields['end_date'].widget.attrs.update({'class': 'form-control'})
+        self.fields['status'].widget.attrs.update({'class': 'form-select'})
     
     class Meta:
         model = Mentorship
@@ -36,7 +43,3 @@ class MentorshipForm(forms.ModelForm):
             raise ValidationError("종료 날짜는 시작 날짜보다 뒤에 있어야 합니다.")
 
         return cleaned_data
-
-    def __init__(self, *args, **kwargs):
-        super(MentorshipForm, self).__init__(*args, **kwargs)
-        self.fields['book'].empty_label = "책을 선택해주세요."

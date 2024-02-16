@@ -39,19 +39,10 @@
                 <td><a href="{{ form.instance.file.url }}">{{ form.instance.file.name | slice:"8:" }}</a></td>
                 <td style="text-align: right">
                   <input type="checkbox" name="form-{{ forloop.counter0 }}-DELETE" id="id_form-{{ forloop.counter0 }}-DELETE" />
+                  <input type="hidden" name="form-{{ forloop.counter0 }}-id" value="{{ form.instance.pk }}" id="id_form-{{ forloop.counter0 }}-id" />
                 </td>
               </tr>
-              <div id="dynamic-field" class="form-group dynamic-field" style="display: none; flex-direction: row">
-                <input
-                  type="file"
-                  id="form-{{ forloop.counter0 }}-file"
-                  class="form-control"
-                  name="form-{{ forloop.counter0 }}-file"
-                  data-name="form-{{ forloop.counter0 }}-file"
-                />
-                <input type="checkbox" name="form-{{ forloop.counter0 }}-DELETE" id="id_form-{{ forloop.counter0 }}-DELETE" />
-                <input type="hidden" name="form-{{ forloop.counter0 }}-id" value="{{ form.instance.pk }}" id="id_form-{{ forloop.counter0 }}-id" />
-              </div>
+              <div id="dynamic-field" class="form-group dynamic-field" style="display: none; flex-direction: row"></div>
               {% endif %} {% endfor %}
             </tbody>
           </table>
