@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load widget_tweaks %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
@@ -19,20 +19,13 @@
   <div style="margin: 25px">
     <form method="post">
       {% csrf_token %}
-      <div class="mb-3">
-        {{ form.mentee | add_class:"form-select" }}
-        <small class="form-text text-muted">{{ form.mentee.help_text }}</small>
-      </div>
-      <div class="mb-3">{{ form.book | add_class:"form-select" }}</div>
-      <div class="mb-3">{{ form.start_date | add_class:"form-control" }}</div>
-      <div class="mb-3">{{ form.end_date | add_class:"form-control" }}</div>
-      <div class="mb-3">{{ form.status | add_class:"form-select" }}</div>
+      <div class="mb-3">{{ form.mentee }}</div>
+      <div class="mb-3">{{ form.book }}</div>
+      <div class="mb-3">{{ form.start_date }}</div>
+      <div class="mb-3">{{ form.end_date }}</div>
+      <div class="mb-3">{{ form.status }}</div>
       {% if form.non_field_errors %}
-      <div class="alert alert-danger" role="alert">
-        {% for error in form.non_field_errors %}
-          {{ error }}
-        {% endfor %}
-      </div>
+      <div class="alert alert-danger" role="alert">{% for error in form.non_field_errors %} {{ error }} {% endfor %}</div>
       {% endif %}
       <button type="submit" class="btn btn-primary" style="float: right">신청</button>
     </form>
