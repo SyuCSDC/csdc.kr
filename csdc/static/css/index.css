@@ -80,6 +80,7 @@ ul {
   padding-inline: 6px;
   max-width: 131px;
   overflow: hidden;
+  -webkit-filter: invert(100%);
 }
 
 .sponsor-img-school {

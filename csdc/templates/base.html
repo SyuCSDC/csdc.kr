@@ -11,76 +11,7 @@
     {% bootstrap_javascript %}
   </head>
   <body class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="https://www.syu.ac.kr/">Sahmyook UNIV</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <button class="nav-link btn btn-link active" onclick="location.href='/'">Home</button>
-            </li>
-            <li class="nav-item dropdown">
-              <button class="nav-link btn btn-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">Book</button>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{% url 'report:book_request' %}">도서 신청</a></li>
-                <li><a class="dropdown-item" href="{% url 'report:book_list' %}">신청 도서 목록</a></li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <button class="nav-link btn btn-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                Mentorship
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{% url 'mentorship:create_mentorship_request' %}">멘토쉽 신청</a></li>
-                <li><a class="dropdown-item" href="{% url 'mentorship:list_mentorships' %}">멘토쉽 현황 게시판</a></li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <button class="nav-link btn btn-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">Report</button>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{% url 'report:report_create' %}">레포트 작성</a></li>
-                <li><a class="dropdown-item" href="{% url 'report:report_list' %}">레포트 목록</a></li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <button class="nav-link btn btn-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">Post</button>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{% url 'board:board_list' %}">자유게시판</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="navbar-nav ms-auto">
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-              <form action="{% url 'user:logout' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{{ request.path }}" />
-                <button type="submit" class="nav-link btn btn-link">Logout</button>
-              </form>
-            </li>
-            {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'user:login' %}">Sign In</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'user:register' %}">Sign Up</a>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </nav>
+    {% include 'nav.html' %}
     <div id="holder">
       <div id="msg"></div>
     </div>
