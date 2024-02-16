@@ -1,34 +1,23 @@
-{% extends 'base.html' %}
-{% block content %}
-{% load static %}
+{% extends 'base.html' %} {% block content %} {% load static %}
 <script>
-    document.getElementById("msg").innerHTML = "게시글 세부 내용";
+  document.getElementById("msg").innerHTML = "게시글 세부 내용";
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
-<div class="container" style="padding: 60px;">
-    <a href="{% url 'board:board_list' %}" class="btn btn-primary mb-3">게시글 목록으로 돌아가기</a>
-    <div style="margin: 25px">
-        <div style="font-size: 25pt; font-weight: bold; margin-block: 15px">
-          <i class="bi bi-info-circle"></i>
-           게시글 세부 내용 페이지입니다.
-        </div>
-        <div class="tags-description" style="color: gray; margin: 15px"></div>
-      </div>
-      <hr />
-    <div class="row mb-3">
-        <div class="col-md-8">
-            <h1 class="d-inline">{{ board.title }}</h1>
-        </div>
-        <div class="col-md-4">
-            <p class="d-inline"><strong>게시일:</strong> {{ board.created_date|date:"Y-m-d" }}</p>
-            <p class="d-inline ms-3"><strong>작성자:</strong> {{ board.author.user.last_name }}{{ board.author.user.first_name }} -  {{ board.author.student_id }}</p>
-        </div>
+<div class="container" style="padding: 60px">
+  <a href="{% url 'board:board_list' %}" class="btn btn-primary mb-3">게시글 목록으로 돌아가기</a>
+  {% include 'desc.html' %}
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <h1 class="d-inline">{{ board.title }}</h1>
     </div>
-    <hr>
-    <div class="post-detail">
-        <div class="content">
-            {{ board.content|linebreaks }}
-        </div>
+    <div class="col-md-4">
+      <p class="d-inline"><strong>게시일:</strong> {{ board.created_date|date:"Y-m-d" }}</p>
+      <p class="d-inline ms-3"><strong>작성자:</strong> {{ board.author.user.last_name }}{{ board.author.user.first_name }} - {{ board.author.student_id }}</p>
     </div>
+  </div>
+  <hr />
+  <div class="post-detail">
+    <div class="content">{{ board.content|linebreaks }}</div>
+  </div>
 </div>
 {% endblock %}

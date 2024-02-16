@@ -7,14 +7,7 @@
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
 <div class="container" style="padding: 60px">
-  <div style="margin: 25px">
-    <div style="font-size: 25pt; font-weight: bold; margin-block: 15px">
-      <i class="bi bi-info-circle"></i>
-      레포트 제출 확인 페이지 입니다.
-    </div>
-    <div class="tags-description" style="color: gray; margin: 15px"></div>
-  </div>
-  <hr />
+  {% include 'desc.html' %}
   <div style="margin: 25px">
     <div style="margin-block: 25px"><span>책 제목: {{ report.book.title }}</span></div>
     <div style="margin-block: 25px">
