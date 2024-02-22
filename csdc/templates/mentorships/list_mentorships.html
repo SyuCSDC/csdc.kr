@@ -28,7 +28,8 @@
         <tr>
           <td>{{ mentorship.mentor.user.last_name }}{{ mentorship.mentor.user.first_name }}</td>
           <td>{{ mentorship.mentee.user.last_name }}{{mentorship.mentee.user.first_name }}</td>
-          <td>{{ mentorship.status }}</td>
+          <td>{% if mentorship.status == 'Active' %} 활동 {% elif mentorship.status == 'Completed'%} 완료 {% else%} 보류 {% endif %}</td>
+
           <td>{{ mentorship.start_date }}</td>
           <td>{{ mentorship.end_date }}</td>
           <td>{{ mentorship.book.title }}</td>

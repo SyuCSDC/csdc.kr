@@ -9,7 +9,7 @@ class Mentorship(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)  # Book 모델과의 연결
     start_date = models.DateField()
     end_date = models.DateField()
-    status = models.CharField(max_length=20, choices=(('', '상태를 선택하세요'),('Active', 'Active'), ('Completed', 'Completed'), ('Pending', 'Pending')))
+    status = models.CharField(max_length=20, choices=(('', '상태를 선택하세요'),('Active', '활동'), ('Completed', '완료'), ('Pending', '보류')))
 
     def __str__(self):
         return f"{self.mentor.user.username} mentoring {self.mentee.user.username} for {self.book.title}"
