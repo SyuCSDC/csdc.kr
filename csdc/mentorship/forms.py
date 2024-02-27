@@ -3,22 +3,22 @@ from .models import Mentorship
 from django.core.exceptions import ValidationError
 from user.models import UserProfile
 
-class CustomModelChoiceField(forms.ModelChoiceField):
+class CustomModelMultipleChoiceField(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
         # obj는 UserProfile 객체입니다. 여기서 원하는 문자열 형태로 반환합니다.
         return f"{obj.student_id} - {obj.user.last_name}{obj.user.first_name}"
 
 class MentorshipForm(forms.ModelForm):
-    mentee = CustomModelChoiceField(
+    mentees = CustomModelMultipleChoiceField(
         queryset=UserProfile.objects.filter(role='Mentee').order_by('student_id'),
-        widget=forms.Select(attrs={'name': 'mentee'})
+        widget=forms.SelectMultiple(attrs={'name': 'mentees'})
     )
     
     def __init__(self, *args, **kwargs):
         super(MentorshipForm, self).__init__(*args, **kwargs)
         
-        self.fields['mentee'].empty_label = '멘티를 선택해주세요.'
-        self.fields['mentee'].widget.attrs.update({'class': 'form-select'})
+        self.fields['mentees'].empty_label = "멘티를 선택해주세요."
+        self.fields['mentees'].widget.attrs.update({'class': 'form-select'})
         self.fields['book'].empty_label = '책을 선택해주세요.'
         self.fields['book'].widget.attrs.update({'class': 'form-select'})
         self.fields['start_date'].widget.attrs.update({'class': 'form-control'})
@@ -27,7 +27,7 @@ class MentorshipForm(forms.ModelForm):
     
     class Meta:
         model = Mentorship
-        fields = ['mentee', 'book', 'start_date', 'end_date', 'status']
+        fields = ['mentees', 'book', 'start_date', 'end_date', 'status']
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'}),

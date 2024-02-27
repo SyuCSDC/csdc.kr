@@ -27,9 +27,11 @@
         {% for mentorship in mentorships %}
         <tr>
           <td>{{ mentorship.mentor.user.last_name }}{{ mentorship.mentor.user.first_name }}</td>
-          <td>{{ mentorship.mentee.user.last_name }}{{mentorship.mentee.user.first_name }}</td>
-          <td>{% if mentorship.status == 'Active' %} 활동 {% elif mentorship.status == 'Completed'%} 완료 {% else%} 보류 {% endif %}</td>
-
+          <td>
+            {% with mentorship.mentee.all as mentees %} {% if mentees|length > 0 %} {{ mentees.0.user.last_name }}{{ mentees.0.user.first_name }} {% if
+            mentees|length > 1 %} 외 {{ mentees|length|add:"-1" }}명 {% endif %} {% else %} 멘티 없음 {% endif %} {% endwith %}
+          </td>
+          <td>{% if mentorship.status == 'Active' %} 활동 {% elif mentorship.status == 'Completed' %} 완료 {% else %} 보류 {% endif %}</td>
           <td>{{ mentorship.start_date }}</td>
           <td>{{ mentorship.end_date }}</td>
           <td>{{ mentorship.book.title }}</td>

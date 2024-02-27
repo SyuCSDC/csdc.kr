@@ -35,10 +35,11 @@ def create_mentorship_request(request):
             # 현재 로그인한 사용자의 UserProfile 인스턴스를 mentor 필드에 할당
             mentor_user_profile = UserProfile.objects.get(user=request.user)
             mentorship.mentor = mentor_user_profile
+            mentorship.save() 
 
-            mentee_user_profile = form.cleaned_data['mentee']
-            mentorship.mentee = mentee_user_profile
-            mentorship.save()
+            mentees = form.cleaned_data['mentees']
+            print(mentees)
+            mentorship.mentee.set(mentees)
             return redirect('../mentorship_list/')  # 생성 후 멘토십 목록 페이지로 이동
     else:
         form = MentorshipForm()
@@ -53,8 +54,12 @@ def edit_mentorship(request, pk):
     if request.method == "POST":
         form = MentorshipForm(request.POST, instance=mentorship)
         if form.is_valid():
-            form.save()
-            return redirect('../mentorship_list/')  # 멘토링 목록 페이지로 리다이렉션
+            # 폼에서 입력받은 데이터로 Mentorship 객체를 일단 저장하지만, ManyToMany 관계는 아직 업데이트하지 않음
+            mentorship = form.save(commit=False)
+            mentorship.save()  # Mentorship 인스턴스를 DB에 저장. 이 때, ManyToMany 필드는 저장되지 않음
+            # form.cleaned_data에서 'mentee' 필드 값을 가져와서 set 메서드를 사용해 업데이트
+            mentorship.mentee.set(form.cleaned_data['mentees'])
+            return redirect('../mentorship_list/')  # 멘토십 목록 페이지로 리다이렉션
     else:
         form = MentorshipForm(instance=mentorship)
     return render(request, 'mentorships/edit_mentorship.html', {'form': form})
