@@ -17,7 +17,7 @@
   </div>
   <hr />
   <div class="post-detail">
-    <div class="content">{{ board.content|linebreaks }}</div>
+    <div class="content">{{board.content | safe}}</div>
   </div>
 </div>
 {% endblock %}
