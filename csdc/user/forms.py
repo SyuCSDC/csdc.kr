@@ -19,8 +19,8 @@ class UserLoginForm(AuthenticationForm):
         self.fields['password'].widget.attrs.update({'class': 'form-control'})
 
 class UserRegisterForm(UserCreationForm):
-    grade = forms.CharField(max_length=10, required=False, label='학년')
-    student_id = forms.CharField(max_length=20, required=False, label='학번')
+    grade = forms.ChoiceField(choices=(('','학년을 선택해주세요.'), ('1','1'), ('2','2') ,('3','3'), ('4','4')), required=True, label='학년')
+    student_id = forms.CharField(max_length=20, required=True, label='학번')
     department = forms.ChoiceField(choices=(('','과를 선택해주세요.'),('빅데이터 클라우드공학과','빅데이터 클라우드공학과'),('컴퓨터공학부','컴퓨터공학부')), required=True, label='Department')
     role = forms.ChoiceField(choices=(('', '역할을 선택해주세요.'), ('Mentor', 'Mentor'), ('Mentee', 'Mentee')), required=True, label='Role')
     bio = forms.CharField(widget=forms.Textarea, required=False, label='한 줄 소개')
@@ -47,11 +47,11 @@ class UserRegisterForm(UserCreationForm):
             raise forms.ValidationError('이메일을 입력해주세요.')
         return email
     
-    def clean_grade(self):
-        grade = self.cleaned_data['grade']
-        if not grade:
-            raise forms.ValidationError('학년을 입력해주세요.')
-        return grade
+    # def clean_grade(self):
+    #     grade = self.cleaned_data['grade']
+    #     if not grade:
+    #         raise forms.ValidationError('학년을 입력해주세요.')
+    #     return grade
     
     def clean_student_id(self):
         student_id = self.cleaned_data['student_id']
@@ -88,6 +88,8 @@ class UserRegisterForm(UserCreationForm):
             self.fields[field].widget.attrs.update({'class': 'form-control'})
             
         self.fields['username'].label = '아이디'
+        
+        self.fields['grade'].widget.attrs.update({'class': 'form-select'})
         self.fields['role'].widget.attrs.update({'class': 'form-select'})
         self.fields['department'].widget.attrs.update({'class': 'form-select'})
         
