@@ -21,12 +21,13 @@ class UserLoginForm(AuthenticationForm):
 class UserRegisterForm(UserCreationForm):
     grade = forms.CharField(max_length=10, required=False, label='학년')
     student_id = forms.CharField(max_length=20, required=False, label='학번')
+    department = forms.ChoiceField(choices=(('','과를 선택해주세요.'),('빅데이터 클라우드공학과','빅데이터 클라우드공학과'),('컴퓨터공학부','컴퓨터공학부')), required=True, label='Department')
     role = forms.ChoiceField(choices=(('', '역할을 선택해주세요.'), ('Mentor', 'Mentor'), ('Mentee', 'Mentee')), required=True, label='Role')
     bio = forms.CharField(widget=forms.Textarea, required=False, label='한 줄 소개')
 
     class Meta:
         model = User
-        fields = ['username','last_name','first_name' ,'email', 'password1', 'password2','grade', 'student_id' ,'role', 'bio']
+        fields = ['username','last_name','first_name' ,'email', 'password1', 'password2','grade', 'student_id', 'department' ,'role', 'bio']
     
     def clean_last_name(self):
         last_name = self.cleaned_data['last_name']
@@ -74,6 +75,7 @@ class UserRegisterForm(UserCreationForm):
                 user=user,
                 grade=self.cleaned_data['grade'],
                 student_id=self.cleaned_data['student_id'],
+                department=self.cleaned_data['department'],
                 role=self.cleaned_data['role'],
                 bio=self.cleaned_data['bio'],
             )
@@ -87,4 +89,5 @@ class UserRegisterForm(UserCreationForm):
             
         self.fields['username'].label = '아이디'
         self.fields['role'].widget.attrs.update({'class': 'form-select'})
+        self.fields['department'].widget.attrs.update({'class': 'form-select'})
         
