@@ -58,11 +58,11 @@ class UserRegisterForm(UserCreationForm):
             raise forms.ValidationError('학번을 입력해주세요.')
         return student_id
     
-    def clean_bio(self):
-        bio = self.cleaned_data['bio']
-        if not bio:
-            raise forms.ValidationError('한 줄 소개를 입력해주세요.')
-        return bio
+    # def clean_bio(self):
+    #     bio = self.cleaned_data['bio']
+    #     if not bio:
+    #         raise forms.ValidationError('한 줄 소개를 입력해주세요.')
+    #     return bio
 
     def save(self, commit=True):
         user = super().save(commit=False)
