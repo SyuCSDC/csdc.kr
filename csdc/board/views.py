@@ -5,10 +5,10 @@ from django.http import HttpResponseForbidden
 from .models import Board
 from .forms import BoardForm
 
-# Superuser 접근만 허용하는 데코레이터
-def superuser_required(view_func):
-    decorated_view_func = login_required(user_passes_test(lambda u: u.is_superuser)(view_func))
-    return decorated_view_func
+# # Superuser 접근만 허용하는 데코레이터
+# def superuser_required(view_func):
+#     decorated_view_func = login_required(user_passes_test(lambda u: u.is_superuser)(view_func))
+#     return decorated_view_func
 
 @login_required
 def noticeBoard_list(request):
@@ -21,7 +21,7 @@ def noticeBoard_detail(request, board_id):
     return render(request, 'boards/board_detail.html', {'board': board, 'notice': True})
 
 # 사용 예시
-@superuser_required
+@login_required
 def noticeBoard_create(request):
     if request.method == "POST":
         form = BoardForm(request.POST)
@@ -36,7 +36,7 @@ def noticeBoard_create(request):
         form = BoardForm()
     return render(request, 'boards/board_create.html', {'form': form})
 
-@superuser_required
+@login_required
 def noticeBoard_update(request , board_id):
     post = get_object_or_404(Board, pk=board_id)  
     if request.method == "POST":
@@ -49,7 +49,7 @@ def noticeBoard_update(request , board_id):
     
     return render(request, 'boards/board_update.html', {'form': form})
 
-@superuser_required
+@login_required
 def noticeBoard_delete(request, board_id):
     board = get_object_or_404(Board, pk=board_id)
     if board.author.user != request.user:

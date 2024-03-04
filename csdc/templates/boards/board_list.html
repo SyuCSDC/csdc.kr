@@ -14,9 +14,9 @@
 <div class="container" style="padding: 60px">
   {% include 'desc.html' %}
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    {% if notice %}
+    {% if notice %} {% if request.user.is_superuser %}
     <a href="{% url 'board:noticeBoard_create' %}" role="button" class="btn btn-primary">글 작성하기</a>
-    {% else %}
+    {% endif %} {% else %}
     <a href="{% url 'board:freeBoard_create' %}" role="button" class="btn btn-primary">글 작성하기</a>
     {% endif %}
   </div>
