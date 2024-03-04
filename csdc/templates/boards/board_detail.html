@@ -4,7 +4,13 @@
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
 <div class="container" style="padding: 60px">
-  <a href="{% url 'board:board_list' %}" class="btn btn-primary mb-3">게시글 목록으로 돌아가기</a>
+  <div>
+    {% if notice %}
+    <a href="{% url 'board:noticeBoard_list' %}" class="btn btn-primary mb-3">목록으로 돌아가기</a>
+    {% else %}
+    <a href="{% url 'board:freeBoard_list' %}" class="btn btn-primary mb-3">목록으로 돌아가기</a>
+    {% endif %}
+  </div>
   {% include 'desc.html' %}
   <div class="row mb-3">
     <div class="col-md-8">
@@ -17,7 +23,7 @@
   </div>
   <hr />
   <div class="post-detail">
-    <div class="content">{{ board.content|linebreaks }}</div>
+    <div class="content">{{board.content | safe}}</div>
   </div>
 </div>
 {% endblock %}

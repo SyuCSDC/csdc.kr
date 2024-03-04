@@ -3,6 +3,7 @@ from django.utils import timezone
 from user.models import UserProfile
 
 class Board(models.Model):
+    type = models.IntegerField(default=1) # 0: notice / 1: free
     title = models.CharField(max_length=200)
     content = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)

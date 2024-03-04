@@ -4,9 +4,14 @@ from . import views
 app_name='board'
 
 urlpatterns = [
-    path('board_list/', views.board_list, name='board_list'),
-    path('<int:board_id>/', views.board_detail, name='board_detail' ),
-    path('board_create/', views.board_create, name='board_create'),
-    path('<int:board_id>/update/', views.board_update, name='board_update'),
-    path('<int:board_id>/delete/', views.board_delete, name='board_delete'),
+    path('notice/', views.noticeBoard_list, name='noticeBoard_list'),
+    path('notice/<int:board_id>/', views.noticeBoard_detail, name='noticeBoard_detail'),
+    path('notice/board_create/', views.noticeBoard_create, name='noticeBoard_create'),
+    path('notice/<int:board_id>/update/', views.noticeBoard_update, name='noticeBoard_update'),
+    path('notice/<int:board_id>/delete/', views.noticeBoard_delete, name='noticeBoard_delete'),
+    path('free/', views.freeBoard_list, name='freeBoard_list'),
+    path('free/<int:board_id>/', views.freeBoard_detail, name='freeBoard_detail'),
+    path('free/board_create/', views.freeBoard_create, name='freeBoard_create'),
+    path('free/<int:board_id>/update/', views.freeBoard_update, name='freeBoard_update'),
+    path('free/<int:board_id>/delete/', views.freeBoard_delete, name='freeBoard_delete'),
 ]
