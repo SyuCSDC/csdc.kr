@@ -4,6 +4,9 @@
   <div class="flex-1">
     <span class="logo" style="color: white">© 2024 CSDC.</span>
     <ul class="flex-2">
+      <li class="nav-item">
+        <button class="nav-link btn btn-link active" onclick="location.href='/'" style="color: rgb(255, 255, 255)">Home</button>
+      </li>
       {% if user.is_authenticated %}
       <li class="nav-item">
         <form action="{% url 'user:logout' %}" method="post" style="display: inline">

@@ -61,7 +61,7 @@ def edit_mentorship(request, pk):
             mentorship.mentee.set(form.cleaned_data['mentees'])
             return redirect('../mentorship_list/')  # 멘토십 목록 페이지로 리다이렉션
     else:
-        form = MentorshipForm(instance=mentorship)
+        form = MentorshipForm(instance=mentorship, initial={'mentees': mentorship.mentee.all()})
     return render(request, 'mentorships/edit_mentorship.html', {'form': form})
 
 

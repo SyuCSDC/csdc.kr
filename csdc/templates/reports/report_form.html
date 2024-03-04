@@ -11,6 +11,7 @@
 
 <div class="container" style="padding: 60px">
   {% include 'desc.html' %}
+  <div style="font-size: 20px; margin-left: 45px">본인이 신청한 책을 선택후 레포트를 제출해주세요. 레포트는 pdf형식으로 제출 바랍니다.</div>
   <div style="margin: 25px">
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %} {{ file_formset.management_form }} {% for f in form %} {% if not f.non_field_errors %} {{ f }} {% endif %} {% endfor %}
