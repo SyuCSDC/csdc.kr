@@ -38,12 +38,17 @@ def create_mentorship_request(request):
             mentorship.save() 
 
             mentees = form.cleaned_data['mentees']
-            print(mentees)
             mentorship.mentee.set(mentees)
+
             return redirect('../mentorship_list/')  # 생성 후 멘토십 목록 페이지로 이동
     else:
+        #멘토링에 이미 참여하고 있는 멘티의 ID 목록
+        engaged_mentee_ids = Mentorship.objects.values_list('mentee__id', flat=True)
+        # 멘티 역할을 가진 사용자 중에서, 멘토링에 참여하지 않은 사용자만 필터링
+        available_mentees = UserProfile.objects.filter(role='Mentee').exclude(id__in=engaged_mentee_ids)
         form = MentorshipForm()
-    
+        form.fields['mentees'].queryset = available_mentees
+
     return render(request, 'mentorships/create_mentorship_request.html', {'form': form})
 
 # 멘토링 수정
