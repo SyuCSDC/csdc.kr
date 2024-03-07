@@ -27,8 +27,6 @@ def list_mentorships(request):
 def create_mentorship_request(request):
     if request.method == 'POST':
         form = MentorshipForm(request.POST)
-        print(form.is_valid())
-        print(form.errors)
         if form.is_valid():
             # 폼에서 입력받은 데이터로 Mentorship 객체 생성
             mentorship = form.save(commit=False)
@@ -41,12 +39,18 @@ def create_mentorship_request(request):
             mentorship.mentee.set(mentees)
 
             return redirect('../mentorship_list/')  # 생성 후 멘토십 목록 페이지로 이동
+        else:
+            #멘토링에 이미 참여하고 있는 멘티의 ID 목록
+            engaged_mentee_ids = Mentorship.objects.values_list('mentee__id', flat=True)
+            # 멘티 역할을 가진 사용자 중에서, 멘토링에 참여하지 않은 사용자만 필터링
+            available_mentees = UserProfile.objects.filter(role='Mentee').exclude(id__in=engaged_mentee_ids)
+            form.fields['mentees'].queryset = available_mentees
     else:
+        form = MentorshipForm()
         #멘토링에 이미 참여하고 있는 멘티의 ID 목록
         engaged_mentee_ids = Mentorship.objects.values_list('mentee__id', flat=True)
         # 멘티 역할을 가진 사용자 중에서, 멘토링에 참여하지 않은 사용자만 필터링
         available_mentees = UserProfile.objects.filter(role='Mentee').exclude(id__in=engaged_mentee_ids)
-        form = MentorshipForm()
         form.fields['mentees'].queryset = available_mentees
 
     return render(request, 'mentorships/create_mentorship_request.html', {'form': form})
@@ -58,6 +62,7 @@ def edit_mentorship(request, pk):
     mentorship = get_object_or_404(Mentorship, pk=pk)
     if request.method == "POST":
         form = MentorshipForm(request.POST, instance=mentorship)
+        
         if form.is_valid():
             # 폼에서 입력받은 데이터로 Mentorship 객체를 일단 저장하지만, ManyToMany 관계는 아직 업데이트하지 않음
             mentorship = form.save(commit=False)
