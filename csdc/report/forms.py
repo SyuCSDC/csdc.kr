@@ -3,6 +3,7 @@ from django import forms
 from django.forms import modelformset_factory
 from django.core.exceptions import ValidationError
 from .models import Report, ReportFile , Book
+from itertools import groupby
 
 class ReportForm(forms.ModelForm):
     class Meta:
@@ -14,6 +15,14 @@ class ReportForm(forms.ModelForm):
         self.fields['book'].label = ''
         self.fields['book'].empty_label = '책을 선택해주세요.'
         self.fields['book'].widget.attrs.update({'class': 'form-select'})
+
+        books_ordered = Book.objects.all().order_by('title', '-id')
+        # 제목별로 첫 번째 책만 선택
+        unique_books = []
+        for key, group in groupby(books_ordered, lambda x: x.title):
+            unique_books.append(list(group)[0])
+
+        self.fields['book'].queryset = Book.objects.filter(id__in=[book.id for book in unique_books])
 
 
 class ReportFileForm(forms.ModelForm):
