@@ -1,7 +1,8 @@
 from django import forms
-from .models import Mentorship 
+from .models import Mentorship , Book
 from django.core.exceptions import ValidationError
 from user.models import UserProfile
+from itertools import groupby
 
 class CustomModelMultipleChoiceField(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
@@ -16,6 +17,16 @@ class MentorshipForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(MentorshipForm, self).__init__(*args, **kwargs)
+
+         # 모든 책을 제목 순으로 정렬
+        books_ordered = Book.objects.all().order_by('title', '-id')
+        # 제목별로 첫 번째 책만 선택
+        unique_books = []
+        for key, group in groupby(books_ordered, lambda x: x.title):
+            unique_books.append(list(group)[0])
+
+        # 중복 제거된 책 목록으로 book 필드의 queryset 업데이트
+        self.fields['book'].queryset = Book.objects.filter(id__in=[book.id for book in unique_books])
         
         self.fields['mentees'].empty_label = "멘티를 선택해주세요."
         self.fields['mentees'].widget.attrs.update({'class': 'form-select'})
@@ -43,3 +54,17 @@ class MentorshipForm(forms.ModelForm):
             raise ValidationError("종료 날짜는 시작 날짜보다 뒤에 있어야 합니다.")
 
         return cleaned_data
+    
+    def clean(self):
+        mentees = self.cleaned_data.get('mentees', [])
+        if not mentees:
+            raise ValidationError("멘티를 선택해야 합니다.")
+        
+        # 여기서는 각 멘티 객체가 실제로 UserProfile 모델의 mentee 역할을 하는지 확인합니다.
+        for mentee in mentees:
+            if not UserProfile.objects.filter(pk=mentee.pk, role='Mentee').exists():
+                raise ValidationError(f"선택된 멘티 중 '{mentee}'은(는) 유효하지 않은 값입니다.")
+        
+        return mentees
+        
+
