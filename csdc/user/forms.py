@@ -1,9 +1,11 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from .models import UserProfile
+
 
 class UserLoginForm(AuthenticationForm):
     error_messages = {
@@ -93,3 +95,5 @@ class UserRegisterForm(UserCreationForm):
         self.fields['role'].widget.attrs.update({'class': 'form-select'})
         self.fields['department'].widget.attrs.update({'class': 'form-select'})
         
+class CustomPasswordResetForm(PasswordResetForm):
+    pass

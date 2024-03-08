@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView ,PasswordResetView , PasswordResetConfirmView
 from django.views.generic import TemplateView
+from django.urls import reverse_lazy
 
-from .forms import UserLoginForm, UserRegisterForm
+from .forms import UserLoginForm, UserRegisterForm 
 
 class UserLoginView(LoginView):
     template_name = 'user/login.html'
@@ -27,3 +28,15 @@ class UserRegisterView(TemplateView):
         login(request, user)
         
         return redirect('/')
+
+
+class MyPasswordResetView(PasswordResetView):
+    subject_template_name='user/password_reset_subject.txt',  # 수정: 파일 이름을 제목용으로 변경
+    email_template_name='user/password_reset_email.html',
+    success_url = reverse_lazy('user:password_reset_done') 
+
+class MyPasswordResetChangeView(PasswordResetConfirmView):
+    success_url = reverse_lazy('user:password_reset_complete')
+
+        
+
