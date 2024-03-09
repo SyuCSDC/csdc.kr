@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Forgot ID</h3>
+ 
+<p>Forgotten your ID? Enter your email address and student ID below, and we’ll show you your ID.</p>
+ 
+<form method="post">
+    {% csrf_token %}
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    
+    <label for="student_id">Student ID:</label>
+    <input type="text" id="student_id" name="student_id" required>
+    
+    <input type="submit" value="Submit">
+    
+    {% if user_id %}
+        <div class="message">Your ID is: {{ user_id }}</div>
+    {% elif error %}
+        <div class="message error">{{ error }}</div>
+    {% endif %}
+</form>
+{% endblock %}
