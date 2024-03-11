@@ -23,7 +23,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">번호</th>
+        <th scope="col">글 번호</th>
         <th scope="col">글 제목</th>
         <th scope="col">작성자</th>
         <th scope="col">학번</th>
@@ -32,18 +32,8 @@
     </thead>
     <tbody>
       {% for board in boards %}
-      <script>
-        function url() {
-          location.href = `
-          {% if notice %}
-          {% url 'board:noticeBoard_detail' board.pk %}
-          {% else %}
-          {% url 'board:freeBoard_detail' board.pk %}
-          {% endif %}`;
-        }
-      </script>
-      <tr onclick="url()" style="cursor: pointer">
-        <th scope="row">{{ forloop.counter }}</th>
+      <tr onclick="location.href='./{{ board.pk }}'" style="cursor: pointer">
+        <th scope="row">{{ forloop.revcounter }}</th>
         <td>{{ board.title }}</td>
         <td>{{ board.author.user.last_name }}{{ board.author.user.first_name }}</td>
         <td>{{ board.author.student_id }}</td>
@@ -62,9 +52,3 @@
   </table>
 </div>
 {% endblock %}
-
-<script>
-  function url() {
-    location.href = "{% url 'board:board_detail' board.pk %}";
-  }
-</script>
