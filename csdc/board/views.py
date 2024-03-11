@@ -10,12 +10,10 @@ from .forms import BoardForm
 #     decorated_view_func = login_required(user_passes_test(lambda u: u.is_superuser)(view_func))
 #     return decorated_view_func
 
-@login_required
 def noticeBoard_list(request):
     boards = Board.objects.filter(type=0).order_by('-id')
     return render(request, 'boards/board_list.html' , {'boards': boards, 'notice': True})
 
-@login_required
 def noticeBoard_detail(request, board_id):
     board = get_object_or_404(Board, pk=board_id)
     return render(request, 'boards/board_detail.html', {'board': board, 'notice': True})
