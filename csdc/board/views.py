@@ -12,7 +12,7 @@ from .forms import BoardForm
 
 @login_required
 def noticeBoard_list(request):
-    boards = Board.objects.filter(type=0)
+    boards = Board.objects.filter(type=0).order_by('-id')
     return render(request, 'boards/board_list.html' , {'boards': boards, 'notice': True})
 
 @login_required
@@ -59,7 +59,7 @@ def noticeBoard_delete(request, board_id):
 
 @login_required
 def freeBoard_list(request):
-    boards = Board.objects.filter(type=1)
+    boards = Board.objects.filter(type=1).order_by('-id')
     return render(request, 'boards/board_list.html' , {'boards': boards})
 
 @login_required

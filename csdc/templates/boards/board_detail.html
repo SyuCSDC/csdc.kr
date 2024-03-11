@@ -11,18 +11,16 @@
     <a href="{% url 'board:freeBoard_list' %}" class="btn btn-primary mb-3">목록으로 돌아가기</a>
     {% endif %}
   </div>
-  {% include 'desc.html' %}
-  <div class="row mb-3">
-    <div class="col-md-8">
-      <h1 class="d-inline">{{ board.title }}</h1>
-    </div>
-    <div class="col-md-4">
-      <p class="d-inline"><strong>게시일:</strong> {{ board.created_date|date:"Y-m-d" }}</p>
-      <p class="d-inline ms-3"><strong>작성자:</strong> {{ board.author.user.last_name }}{{ board.author.user.first_name }} - {{ board.author.student_id }}</p>
+  <div style="margin-block: 20px">
+    <div style="font-size: 2.5rem; font-weight: bold">{% if notice %}※{% endif %} {{ board.title }}</div>
+    <div style="text-align: right; margin-block: 20px">
+      <span>{{ board.author.user.last_name }}{{ board.author.user.first_name}}({{ board.author.student_id }}) </span>
+      <span style="padding-inline: 5px; color: gray">|</span>
+      <span style="font-weight: bold">{{ board.created_date | date:"Y-m-d H:i:s" }}</span>
     </div>
   </div>
   <hr />
-  <div class="post-detail">
+  <div class="post-detail" style="margin-block: 30px">
     <div class="content">{{board.content | safe}}</div>
   </div>
 </div>
