@@ -34,6 +34,7 @@ class UserRegisterView(TemplateView):
 class MyPasswordResetView(PasswordResetView):
     subject_template_name='user/password_reset_subject.txt',  # 수정: 파일 이름을 제목용으로 변경
     email_template_name='user/password_reset_email.html',
+    html_email_template_name='user/password_reset_email.html',
     success_url = reverse_lazy('user:password_reset_done') 
 
 class MyPasswordResetChangeView(PasswordResetConfirmView):
