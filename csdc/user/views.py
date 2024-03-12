@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView ,PasswordResetView , PasswordResetConfirmView
 from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from user.models import UserProfile
 
-from .forms import UserLoginForm, UserRegisterForm
+from .forms import UserLoginForm, UserRegisterForm 
 
 class UserLoginView(LoginView):
     template_name = 'user/login.html'
