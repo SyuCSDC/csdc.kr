@@ -40,7 +40,6 @@ class MyPasswordResetChangeView(PasswordResetConfirmView):
     success_url = reverse_lazy('user:password_reset_complete')
 
 
-
 class MyforgotidView(TemplateView):
     template_name = 'user/forgot_id.html'
 
