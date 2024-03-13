@@ -68,7 +68,7 @@
     <a href="../" style="color: black; font-weight: bold; text-decoration: none">돌아가기</a>
   </div>
   <div style="margin-block: 20px">
-    <div style="font-size: 2.5rem; font-weight: bold"><i class="bi bi-card-text"></i>{% if notice %}※{% endif %} {{ board.title }}</div>
+    <div style="font-size: 2.5rem; font-weight: bold">{% if notice %}※{% else %}<i class="bi bi-card-text"></i>{% endif %} {{ board.title }}</div>
     <div style="text-align: right; margin-block: 20px">
       <span>{{ board.author.user.last_name }}{{ board.author.user.first_name}}({{ board.author.student_id }}) </span>
       <span style="padding-inline: 5px; color: gray">|</span>
