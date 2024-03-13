@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from .models import UserProfile
@@ -107,4 +107,18 @@ class CustomPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label='', widget=forms.EmailInput(attrs={
         'class': 'form-control',
         'placeholder': '이메일을 입력하세요.',
+    }))
+
+class CustomPasswordResetConfirmForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomPasswordResetConfirmForm, self).__init__(*args, **kwargs)
+    
+    new_password1 = forms.CharField(label='', widget=forms.PasswordInput(attrs={
+        'class': 'form-control',
+        'placeholder': '새 비밀번호를 입력하세요.',
+    }))
+    
+    new_password2 = forms.CharField(label='', widget=forms.PasswordInput(attrs={
+        'class': 'form-control',
+        'placeholder': '새 비밀번호를 다시 입력하세요.',
     }))

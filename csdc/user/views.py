@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from user.models import UserProfile
 
-from .forms import UserLoginForm, UserRegisterForm, CustomPasswordResetForm
+from .forms import UserLoginForm, UserRegisterForm, CustomPasswordResetForm, CustomPasswordResetConfirmForm
 
 class UserLoginView(LoginView):
     template_name = 'user/login.html'
@@ -51,6 +51,7 @@ class MyPasswordResetView(PasswordResetView):
 
 class MyPasswordResetChangeView(PasswordResetConfirmView):
     success_url = reverse_lazy('user:password_reset_complete')
+    form_class = CustomPasswordResetConfirmForm
 
 class MyforgotidView(TemplateView):
     template_name = 'user/forgot_id.html'
