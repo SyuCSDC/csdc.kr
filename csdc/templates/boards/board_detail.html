@@ -23,21 +23,31 @@
   <div class="post-detail" style="margin-block: 30px">
     <div class="content">{{board.content | safe}}</div>
   </div>
-<form method="POST">
-    {% csrf_token %}
-    {{ comment_form.as_p }}
-    <button type="submit">댓글 작성</button>
-</form>
-<br>
-<hr>
-{% for comment in board.comments.all %}
-    <p>{{ comment.commenter }}: {{ comment.content }}</p> 
-    {% if request.user == comment.commenter.user or request.user.is_superuser %}
-    <form action="{% url 'board:comment_delete' comment.id %}" method="POST" style="display: inline;">
+  <hr>
+  <div>
+    <div style="font-size: 20px; font-weight: bold; margin-bottom: 20px;">댓글</div>
+      {% for comment in board.comments.all %}
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <span style="font-weight: bold;">{{ comment.commenter }}</span>
+                <p style="margin: 0;">{{ comment.content }}</p>
+            </div>
+            {% if request.user == comment.commenter.user or request.user.is_superuser %}
+            <form action="{% url 'board:comment_delete' comment.id %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('댓글을 삭제하시겠습니까?');">삭제</button>
+            </form>
+            {% endif %}
+        </div>
+        <hr>
+      {% endfor %}
+    <div style="margin-top: 30px;">
+      <form method="POST">
         {% csrf_token %}
-        <button type="submit" onclick="return confirm('댓글을 삭제하시겠습니까?');">삭제</button>
-    </form>
-{% endif %}
-{% endfor %}
+        <div class="mb-2">{{ comment_form.content }}</div>
+        <button type="submit">댓글 작성</button>
+      </form>
+    </div>
+</div>
 </div>
 {% endblock %}
