@@ -1,4 +1,7 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
 <script>
   document.getElementById("msg").innerHTML = "게시글 세부 내용";
 
@@ -60,15 +63,12 @@
   }
 </style>
 <div class="container" style="padding: 60px">
-  <div>
-    {% if notice %}
-    <a href="{% url 'board:noticeBoard_list' %}" class="btn btn-primary mb-3">목록으로 돌아가기</a>
-    {% else %}
-    <a href="{% url 'board:freeBoard_list' %}" class="btn btn-primary mb-3">목록으로 돌아가기</a>
-    {% endif %}
+  <div style="font-size: 14pt">
+    <i class="bi bi-box-arrow-up-left"></i>
+    <a href="../" style="color: black; font-weight: bold; text-decoration: none">돌아가기</a>
   </div>
   <div style="margin-block: 20px">
-    <div style="font-size: 2.5rem; font-weight: bold">{% if notice %}※{% endif %} {{ board.title }}</div>
+    <div style="font-size: 2.5rem; font-weight: bold"><i class="bi bi-card-text"></i>{% if notice %}※{% endif %} {{ board.title }}</div>
     <div style="text-align: right; margin-block: 20px">
       <span>{{ board.author.user.last_name }}{{ board.author.user.first_name}}({{ board.author.student_id }}) </span>
       <span style="padding-inline: 5px; color: gray">|</span>
