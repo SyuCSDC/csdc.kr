@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect 
 from django.contrib.auth import login
-from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView , PasswordResetCompleteView
 from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from user.models import UserProfile
@@ -52,6 +52,22 @@ class MyPasswordResetView(PasswordResetView):
 class MyPasswordResetChangeView(PasswordResetConfirmView):
     success_url = reverse_lazy('user:password_reset_complete')
     form_class = CustomPasswordResetConfirmForm
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    def get(self, request, *args, **kwargs):
+        if 'email' not in request.session:
+            return redirect(reverse_lazy('index'))
+        return super().get(request, *args, **kwargs)
+    
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    def get(self, request, *args, **kwargs):
+        if 'email' not in request.session:
+            return redirect(reverse_lazy('index'))
+        return super().get(request, *args, **kwargs)
+    
+
+
+
 
 class MyforgotidView(TemplateView):
     template_name = 'user/forgot_id.html'
