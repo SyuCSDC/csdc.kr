@@ -36,15 +36,11 @@
                   </div>
                   <div class="login-button">
                     <button type="submit" class="btn-login">로그인</button>
-                    <div style="float: right; margin: 10px; ">
-                        <a href="" style="color: gray;">
-                          아이디 찾기 
-                        </a>
-                        |
-                        <a id="resetPasswordBtn" href="{% url 'user:password_reset' %}" style="color: gray;" >
-                          비밀번호 찾기
-                        </a>
-                      </div>
+                    <div style="float: right; margin: 10px">
+                      <a href="{% url 'user:forgot_id' %}" style="color: gray; text-decoration: none">아이디 찾기</a>
+                      <span style="padding-inline: 4px">|</span>
+                      <a href="{% url 'user:password_reset' %}" style="color: gray; text-decoration: none">비밀번호 찾기</a>
+                    </div>
                   </div>
                 </div>
               </form>

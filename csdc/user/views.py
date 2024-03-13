@@ -33,8 +33,8 @@ class UserRegisterView(TemplateView):
 
 class MyPasswordResetView(PasswordResetView):
     subject_template_name='user/password_reset_subject.txt'
-    email_template_name='user/password_reset_email.html'
-    html_email_template_name='user/password_reset_email.html'
+    email_template_name='user/password_reset_email.txt'
+    html_email_template_name='user/password_reset_email.txt'
     form_class=CustomPasswordResetForm
     success_url = reverse_lazy('user:password_reset_done')
     
