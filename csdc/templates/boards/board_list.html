@@ -34,7 +34,7 @@
       {% for board in boards %}
       <tr onclick="location.href='./{{ board.pk }}/'" style="cursor: pointer">
         <th scope="row">{{ forloop.revcounter }}</th>
-        <td>{{ board.title }}</td>
+        <td>{{ board.title }} ({{ board.comments.count }})</td>
         <td>{{ board.author.user.last_name }}{{ board.author.user.first_name }}</td>
         <td>{{ board.author.student_id }}</td>
         <td>

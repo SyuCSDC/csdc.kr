@@ -1,5 +1,5 @@
 from django import forms
-from .models import Board
+from .models import Board , Comment
 
 class BoardForm(forms.ModelForm):
     class Meta:
@@ -11,3 +11,10 @@ class BoardForm(forms.ModelForm):
         
         self.fields['title'].widget.attrs.update({'class': 'form-control'})
         self.fields['content'].widget.attrs.update({'id': 'summernote'})
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ('board', 'type' , 'commenter' )
+
+

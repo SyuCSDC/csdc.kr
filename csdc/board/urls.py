@@ -14,4 +14,7 @@ urlpatterns = [
     path('free/board_create/', views.freeBoard_create, name='freeBoard_create'),
     path('free/<int:board_id>/update/', views.freeBoard_update, name='freeBoard_update'),
     path('free/<int:board_id>/delete/', views.freeBoard_delete, name='freeBoard_delete'),
+    path('comment/delete/<int:comment_id>/', views.comment_delete, name='comment_delete'),
+    # path('<int:board_id>/comment/', views.comment_create, name='comments_create'),
+    # path('<int:board_id>/comment/<int:comment_id>/delete/', views.comment_delete, name='comments_delete'),
 ]

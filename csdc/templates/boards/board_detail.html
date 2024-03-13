@@ -23,5 +23,21 @@
   <div class="post-detail" style="margin-block: 30px">
     <div class="content">{{board.content | safe}}</div>
   </div>
+<form method="POST">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">댓글 작성</button>
+</form>
+<br>
+<hr>
+{% for comment in board.comments.all %}
+    <p>{{ comment.commenter }}: {{ comment.content }}</p> 
+    {% if request.user == comment.commenter.user or request.user.is_superuser %}
+    <form action="{% url 'board:comment_delete' comment.id %}" method="POST" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" onclick="return confirm('댓글을 삭제하시겠습니까?');">삭제</button>
+    </form>
+{% endif %}
+{% endfor %}
 </div>
 {% endblock %}
