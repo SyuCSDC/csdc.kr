@@ -1,8 +1,64 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 <script>
   document.getElementById("msg").innerHTML = "게시글 세부 내용";
+
+  function onDelete() {
+    if (confirm("댓글을 삭제하시겠습니까?")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
+<style>
+  .hr-sect {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 20px 0px;
+  }
+  .hr-sect::after {
+    content: "";
+    flex-grow: 1;
+    background: black;
+    opacity: 0.25;
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+    margin: 0px 12px;
+  }
+  .hr {
+    margin: 0.8rem 0;
+    opacity: 0.1;
+  }
+  .comments {
+    display: flex;
+  }
+  .comment {
+    border: 1px solid #eee;
+    padding: 10px;
+    box-sizing: border-box;
+    resize: none;
+    border-radius: 2px;
+    flex-grow: 1;
+    margin-right: 6px;
+  }
+  .comment-remove {
+    background-color: #fff;
+    border: 1px solid #000000;
+    width: 48px;
+    border-radius: 2px;
+  }
+  .comment-button {
+    background-color: #fff;
+    border: 1px solid #000000;
+    width: 90px;
+    border-radius: 2px;
+  }
+</style>
 <div class="container" style="padding: 60px">
   <div>
     {% if notice %}
@@ -23,31 +79,32 @@
   <div class="post-detail" style="margin-block: 30px">
     <div class="content">{{board.content | safe}}</div>
   </div>
-  <hr>
   <div>
-    <div style="font-size: 20px; font-weight: bold; margin-bottom: 20px;">댓글</div>
-      {% for comment in board.comments.all %}
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-                <span style="font-weight: bold;">{{ comment.commenter }}</span>
-                <p style="margin: 0;">{{ comment.content }}</p>
-            </div>
-            {% if request.user == comment.commenter.user or request.user.is_superuser %}
-            <form action="{% url 'board:comment_delete' comment.id %}" method="POST" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" onclick="return confirm('댓글을 삭제하시겠습니까?');">삭제</button>
-            </form>
-            {% endif %}
-        </div>
-        <hr>
-      {% endfor %}
-    <div style="margin-top: 30px;">
-      <form method="POST">
+    <div class="hr-sect">댓글</div>
+    {% for comment in board.comments.all %}
+    <div style="display: flex; justify-content: space-between; align-items: center">
+      <div style="word-break: break-all; font-size: 14px">
+        <div style="color: #5c5c5c; font-weight: bold">{{ comment.commenter }}</div>
+        <div style="">{{ comment.content }}</div>
+      </div>
+      {% if request.user == comment.commenter.user or request.user.is_superuser %}
+      <form action="{% url 'board:comment_delete' comment.id %}" method="POST" style="display: inline">
         {% csrf_token %}
-        <div class="mb-2">{{ comment_form.content }}</div>
-        <button type="submit">댓글 작성</button>
+        <button type="submit" onclick="return onDelete();" class="comment-remove">삭제</button>
+      </form>
+      {% endif %}
+    </div>
+    <hr class="hr" />
+    {% endfor %}
+    <div style="margin-top: 30px">
+      <form method="post">
+        {% csrf_token %}
+        <div class="comments">
+          {{ comment_form.content }}
+          <button type="submit" class="comment-button">댓글 작성</button>
+        </div>
       </form>
     </div>
-</div>
+  </div>
 </div>
 {% endblock %}

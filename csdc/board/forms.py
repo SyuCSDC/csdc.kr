@@ -21,11 +21,14 @@ class CommentForm(forms.ModelForm):
         model = Comment
         exclude = ('board', 'type' , 'commenter' )
         fiedls = ['content']
-
+    
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
-        
-        self.fields['content'].label = ""
-        self.fields['content'].widget.attrs.update({'class': 'form-control'})
+
+    content = forms.CharField(label='', widget=forms.Textarea(attrs={
+        'class': 'comment',
+        'placeholder': '댓글을 입력하세요.',
+        'rows': 1,
+    }))
       
 
