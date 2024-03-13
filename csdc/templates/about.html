@@ -1,0 +1,291 @@
+{% load django_bootstrap5 %} {% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>About us</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}" />
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <style>
+      body {
+        background-color: #eee;
+      }
+      .container {
+        margin-block: 50px;
+      }
+
+      .img-circle {
+        border-radius: 50%;
+      }
+
+      .pull-left {
+        float: left !important;
+        padding-right: 10px;
+      }
+
+      .nav.nav-pills > li > a {
+        color: #777;
+        border-radius: 0 !important;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+
+      .nav.nav-pills > li.active > a,
+      .nav.nav-pills > li.active > a:hover,
+      .nav.nav-pills > li.active > a:focus {
+        color: #fff !important;
+        background-color: #2ecc71 !important;
+      }
+
+      .page-people-directory .nav-contacts {
+        margin-bottom: 20px;
+      }
+
+      .page-people-directory .nav-contacts li a {
+        color: #666;
+        font-weight: 400;
+        font-size: 13px;
+      }
+
+      .page-people-directory .nav-contacts li .badge {
+        background: none;
+        font-weight: 500;
+        color: #333;
+      }
+
+      .page-people-directory .nav-contacts li.active .badge {
+        color: #fff;
+        background: none;
+      }
+
+      .page-people-directory .people-group .media img {
+        width: 45px;
+      }
+
+      .page-people-directory .people-group .list-group-item {
+        -moz-transition: all 0.2s ease-out 0s;
+        -webkit-transition: all 0.2s ease-out 0s;
+        transition: all 0.2s ease-out 0s;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        margin: 0;
+        border-width: 0;
+      }
+
+      .page-people-directory .people-group .media-heading {
+        margin-top: 5px;
+      }
+
+      .page-people-directory .people-group .media-heading,
+      .page-people-directory .people-group .media-body {
+        line-height: normal;
+      }
+
+      .page-people-directory .pagination-contact {
+        margin-top: -3px;
+      }
+
+      .page-people-directory .contact-group {
+        margin-top: 20px;
+      }
+
+      .page-people-directory .contact-group .media img {
+        width: 80px;
+      }
+
+      .page-people-directory .contact-group .media-heading {
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .page-people-directory .contact-group .media-heading small {
+        margin-left: 5px;
+        font-size: 13px;
+        font-weight: 400;
+        color: #999;
+      }
+
+      .page-people-directory .contact-group .list-group-item {
+        border: none;
+        margin-top: 10px;
+      }
+
+      .page-people-directory .contact-group .list-group-item:hover {
+        background-color: #fcfcfc;
+      }
+
+      .page-people-directory .contact-group .media-content {
+        margin-top: 5px;
+      }
+
+      .page-people-directory .contact-group .fa:before {
+        font-size: 20px;
+        color: gray;
+      }
+
+      .page-people-directory .contact-group .media-content ul {
+        margin-top: 15px;
+        margin-bottom: 0;
+      }
+
+      .page-people-directory .contact-group .media-content ul > li {
+        display: inline-block;
+        min-width: 200px;
+        margin-bottom: 5px;
+      }
+
+      .page-people-directory .well {
+        border-radius: 0px;
+        border: none;
+      }
+
+      .page-people-directory .list-group-item:first-child {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+      }
+
+      .page-people-directory .page-title {
+        text-transform: uppercase;
+      }
+
+      .page-people-directory .btn-add-new-contact {
+        float: right;
+      }
+
+      @media (max-width: 992px) {
+        .page-people-directory .btn-add-new-contact {
+          float: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'nav.html' %}
+    <div class="container">
+      <div class="col-md-12">
+        <div class="page-people-directory">
+          <div class="row">
+            <div class="col-md-3">
+              <div style="margin-bottom: 20px">
+                <h5><b>My Profile</b></h5>
+                <div class="list-group people-group">
+                  <a href="#" class="list-group-item">
+                    <div class="media">
+                      <div style="text-align: center">
+                        <img
+                          style="width: 180px; border-radius: 50%"
+                          src="https://ynoblesse.com/wp-content/uploads/2022/08/297975306_1008248209844272_696700848492592655_n-1024x1024.jpg"
+                          alt="..."
+                        />
+                      </div>
+                      <div class="media-body">
+                        <div style="text-align: center">
+                          <h4 class="media-heading">{{ request.user.last_name }}{{ request.user.first_name }} ({{ request.user.userprofile.student_id }})</h4>
+                          <small>{{ request.user.userprofile.bio }}</small>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div style="margin-bottom: 20px">
+                <h5><b>Developers</b></h5>
+                <div class="list-group people-group">
+                  <a href="#" class="list-group-item">
+                    <div class="media">
+                      <div class="pull-left">
+                        <i class="bi bi-person-circle"></i>
+                      </div>
+                      <div class="media-body">
+                        <h4 class="media-heading">Kim Min Seong</h4>
+                        <small>-</small>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item">
+                    <div class="media">
+                      <div class="pull-left">
+                        <i class="bi bi-person-circle"></i>
+                      </div>
+                      <div class="media-body">
+                        <h4 class="media-heading">Kim Sang Yun</h4>
+                        <small>-</small>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="row">
+                <div class="col-md-6">
+                  <h3><strong>All Mentors</strong></h3>
+                </div>
+              </div>
+              <div class="list-group contact-group">
+                {% for user in users %}
+                <a href="#" class="list-group-item">
+                  <div class="media">
+                    <div class="pull-left">
+                      <img
+                        class="img-circle"
+                        src="https://ynoblesse.com/wp-content/uploads/2022/08/297975306_1008248209844272_696700848492592655_n-1024x1024.jpg"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="media-body">
+                      <h4 class="media-heading">
+                        <b>{{ user.user.last_name }}{{ user.user.first_name }} ({{ user.student_id}})</b>
+                        <small>{{ user.department }} {{ user.grade }}학년</small>
+                      </h4>
+                      <div class="media-content">
+                        <div>{{ user.bio }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="flex-1">
+        <span class="logo">© 2024 CSDC.</span>
+      </div>
+      <div class="flex-1">
+        <ul class="flex-2">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <form action="{% url 'user:logout' %}" method="post" style="display: inline">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ request.path }}" />
+              <button type="submit" class="nav-link btn btn-link" style="color: black">Logout</button>
+            </form>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <button class="nav-link btn btn-link active" onclick="location.href='/users/login'" style="color: black">Sign In</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link btn btn-link active" onclick="location.href='/users/register'" style="color: black">Sign Up</button>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <div class="sponsor">
+      <span>Powered by</span>
+      <div class="sponsor-img-cloud">
+        <img src="https://t1.kakaocdn.net/kakaoicloud/portal/images/logo_black_230116.png" width="160" />
+      </div>
+    </div>
+  </body>
+</html>
