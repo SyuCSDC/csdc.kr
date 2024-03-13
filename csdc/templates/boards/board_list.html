@@ -19,7 +19,7 @@
   }
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
-<div class="container" style="padding: 60px">
+<div style="padding: 60px">
   {% include 'desc.html' %}
   <div class="d-grid gap-1 d-md-flex justify-content-md-end" style="padding: 10px">
     {% if notice %} {% if request.user.is_superuser %}
@@ -31,30 +31,40 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">글 번호</th>
-        <th scope="col" style="width: 40%">글 제목</th>
-        <th scope="col" style="text-align: right">작성자</th>
-        <th scope="col" style="text-align: right">-</th>
+        <th scope="col" style="color: gray">-</th>
+        <th scope="col" style="color: gray">글 제목</th>
+        <th scope="col" style="width: 80px; text-align: right"></th>
+        <th scope="col" style="width: 120px; text-align: right"></th>
       </tr>
     </thead>
     <tbody>
       {% for board in boards %}
       <tr>
         <td scope="row" onclick="location.href='./{{ board.pk }}/'" style="cursor: pointer">{{ forloop.revcounter }}</td>
-        <td onclick="location.href='./{{ board.pk }}/'" style="font-weight: bold; cursor: pointer">{{ board.title }} ({{ board.comments.count }})</td>
+        <td onclick="location.href='./{{ board.pk }}/'" style="font-weight: bold; cursor: pointer">
+          {{ board.title }} <span style="color: red">[{{ board.comments.count }}]</span>
+        </td>
         <td onclick="location.href='./{{ board.pk }}/'" style="text-align: right; cursor: pointer">
-          {{ board.author.user.last_name }}{{ board.author.user.first_name }}({{ board.author.student_id }})
+          <span style="color: gray">{{ board.author.user.last_name }}{{ board.author.user.first_name }}</span>
         </td>
         <td style="text-align: right">
           {% if board.author.user == request.user %} {% if notice %}
-          <i class="bi bi-pencil"></i><a href="./{{ board.pk }}/update/" style="color: gray; font-weight: bold; text-decoration: none">수정하기</a>
+          <i class="bi bi-pencil"></i><a href="./{{ board.pk }}/update/" style="color: gray; font-weight: bold; text-decoration: none">수정</a>
           <i class="bi bi-trash3"></i
-          ><a onclick="return onDelete();" href="./{{ board.pk }}/delete/" style="color: gray; font-weight: bold; text-decoration: none">삭제하기</a>
+          ><a onclick="return onDelete();" href="./{{ board.pk }}/delete/" style="color: gray; font-weight: bold; text-decoration: none">삭제</a>
           {% else %}
-          <i class="bi bi-pencil"></i><a href="./{{ board.pk }}/update/" style="color: gray; font-weight: bold; text-decoration: none">수정하기</a>
+          <i class="bi bi-pencil"></i><a href="./{{ board.pk }}/update/" style="color: gray; font-weight: bold; text-decoration: none">수정</a>
           <i class="bi bi-trash3"></i
-          ><a onclick="return onDelete();" href="./{{ board.pk }}/delete/" style="color: gray; font-weight: bold; text-decoration: none">삭제하기</a>
-          {% endif %} {% endif %}
+          ><a onclick="return onDelete();" href="./{{ board.pk }}/delete/" style="color: gray; font-weight: bold; text-decoration: none">삭제</a>
+          {% endif %} {% else %}
+          <span style="color: gray">
+            {% now "Y-m-d" as today %} {% if board.created_date|date:"Y-m-d" != today %}
+            <span>{{ board.created_date | date:"Y.m.d" }}</span>
+            {% else %}
+            <span>{{ board.created_date | date:"H:i" }}</span>
+            {% endif %}
+          </span>
+          {% endif %}
         </td>
       </tr>
       {% endfor %}
