@@ -25,15 +25,16 @@
                 {% csrf_token %}
                 <input type="email" id="email" name="email" class="form-control" placeholder="이메일을 입력하세요." required />
                 <input type="text" id="student_id" name="student_id" class="form-control" placeholder="학번을 입력하세요." required />
-                {% if user_id %}
-                <div class="message" style="text-align: center;">아이디는 <strong>{{ user_id }}</strong> 입니다.</div>
-                {% elif error %}
-                <div class="message error">{{ error }}</div>
-                {% endif %}
+                <div class="login-text">
+                  {% if user_id %}
+                  <div class="message" style="color: white; text-align: center">아이디는 <strong>{{ user_id }}</strong> 입니다.</div>
+                  {% elif error %}
+                  <p>{{ error }}</p>
+                  {% endif %}
+                </div>
                 <div class="login-button">
-                    <button type="submit" class="btn-login">찾기</button>
-                  </div>
-              </form>
+                  <button type="submit" class="btn-login">찾기</button>
+                </div>
               </form>
             </div>
           </div>
