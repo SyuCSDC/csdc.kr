@@ -83,6 +83,6 @@ class MyforgotidView(TemplateView):
             user_id = user_profile.user.username # 또는 필요한 다른 식별자
             context['user_id'] = user_id  
         except UserProfile.DoesNotExist:
-            context['error'] = "No user found with the provided information."
+            context['error'] = "입력하신 정보를 찾을 수 없습니다. 다시 확인해주세요."
 
         return render(request , self.template_name, context)       
