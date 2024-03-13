@@ -170,7 +170,7 @@
       <div class="col-md-12">
         <div class="page-people-directory">
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-lg-3">
               <div style="margin-bottom: 20px">
                 <h5><b>My Profile</b></h5>
                 <div class="list-group people-group">
@@ -196,32 +196,20 @@
               <div style="margin-bottom: 20px">
                 <h5><b>Developers</b></h5>
                 <div class="list-group people-group">
+                  {% for admin in admins %}
                   <a href="#" class="list-group-item">
                     <div class="media">
-                      <div class="pull-left">
-                        <i class="bi bi-person-circle"></i>
-                      </div>
                       <div class="media-body">
-                        <h4 class="media-heading">Kim Min Seong</h4>
-                        <small>-</small>
+                        <h4 class="media-heading"><strong>{{ admin.last_name }}{{ admin.first_name }}</strong></h4>
+                        <small>{{ admin.userprofile.bio | linebreaksbr }}</small>
                       </div>
                     </div>
                   </a>
-                  <a href="#" class="list-group-item">
-                    <div class="media">
-                      <div class="pull-left">
-                        <i class="bi bi-person-circle"></i>
-                      </div>
-                      <div class="media-body">
-                        <h4 class="media-heading">Kim Sang Yun</h4>
-                        <small>-</small>
-                      </div>
-                    </div>
-                  </a>
+                  {% endfor %}
                 </div>
               </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-lg-9">
               <div class="row">
                 <div class="col-md-6">
                   <h3><strong>All Mentors</strong></h3>
