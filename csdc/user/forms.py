@@ -96,4 +96,15 @@ class UserRegisterForm(UserCreationForm):
         self.fields['department'].widget.attrs.update({'class': 'form-select'})
         
 class CustomPasswordResetForm(PasswordResetForm):
-    pass
+    def __init__(self, *args, **kwargs):
+        super(CustomPasswordResetForm, self).__init__(*args, **kwargs)
+    
+    student_id = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': '학번을 입력하세요.',
+    }))
+    
+    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={
+        'class': 'form-control',
+        'placeholder': '이메일을 입력하세요.',
+    }))
