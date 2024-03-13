@@ -63,11 +63,8 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     def get(self, request, *args, **kwargs):
         if 'email' not in request.session:
             return redirect(reverse_lazy('index'))
+        del request.session['email']
         return super().get(request, *args, **kwargs)
-    
-
-
-
 
 class MyforgotidView(TemplateView):
     template_name = 'user/forgot_id.html'
