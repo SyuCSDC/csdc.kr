@@ -144,6 +144,8 @@ EMAIL_PORT = 25
 EMAIL_HOST_USER = '컴퓨터공학부 학회 <no_reply@csdc.kr>'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+PASSWORD_RESET_TIMEOUT = 600
+
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
 LOGIN_REDIRECT_URL = reverse_lazy('index')
