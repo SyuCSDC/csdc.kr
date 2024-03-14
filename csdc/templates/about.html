@@ -24,7 +24,7 @@
 
       .pull-left {
         float: left !important;
-        padding-right: 10px;
+        padding-right: 16px;
       }
 
       .nav.nav-pills > li > a {
@@ -62,10 +62,6 @@
         background: none;
       }
 
-      .page-people-directory .people-group .media img {
-        width: 45px;
-      }
-
       .page-people-directory .people-group .list-group-item {
         -moz-transition: all 0.2s ease-out 0s;
         -webkit-transition: all 0.2s ease-out 0s;
@@ -92,10 +88,6 @@
 
       .page-people-directory .contact-group {
         margin-top: 20px;
-      }
-
-      .page-people-directory .contact-group .media img {
-        width: 80px;
       }
 
       .page-people-directory .contact-group .media-heading {
@@ -163,6 +155,30 @@
         }
       }
     </style>
+    <style>
+      .profile {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      .profile-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .user-profile {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      .user-profile-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
   </head>
   <body>
     {% include 'nav.html' %}
@@ -172,26 +188,34 @@
           <div class="row">
             <div class="col-lg-3">
               <div style="margin-bottom: 20px">
-                <h5><b>My Profile</b></h5>
-                <div class="list-group people-group">
+                <h5><i class="bi bi-person-circle"></i> <b>My Profile</b></h5>
+                <div style="background-color: #dddddd; padding-inline: 15px; border-radius: 5%">
                   <a href="#" class="list-group-item">
-                    <div class="media">
-                      <div style="text-align: center">
-                        <img style="width: 180px; height: 180px; border-radius: 50%" src="{{ user.userprofile.profile_img.url }}" alt="user_profile">
+                    <div class="media" style="display: grid; place-items: center; padding-block: 15px">
+                      <div class="profile">
+                        <img src="{{ user.userprofile.profile_img.url }}" class="profile-img" />
                       </div>
-                      <div class="media-body">
+                      <div class="media-body" style="padding-block: 15px">
                         <div style="text-align: center">
-                          <h4 class="media-heading">{{ request.user.last_name }}{{ request.user.first_name }} ({{ request.user.userprofile.student_id }})</h4>
+                          <h4 class="media-heading">
+                            <strong>{{ request.user.last_name }}{{ request.user.first_name }} ({{ request.user.userprofile.student_id }})</strong>
+                          </h4>
                           <small>{{ request.user.userprofile.bio }}</small>
-                          <a href="{% url 'user:profile' %}">edit profile</a>
                         </div>
                       </div>
+                    </div>
+                    <div style="text-align: center; padding-bottom: 15px">
+                      <strong
+                        ><a href="{% url 'user:profile' %}" style="color: gray; text-decoration: none"
+                          ><i class="bi bi-person-fill-gear"></i> 프로필 수정</a
+                        ></strong
+                      >
                     </div>
                   </a>
                 </div>
               </div>
               <div style="margin-bottom: 20px">
-                <h5><b>Developers</b></h5>
+                <h5><i class="bi bi-code"></i> <b>Developers</b></h5>
                 <div class="list-group people-group">
                   {% for admin in admins %}
                   <a href="#" class="list-group-item">
@@ -209,7 +233,7 @@
             <div class="col-lg-9">
               <div class="row">
                 <div class="col-md-6">
-                  <h3><strong>All Mentors</strong></h3>
+                  <h3><i class="bi bi-people"></i> <strong>All Mentors</strong></h3>
                 </div>
               </div>
               <div class="list-group contact-group">
@@ -217,11 +241,9 @@
                 <a href="#" class="list-group-item">
                   <div class="media">
                     <div class="pull-left">
-                      <img
-                        class="img-circle"
-                        src="{{ user.profile_img.url }}"
-                        alt="..."
-                      />
+                      <div class="user-profile">
+                        <img src="{{ user.profile_img.url }}" class="user-profile-img" />
+                      </div>
                     </div>
                     <div class="media-body">
                       <h4 class="media-heading">
