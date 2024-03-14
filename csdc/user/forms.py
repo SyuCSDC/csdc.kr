@@ -5,9 +5,6 @@ from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from .models import UserProfile , GRADE_CHOICES  , DEPARTMENT_CHOICES , ROLE_CHOICES
-import shutil , os
-from django.conf import settings
-from django.core.files import File
 
 
 class UserLoginForm(AuthenticationForm):

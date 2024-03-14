@@ -7,3 +7,6 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html', { 'admins': User.objects.filter(is_superuser=True), 'users': UserProfile.objects.filter(role='Mentor') })
+
+def privacypolicy(request):
+    return render(request, 'privacypolicy.txt')
