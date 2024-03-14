@@ -85,20 +85,9 @@ class UserRegisterForm(UserCreationForm):
         #     )
         if commit:
             user.save()
-            # UserProfile 인스턴스를 생성하기 전에 기본 이미지를 복사합니다.
-        
-            default_image_path = os.path.join(settings.STATIC_ROOT, 'default-image.png')
-            
-            image_copy_path = os.path.join(settings.MEDIA_ROOT, 'profile_img/default-image.png')
-            
-            # static 폴더에서 media 폴더로 기본 이미지를 복사합니다.
-            if not os.path.exists(image_copy_path):
-                shutil.copy(default_image_path, image_copy_path)
-            
-            # 기본 이미지를 사용하여 UserProfile 인스턴스를 생성합니다.
             profile = UserProfile.objects.create(
                 user=user,
-                profile_img='profile_img/default-image.png',
+                profile_img='static/default-profile.png',
                 grade=self.cleaned_data['grade'],
                 student_id=self.cleaned_data['student_id'],
                 department=self.cleaned_data['department'],

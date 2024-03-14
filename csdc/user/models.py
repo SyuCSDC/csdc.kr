@@ -26,7 +26,7 @@ class UserProfile(models.Model):
     department = models.CharField(max_length=20, choices=DEPARTMENT_CHOICES , default='컴퓨터공학부')
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     bio = models.TextField('한 줄 소개',blank=True)
-    profile_img = models.ImageField(upload_to='profile_img/', default='profile_img/default-profile.png')
+    profile_img = models.ImageField(upload_to='profile_img/', default='static/default-profile.png')
     
     def __str__(self):
         # User 모델의 first_name과 last_name을 사용하여 전체 이름 반환
