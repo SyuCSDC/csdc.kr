@@ -109,8 +109,10 @@ class UserProfileUpdateView(UpdateView):
         if new_image:
             if profile.profile_img:
                 old_image_path = profile.profile_img.path
-                if os.path.basename(old_image_path) != 'default-profile.png' and os.path.isfile(old_image_path):
-                    os.remove(old_image_path)
+                if os.path.basename(old_image_path) != 'default-profile.png':
+                    if 'profile_img/' + os.path.basename(old_image_path) != new_image:
+                        if os.path.isfile(old_image_path):
+                            os.remove(old_image_path)
         
         form.save()
         return super(UserProfileUpdateView, self).form_valid(form)
