@@ -150,7 +150,7 @@ class UserProfileForm(forms.ModelForm):
         choices=GRADE_CHOICES,  
         widget=forms.Select(
             attrs={
-                'class': 'form-select form-select-sm'
+                'class': 'form-select form-select'
             }
         ),
    
