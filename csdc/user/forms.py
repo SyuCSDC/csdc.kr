@@ -4,7 +4,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
-from .models import UserProfile
+from .models import UserProfile , GRADE_CHOICES  , DEPARTMENT_CHOICES , ROLE_CHOICES
+import shutil , os
+from django.conf import settings
+from django.core.files import File
 
 
 class UserLoginForm(AuthenticationForm):
@@ -26,7 +29,6 @@ class UserRegisterForm(UserCreationForm):
     department = forms.ChoiceField(choices=(('','과를 선택해주세요.'),('빅데이터 클라우드공학과','빅데이터 클라우드공학과'),('컴퓨터공학부','컴퓨터공학부')), required=True, label='Department')
     role = forms.ChoiceField(choices=(('', '역할을 선택해주세요.'), ('Mentor', 'Mentor'), ('Mentee', 'Mentee')), required=True, label='Role')
     bio = forms.CharField(widget=forms.Textarea, required=False, label='한 줄 소개')
-
     class Meta:
         model = User
         fields = ['username','last_name','first_name' ,'email', 'password1', 'password2','grade', 'student_id', 'department' ,'role', 'bio']
@@ -71,16 +73,39 @@ class UserRegisterForm(UserCreationForm):
         user = super().save(commit=False)
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
+        # if commit:
+        #     user.save()
+        #     UserProfile.objects.create(
+        #         user=user,
+        #         grade=self.cleaned_data['grade'],
+        #         student_id=self.cleaned_data['student_id'],
+        #         department=self.cleaned_data['department'],
+        #         role=self.cleaned_data['role'],
+        #         bio=self.cleaned_data['bio'],
+        #     )
         if commit:
             user.save()
-            UserProfile.objects.create(
+            # UserProfile 인스턴스를 생성하기 전에 기본 이미지를 복사합니다.
+        
+            default_image_path = os.path.join(settings.STATIC_ROOT, 'default-image.png')
+            
+            image_copy_path = os.path.join(settings.MEDIA_ROOT, 'profile_img/default-image.png')
+            
+            # static 폴더에서 media 폴더로 기본 이미지를 복사합니다.
+            if not os.path.exists(image_copy_path):
+                shutil.copy(default_image_path, image_copy_path)
+            
+            # 기본 이미지를 사용하여 UserProfile 인스턴스를 생성합니다.
+            profile = UserProfile.objects.create(
                 user=user,
+                profile_img='profile_img/default-image.png',
                 grade=self.cleaned_data['grade'],
                 student_id=self.cleaned_data['student_id'],
                 department=self.cleaned_data['department'],
                 role=self.cleaned_data['role'],
                 bio=self.cleaned_data['bio'],
             )
+            profile.save()
         return user
     
     def __init__(self, *args, **kwargs):
@@ -122,3 +147,72 @@ class CustomPasswordResetConfirmForm(SetPasswordForm):
         'class': 'form-control',
         'placeholder': '새 비밀번호를 다시 입력하세요.',
     }))
+
+class UserProfileForm(forms.ModelForm):
+    profile_img = forms.ImageField(
+        required=False,  # 필수가 아닌 경우
+        widget=forms.FileInput(
+            attrs={
+                'class' : 'form-control',
+                'onchange': 'previewImage(this);'
+                }
+            )
+        )
+    
+    grade = forms.ChoiceField(
+        required=True,
+        choices=GRADE_CHOICES,  
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select form-select-sm'
+            }
+        ),
+   
+    )
+    
+    student_id = forms.CharField(
+        required=True,  
+        widget=forms.TextInput(
+            attrs={
+                'class' : 'form-control'
+            }
+        )
+    )
+
+    department = forms.ChoiceField(
+        choices=DEPARTMENT_CHOICES,
+        required=True,  
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select form-select'
+            }
+        ),
+    )
+
+    role = forms.ChoiceField(
+        choices=ROLE_CHOICES, 
+        required=True,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select form-select'
+            }
+        ),
+    )
+
+    bio = forms.CharField(
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                'class' : 'form-control'
+            }
+        )
+    )
+
+    class Meta:
+        model = UserProfile
+        fields = ['profile_img','grade', 'student_id', 'department', 'role', 'bio'] 
+        
+        def __init__(self, *args, **kwargs):
+            super(UserRegisterForm, self).__init__(*args, **kwargs)
+            
+            

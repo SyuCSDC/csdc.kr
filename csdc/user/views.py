@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect 
-from django.contrib.auth import login
-from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView , PasswordResetCompleteView
-from django.views.generic import TemplateView
+from django.contrib.auth import login 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView , PasswordResetCompleteView 
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView , UpdateView
 from django.urls import reverse_lazy
 from user.models import UserProfile
 
-from .forms import UserLoginForm, UserRegisterForm, CustomPasswordResetForm, CustomPasswordResetConfirmForm
+import os
+
+from .forms import UserLoginForm, UserRegisterForm, CustomPasswordResetForm, CustomPasswordResetConfirmForm , UserProfileForm
 
 class UserLoginView(LoginView):
     template_name = 'user/login.html'
@@ -86,3 +90,27 @@ class MyforgotidView(TemplateView):
             context['error'] = "입력하신 정보를 찾을 수 없습니다. 다시 확인해주세요."
 
         return render(request , self.template_name, context)       
+    
+
+
+@method_decorator(login_required, name='dispatch')
+class UserProfileUpdateView(UpdateView):
+    model = UserProfile
+    template_name = 'user/profile.html' 
+    success_url = reverse_lazy('about') 
+    form_class = UserProfileForm
+
+    def get_object(self, queryset=None):
+        return UserProfile.objects.get(user=self.request.user)
+
+    def form_valid(self, form):
+        profile = self.get_object()
+        new_image = form.cleaned_data.get('profile_img')
+        if new_image:
+            if profile.profile_img:
+                old_image_path = profile.profile_img.path
+                if os.path.isfile(old_image_path):
+                    os.remove(old_image_path)
+        
+        form.save()
+        return super(UserProfileUpdateView, self).form_valid(form)
