@@ -29,10 +29,10 @@
           <td>{{ book.title }}</td>
           <td>{{ book.author }}</td>
           <td>{{ book.requester.last_name }}{{ book.requester.first_name }} - {{book.requester.userprofile.role}}</td>
-          <td>{{ book.needed_copies }}</td>
+          <td style="position: relative; left: 30px;">{{ book.needed_copies }}</td>
           <td>
             {% if book.requester == request.user %}
-            <a href="{% url 'report:book_update' pk=book.pk %}">수정하기</a>
+            <i class="bi bi-pencil"></i><a href="{% url 'report:book_update' pk=book.pk %}" style="color: gray; font-weight: bold; text-decoration: none">수정</a>
             {% endif %}
           </td>
         </tr>

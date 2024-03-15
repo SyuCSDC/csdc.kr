@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
-
+<link rel="stylesheet" href="{% static 'css/book_update_btn.css' %}" />
 <script>
   document.getElementById("msg").innerHTML = "도서 수정";
 </script>
@@ -27,8 +27,9 @@
     {% if form.needed_copies.errors %}
     <div class="alert alert-danger">{% for error in form.needed_copies.errors %} {{ error }} {% endfor %}</div>
     {% endif %}
-    <button type="submit" class="btn btn-primary" style="float: right">수정하기</button>
-    <a href="/reports/book_list/" class="btn btn-secondary" style="float: right">취소하기</a>
+    <a href="/reports/book_list/" class="a aLightBlue aFloat" style="color: white;"></a>
+    <button type="submit" class="button btnFloat btnLightBlue"></button>
+ 
   </form>
 </div>
 {% endblock %}
