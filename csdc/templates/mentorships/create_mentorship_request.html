@@ -2,6 +2,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
+<link rel="stylesheet" href="{% static 'css/requestbtn.css' %}" />
 <script>
   document.getElementById("msg").innerHTML = "멘토쉽 신청";
 </script>
@@ -16,8 +17,9 @@
 
 <div class="container" style="padding: 60px">
   {% include 'desc.html' %}
-  <div style="font-size: 20px; margin-left: 45px">멘토는 본인이 선정한 멘티들을 지정해주세요.</div>
-  <div style="font-size: 15px; margin-left: 45px">Tips: ctrl키로 여러명을 지정할 수 있습니다.</div>
+  <div style="font-size: 17px; margin-left: 40px; color: gray; ">멘토는 본인이 선정한 멘티들을 지정해주세요.</div>
+  <p style="font-size: 17px; margin-left: 40px; color: gray;">Tips: ctrl키로 여러명을 지정할 수 있습니다.</p>
+  <hr>
   <div style="margin: 25px">
     <form method="post">
       {% csrf_token %}
@@ -29,7 +31,7 @@
       {% if form.non_field_errors %}
       <div class="alert alert-danger" role="alert">{% for error in form.non_field_errors %} {{ error }} {% endfor %}</div>
       {% endif %}
-      <button type="submit" class="btn btn-primary" style="float: right">신청</button>
+      <button type="submit" class="button btnFloat btnLightBlue" style="float: right">신청</button>
     </form>
   </div>
 </div>

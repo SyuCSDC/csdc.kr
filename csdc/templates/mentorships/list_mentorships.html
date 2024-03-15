@@ -37,17 +37,18 @@
             {% with mentorship.mentee.all as mentees %} {% if mentees|length > 0 %} {{ mentees.0.user.last_name }}{{ mentees.0.user.first_name }} 
             {% if mentees|length > 1 %} 외 {{ mentees|length|add:"-1" }}명 {% endif %} {% else %} 멘티 없음 {% endif %} {% endwith %}
           </td>
-          <td>{% if mentorship.status == 'Active' %} <div style="color: blue;">활동</div> {% elif mentorship.status == 'Completed' %} <div style="color: green;">완료</div> {% else %} <div style="color: gray;">보류</div> {% endif %}</td>
+          <td>{% if mentorship.status == 'Active' %} <div style="color: blue;">활동</div> {% elif mentorship.status == 'Completed' %} <div style="color: green; font-weight: bold;">완료</div> {% else %} <div style="color: gray;">보류</div> {% endif %}</td>
           <td>{{ mentorship.start_date }}</td>
           <td>{{ mentorship.end_date }}</td>
           <td>{{ mentorship.book.title }}</td>
           <td>{{ mentorship.book.author }}</td>
           <td>
             {% if request.user.userprofile.role == 'Mentor' and mentorship.mentor.user == request.user %}
-            <a href="{% url 'mentorship:edit_mentorship' pk=mentorship.pk %}">수정하기</a>
+            <i class="bi bi-pencil"></i><a href="{% url 'mentorship:edit_mentorship' pk=mentorship.pk %}" style="color: gray; font-weight: bold; text-decoration: none">수정</a>
             <form method="post" action="{% url 'mentorship:delete_mentorship' pk=mentorship.pk %}" style="display: inline">
               {% csrf_token %}
-              <button type="submit" style="background: none; border: none; padding: 0; color: #007bff; cursor: pointer">삭제하기</button>
+              <i class="bi bi-trash3"></i
+                ><button type="submit" style="background: none; border: none; padding: 0; color: gray; cursor: pointer">삭제</button>
             </form>
             {% endif %}
           </td>
