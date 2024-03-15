@@ -1,11 +1,18 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
 <script>
   document.getElementById("msg").innerHTML = "멘토쉽 신청";
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let report = document.querySelector('.fas.fa-book');
+      report.className = 'fas fa-chalkboard-teacher'; 
+  });
+</script>
 
 <div class="container" style="padding: 60px">
   {% include 'desc.html' %}

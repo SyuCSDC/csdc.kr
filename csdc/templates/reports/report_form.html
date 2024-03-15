@@ -1,12 +1,19 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
 <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 
 <script>
   document.getElementById("msg").innerHTML = "레포트 제출";
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let report = document.querySelector('.fas.fa-book');
+      report.className = 'fas fa-scroll'; 
+  });
+</script>
+
 <script src="{% static 'js/tags-description.js' %}"></script>
 
 <div class="container" style="padding: 60px">

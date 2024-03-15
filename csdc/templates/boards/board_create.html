@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
 <link href="https://webfontworld.github.io/NanumSquare/NanumSquare.css" rel="stylesheet" />
 <script
   src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -15,6 +16,19 @@
 </style>
 <script>
   document.getElementById("msg").innerHTML = "게시글 작성";
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+    if (window.location.pathname === '/boards/notice/board_create/') {
+      let reportIcon = document.querySelector('.fas.fa-book');
+      if (reportIcon) {
+        reportIcon.className = 'fas fa-exclamation-circle'; 
+      }
+    }
+    else{
+      let reportIcon = document.querySelector('.fas.fa-book');
+      reportIcon.className = 'fas fa-chalkboard'; 
+    }
+  });
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
 <div class="container" style="padding: 60px">
