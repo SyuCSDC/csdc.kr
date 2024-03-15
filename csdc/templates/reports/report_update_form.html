@@ -2,6 +2,9 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
+<link rel="stylesheet" href="{% static 'css/report_updatebtn.css' %}" />
+<link rel="stylesheet" href="{% static 'css/report_plusbtn.css' %}" />
+<link rel="stylesheet" href="{% static 'css/report_delbtn.css' %}" />
 <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
@@ -50,9 +53,9 @@
         <span style="color: gray">추가할 파일</span>
         <div id="dynamic-fieldss" class="form-group dynamic-field newFields"></div>
         <div style="padding-block: 20px; text-align: right">
-          <button type="button" id="add-button" class="btn btn-secondary">추가</button>
-          <button type="button" id="remove-button" class="btn btn-secondary" disabled="disabled">제거</button>
-          <button type="submit" class="btn btn-primary">수정하기</button>
+          <button type="submit" class="button btnfloatreq btnLightreq" style="margin-left: 1px;"></button>
+          <button type="button" id="add-button" class="button btnFloat btnLightBlue" style="margin-left: 1px;"></button>
+          <button type="button" id="remove-button" class="button btnfloat btnLightRed " disabled="disabled"></button>
         </div>
       </div>
     </form>

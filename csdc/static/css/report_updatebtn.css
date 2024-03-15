@@ -1,4 +1,4 @@
- button.button {
+button.button {
     display: block;
     position: relative;
     float: right;
@@ -12,18 +12,18 @@
     border:none;
   }
   
-  .btnLightBlue {
-    background: #000d55;
+  .btnLightreq {
+    background: #f30d0d;
   }
   
   /* FLOAT */
-  .btnFloat {
+  .btnfloatreq {
     background: none;
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
   }
   
-  .btnFloat:before {
-    content: '신청';
+  .btnfloatreq:before {
+    content: '수정';
     display: block;
     top: 0;
     left: 0;
@@ -34,15 +34,15 @@
   
   }
   
-  .btnLightBlue.btnFloat:before {
-    background: #000d55;
+  .btnLightreq.btnfloatreq:before {
+    background: #00adfd;
   }
   
-  .btnFloat:before {
+  .btnfloatreq:before {
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.4);
   }
   
-  .btnFloat:hover:before {
+  .btnfloatreq:hover:before {
     margin-top: -2px;
     margin-left: 0px;
     transform: scale(1.1,1.1);

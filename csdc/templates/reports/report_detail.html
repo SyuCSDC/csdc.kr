@@ -15,12 +15,12 @@
 <div class="container" style="padding: 60px">
   {% include 'desc.html' %}
   <div style="margin: 25px">
-    <div style="margin-block: 25px"><span>책 제목: {{ report.book.title }}</span></div>
+    <div style="margin-block: 25px"><span style="font-weight: bold;">책 제목: {{ report.book.title }}</span></div>
     <div style="margin-block: 25px">
-      <span>제출자: {{ report.submitter.last_name }}{{ report.submitter.first_name }}</span>
+      <span style="font-weight: bold;">제출자: {{ report.submitter.last_name }}{{ report.submitter.first_name }}({{report.submitter.userprofile.student_id}})</span>
     </div>
     <div style="margin-block: 25px">
-      <span>날짜: {{ report.date | date:"Y-m-d H:i:s" }}</span>
+      <span style="font-weight: bold;">날짜: {{ report.date | date:"Y-m-d H:i:s" }}</span>
     </div>
     <div style="margin-block: 25px">
       <span style="color: gray">제출된 파일</span>

@@ -1,4 +1,4 @@
- button.button {
+button.button {
     display: block;
     position: relative;
     float: right;
@@ -23,11 +23,11 @@
   }
   
   .btnFloat:before {
-    content: '신청';
+    content: '+';
     display: block;
     top: 0;
     left: 0;
-    width: 58px;
+    width: 42px;
     height: 38px;
     border-radius: 5px;
     transition: all 0.2s ;
@@ -35,7 +35,7 @@
   }
   
   .btnLightBlue.btnFloat:before {
-    background: #000d55;
+    background: #001aacc9;
   }
   
   .btnFloat:before {
