@@ -10,3 +10,6 @@ def about(request):
 
 def privacypolicy(request):
     return render(request, 'privacypolicy.txt')
+
+def tos(request):
+    return render(request, 'ToS.txt' )
