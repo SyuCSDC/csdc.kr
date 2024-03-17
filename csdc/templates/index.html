@@ -14,6 +14,17 @@
       body {
         background-color: #000011;
       }
+      .screen-msg {
+        display: none;
+        color: white;
+        background-color: #ff0000;
+        text-align: center;
+      }
+      @media (width < 768px) {
+        .screen-msg {
+          display: block;
+        }
+      }
       @keyframes fade {
         0%,
         100% {
@@ -26,11 +37,12 @@
     </style>
   </head>
   <body>
+    <div class="screen-msg">이 사이트는 768px 이상의 화면으로 최적화 되어있습니다.</div>
     {% include 'nav.html' %}
     <header>
       <div style="height: 100vh">
         <div class="msg">
-          <h1>SYU CSDC</h1>
+          <img src="/static/csdc-kr.png" height="120" style="filter: brightness(10)" />
         </div>
       </div>
       <div
