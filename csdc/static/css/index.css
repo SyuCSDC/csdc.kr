@@ -6,6 +6,33 @@ html {
   scrollbar-color: #202020 #000011;
 }
 
+body {
+  background-color: #000011;
+}
+
+.screen-msg {
+  display: none;
+  color: white;
+  background-color: #ff0000;
+  text-align: center;
+}
+
+@media (width < 768px) {
+  .screen-msg {
+    display: block;
+  }
+}
+
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 canvas#networkCanvas {
   position: fixed; /* 배경으로 고정 */
   top: 0;
