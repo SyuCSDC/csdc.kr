@@ -8,6 +8,7 @@
     {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/mystyle.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
     {% bootstrap_javascript %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <style>
@@ -265,36 +266,6 @@
         </div>
       </div>
     </div>
-    <div class="footer">
-      <div class="flex-1">
-        <span class="logo">© 2024 CSDC.</span>
-      </div>
-      <div class="flex-1">
-        <ul class="flex-2">
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <form action="{% url 'user:logout' %}" method="post" style="display: inline">
-              {% csrf_token %}
-              <input type="hidden" name="next" value="{{ request.path }}" />
-              <button type="submit" class="nav-link btn btn-link" style="color: black">Logout</button>
-            </form>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <button class="nav-link btn btn-link active" onclick="location.href='/users/login'" style="color: black">Sign In</button>
-          </li>
-          <li class="nav-item">
-            <button class="nav-link btn btn-link active" onclick="location.href='/users/register'" style="color: black">Sign Up</button>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-    <div class="sponsor">
-      <span>Powered by</span>
-      <div class="sponsor-img-cloud">
-        <img src="https://t1.kakaocdn.net/kakaoicloud/portal/images/logo_black_230116.png" width="160" />
-      </div>
-    </div>
+    {% include 'footer.html' %}
   </body>
 </html>

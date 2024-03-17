@@ -20,21 +20,6 @@
   font-family: "NanumSquare", sans-serif;
 }
 
-.footer {
-  display: flex;
-  justify-content: center;
-  padding-inline: 40px;
-  font-size: 15pt;
-  font-weight: 300;
-  font-family: "Noto Sans KR", serif;
-}
-
-@media (width < 768px) {
-  .footer {
-    flex-direction: column-reverse;
-  }
-}
-
 .logo {
   font-weight: bold;
 }
@@ -59,33 +44,4 @@ ul {
 
 .flex-2 > li {
   margin-inline: 10px;
-}
-
-.sponsor {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding-block: 20px;
-  font-size: 15pt;
-  font-weight: 300;
-  font-family: "Noto Sans KR", serif;
-}
-
-.sponsor-img-cloud {
-  padding-inline: 6px;
-  max-width: 131px;
-  overflow: hidden;
-}
-
-.sponsor-img-school {
-  padding-inline: 4px;
-  max-width: 144px;
-  overflow: hidden;
-}
-
-.sponsor img {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: initial;
 }
