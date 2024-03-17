@@ -1,0 +1,21 @@
+{% load static %} {% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, shrink-to-fit=no" />
+    <title>SYU CSDC - Auth</title>
+    {% bootstrap_css %}
+    <script src="{% static 'js/network.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+    {% bootstrap_javascript %}
+  </head>
+  <body>
+    <canvas id="networkCanvas"></canvas>
+    <div class="container">
+      <div class="row">{% block content %} {% endblock %}</div>
+    </div>
+    {% include 'footer.html' %}
+  </body>
+</html>
