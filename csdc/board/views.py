@@ -1,7 +1,7 @@
 from django.shortcuts import render , get_object_or_404 , redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required , user_passes_test
-from django.http import HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden
 from .models import Board , Comment
 from .forms import BoardForm , CommentForm
 from django.contrib import messages
@@ -14,11 +14,11 @@ from django.urls import reverse
 
 def noticeBoard_list(request):
     boards = Board.objects.filter(type=0).order_by('-id')
-    return render(request, 'boards/board_list.html' , {'boards': boards, 'notice': True})
+    return render(request, 'boards/board_list.html' , {'boards': boards, 'type': 0})
 
 def noticeBoard_detail(request, board_id):
     board = get_object_or_404(Board, pk=board_id)
-    return render(request, 'boards/board_detail.html', {'board': board, 'notice': True})
+    return render(request, 'boards/board_detail.html', {'board': board})
 
 # 사용 예시
 @login_required
@@ -28,24 +28,24 @@ def noticeBoard_create(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.type = 0
-            post.author = request.user.userprofile 
-            post.created_date = timezone.now() 
+            post.author = request.user.userprofile
+            post.created_date = timezone.now()
             post.save()
-            return redirect("board:noticeBoard_list") 
+            return redirect("board:noticeBoard_list")
     else:
         form = BoardForm()
     return render(request, 'boards/board_create.html', {'form': form})
 
 @login_required
 def noticeBoard_update(request , board_id):
-    post = get_object_or_404(Board, pk=board_id)  
+    post = get_object_or_404(Board, pk=board_id)
     if request.method == "POST":
-        form = BoardForm(request.POST, instance=post)  
+        form = BoardForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect('board:noticeBoard_list')  
+            return redirect('board:noticeBoard_list')
     else:
-        form = BoardForm(instance=post)  
+        form = BoardForm(instance=post)
     
     return render(request, 'boards/board_update.html', {'form': form})
 
@@ -58,9 +58,66 @@ def noticeBoard_delete(request, board_id):
     return redirect('board:noticeBoard_list')
 
 @login_required
-def freeBoard_list(request):
+def studyBoard_list(request):
     boards = Board.objects.filter(type=1).order_by('-id')
-    return render(request, 'boards/board_list.html' , {'boards': boards})
+    return render(request, 'boards/board_list.html' , {'boards': boards, 'type': 1})
+
+@login_required
+def studyBoard_detail(request, board_id):
+    board = get_object_or_404(Board, pk=board_id)
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.board = board
+            comment.commenter = request.user.userprofile # 현재 로그인한 사용자
+            print(comment.commenter)
+            comment.save()
+            return redirect('board:studyBoard_detail', board_id=board.id)
+    else:
+        comment_form = CommentForm()
+    return render(request, 'boards/board_detail.html', {'board': board, 'comment_form': comment_form})
+
+@login_required
+def studyBoard_create(request):
+    if request.method == "POST":
+        form = BoardForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.type = 1
+            post.author = request.user.userprofile
+            post.created_date = timezone.now()
+            post.save()
+            return redirect("board:studyBoard_list")
+    else:
+        form = BoardForm()
+    return render(request, 'boards/board_create.html', {'form': form})
+
+@login_required
+def studyBoard_update(request , board_id):
+    post = get_object_or_404(Board, pk=board_id)
+    if request.method == "POST":
+        form = BoardForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('board:studyBoard_list')
+    else:
+        form = BoardForm(instance=post)
+    
+    return render(request, 'boards/board_update.html', {'form': form})
+
+@login_required
+def studyBoard_delete(request, board_id):
+    board = get_object_or_404(Board, pk=board_id)
+    if board.author.user != request.user:
+        return HttpResponseForbidden()
+    board.delete()
+    return redirect('board:studyBoard_list')
+
+@login_required
+def freeBoard_list(request):
+    boards = Board.objects.filter(type=2).order_by('-id')
+    return render(request, 'boards/board_list.html' , {'boards': boards, 'type': 2})
 
 @login_required
 def freeBoard_detail(request, board_id):
@@ -84,24 +141,25 @@ def freeBoard_create(request):
         form = BoardForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
+            post.type = 2
             post.author = request.user.userprofile
-            post.created_date = timezone.now() 
+            post.created_date = timezone.now()
             post.save()
-            return redirect("board:freeBoard_list") 
+            return redirect("board:freeBoard_list")
     else:
         form = BoardForm()
     return render(request, 'boards/board_create.html', {'form': form})
 
 @login_required
 def freeBoard_update(request , board_id):
-    post = get_object_or_404(Board, pk=board_id)  
+    post = get_object_or_404(Board, pk=board_id)
     if request.method == "POST":
-        form = BoardForm(request.POST, instance=post)  
+        form = BoardForm(request.POST, instance=post)
         if form.is_valid():
-            form.save()  
-            return redirect('board:freeBoard_list')  
+            form.save()
+            return redirect('board:freeBoard_list')
     else:
-        form = BoardForm(instance=post)  
+        form = BoardForm(instance=post)
     
     return render(request, 'boards/board_update.html', {'form': form})
 
@@ -113,16 +171,21 @@ def freeBoard_delete(request, board_id):
     board.delete()
     return redirect('board:freeBoard_list')
 
+
 @login_required
 def comment_delete(request, comment_id):
     if request.method == "POST":
         comment = get_object_or_404(Comment, id=comment_id)
         # 댓글 작성자만 삭제할 수 있도록 합니다.
         if request.user == comment.commenter.user or request.user.is_superuser:
-            board_id = comment.board.id  # 댓글이 속한 게시글의 ID를 저장합니다.
+            # board_id = comment.board.id  # 댓글이 속한 게시글의 ID를 저장합니다.
             comment.delete()
             messages.success(request, '댓글이 성공적으로 삭제되었습니다.')
-            return redirect(reverse('board:freeBoard_detail', args=[board_id]))
+            return HttpResponse("<script>location = document.referrer;</script>")
+            # return redirect(reverse('board:studyBoard_detail', args=[board_id]))
         else:
             messages.error(request, '댓글을 삭제할 권한이 없습니다.')
-            return redirect(reverse('board:freeBoard_detail', args=[comment.board.id]))
+            return HttpResponse("<script>location = document.referrer;</script>")
+            # return redirect(reverse('board:studyBoard_detail', args=[comment.board.id]))
+    else:
+        return redirect('/')

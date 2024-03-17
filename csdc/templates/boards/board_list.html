@@ -5,9 +5,11 @@
 
 <script>
   document.getElementById("msg").innerHTML = `
-    {% if notice %}
+    {% if type == 0 %}
     공지사항
-    {% else %}
+    {% elif type == 1 %}
+    스터디 모집
+    {% elif type == 2 %}
     자유게시판
     {% endif %}`;
 
@@ -18,16 +20,15 @@
       return false;
     }
   }
-  document.addEventListener('DOMContentLoaded', (event) => {
-    if (window.location.pathname === '/boards/notice/') {
-      let reportIcon = document.querySelector('.fas.fa-book');
+  document.addEventListener("DOMContentLoaded", (event) => {
+    if (window.location.pathname === "/boards/notice/") {
+      let reportIcon = document.querySelector(".fas.fa-book");
       if (reportIcon) {
-        reportIcon.className = 'fas fa-exclamation-circle'; 
+        reportIcon.className = "fas fa-exclamation-circle";
       }
-    }
-    else{
-      let reportIcon = document.querySelector('.fas.fa-book');
-      reportIcon.className = 'fas fa-chalkboard'; 
+    } else {
+      let reportIcon = document.querySelector(".fas.fa-book");
+      reportIcon.className = "fas fa-chalkboard";
     }
   });
 </script>
