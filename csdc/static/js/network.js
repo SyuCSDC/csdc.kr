@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.fill();
     });
   }
+
   //연결 선 함수
   function drawConnections() {
     nodes.forEach((node, index) => {
@@ -72,12 +73,14 @@ document.addEventListener("DOMContentLoaded", function () {
     drawNodes(); // 노드 그리기
     requestAnimationFrame(update); // 다음 프레임을 위한 업데이트 함수 호출
   }
+
   // 초기화
   function init() {
-    if (window.innerWidth < 512) {
-      createNodes(20); // 예: 100개의 노드 생성
+    const isMobile = /iPhone|iPad|iPod|BlackBerry|Android/i.test(window.navigator.userAgent);
+    if (isMobile) {
+      createNodes(25);
     } else {
-      createNodes(100); // 예: 100개의 노드 생성
+      createNodes(100);
     }
     update();
   }

@@ -100,4 +100,5 @@ ul {
 .navbar {
   opacity: 0;
   transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+  z-index: 1;
 }
