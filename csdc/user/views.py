@@ -12,11 +12,11 @@ import os
 from .forms import UserLoginForm, UserRegisterForm, CustomPasswordResetForm, CustomPasswordResetConfirmForm , UserProfileForm
 
 class UserLoginView(LoginView):
-    template_name = 'user/login.html'
+    template_name = 'user/auth/login.html'
     authentication_form = UserLoginForm
 
 class UserRegisterView(TemplateView):
-    template_name = 'user/register.html'
+    template_name = 'user/auth/register.html'
     
     def get(self, request):
         form = UserRegisterForm()
@@ -36,9 +36,9 @@ class UserRegisterView(TemplateView):
 
 
 class MyPasswordResetView(PasswordResetView):
-    subject_template_name='user/password_reset_subject.txt'
-    email_template_name='user/password_reset_email.txt'
-    html_email_template_name='user/password_reset_email.txt'
+    subject_template_name='user/auth/email/password_reset_subject.txt'
+    email_template_name='user/auth/email/password_reset_email.txt'
+    html_email_template_name='user/auth/email/password_reset_email.txt'
     form_class=CustomPasswordResetForm
     success_url = reverse_lazy('user:password_reset_done')
     
@@ -71,7 +71,7 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
         return super().get(request, *args, **kwargs)
 
 class MyforgotidView(TemplateView):
-    template_name = 'user/forgot_id.html'
+    template_name = 'user/auth/option/forgot_id.html'
 
     def get(self, request):
         return render(request, self.template_name)
