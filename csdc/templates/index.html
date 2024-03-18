@@ -33,7 +33,14 @@
       <div class="sticky">
         <div class="slide-container">
           <div id="scroll-down"></div>
-          <div class="slide" id="slide1" style="color: white; text-align: left; padding: 60px; justify-content: left">
+          <div class="slide" id="slide1" style="color: white; text-align: center; padding: 60px;  position: absolute;left: 0; right: 0  ">
+            <div class="content">
+              <div style="font-size: 25pt; font-weight: bold; margin-block: 20px">
+                CSDC는 학과 내 학우들의 학업증진과 선후배간의 커뮤니케이션을 위해 만들어진 사이트 입니다.
+              </div>
+            </div>
+          </div>
+          <div class="slide" id="slide2" style="color: white; text-align: right; padding: 60px; position: absolute; right: 0">
             <h1><a href="{% url 'board:studyBoard_list'%}" style="color: white; text-decoration: none">스터디 모집</a></h1>
             <div class="container">
               <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
@@ -50,7 +57,8 @@
               </div>
             </div>
           </div>
-          <div class="slide" id="slide2" style="color: white; text-align: right; padding: 60px; position: absolute; right: 0">
+
+          <div class="slide" id="slide3" style="color: white; text-align: left; padding: 60px">
             <h1><a href="{% url 'report:book_request' %}" style="color: white; text-decoration: none">도서 신청</a></h1>
             <div class="container">
               <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
@@ -65,11 +73,10 @@
               </div>
             </div>
           </div>
-
-          <div class="slide" id="slide3" style="color: white; text-align: left; padding: 60px">
+          <div class="slide" id="slide4" style="color: white; text-align: right; padding: 60px; position: absolute; right: 0">
             <h1><a href="{% url 'mentorship:create_mentorship_request'%}" style="color: white; text-decoration: none">멘토쉽 신청</a></h1>
             <div class="container" style="text-align: left">
-              <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
+              <div style="font-size: 20pt; font-weight: bold; margin-block: 20px; text-align: right;">
                 <i class="bi bi-info-circle"></i>
                 멘토쉽 신청은 아래를 참고해주세요.
               </div>
@@ -81,23 +88,18 @@
               </div>
             </div>
           </div>
-          <div class="slide" id="slide4" style="color: white; text-align: right; padding: 60px; position: absolute; right: 0">
+          <div class="slide" id="slide5" style="color: white; text-align: left; padding: 60px; position: absolute; left: 0">
             <h1><a href="{% url 'report:report_create' %}" style="text-decoration: none; color: white">레포트 제출</a></h1>
             <div class="container">
               <div style="font-size: 20pt; font-weight: bold; margin-block: 20px">
                 <i class="bi bi-info-circle"></i>
-                레포트 제출 페이지입니다.
+                레포트 제출은 아래를 참고해주세요.
               </div>
               <hr />
               <div style="color: gray; margin: 15px">
                 레포트는 선배와의 만남(컴퓨터공학부 멘토링) 및 옹기동기(빅데이터클라우드공학과) 동일하게 매주 월요일 자정까지 레포트 제출 기능을 통하여 레포트
                 게시판에 제출하며 각 팀의 멘토들이 멘티들의 레포트를 하나로 정리한 후 pdf양식으로 제출합니다.
               </div>
-            </div>
-          </div>
-          <div class="slide" id="slide5" style="color: white; text-align: center; padding: 60px; position: absolute; right: 0; left: 0">
-            <div class="container">
-              <div style="font-size: 40pt; font-weight: bold; margin-block: 20px">페이지의 의의</div>
             </div>
           </div>
         </div>
