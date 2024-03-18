@@ -157,6 +157,16 @@
       }
     </style>
     <style>
+      .button {
+        display: inline-block;
+        margin-right: 15px;
+        margin-left: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid gray;
+        font-size: 18pt;
+        font-weight: bold;
+        cursor: pointer;
+      }
       .profile {
         width: 160px;
         height: 160px;
@@ -180,6 +190,22 @@
         object-fit: cover;
       }
     </style>
+    <script>
+      function mentor() {
+        document.getElementById("mentee").style.borderBottom = "2px solid #808080";
+        document.getElementById("mentor").style.borderBottom = "2px solid #2aaaff";
+
+        document.getElementById("mentors").style.display = "flex";
+        document.getElementById("mentees").style.display = "none";
+      }
+      function mentee() {
+        document.getElementById("mentor").style.borderBottom = "2px solid #808080";
+        document.getElementById("mentee").style.borderBottom = "2px solid #2aaaff";
+
+        document.getElementById("mentees").style.display = "flex";
+        document.getElementById("mentors").style.display = "none";
+      }
+    </script>
   </head>
   <body>
     {% include 'nav.html' %}
@@ -236,11 +262,12 @@
             <div class="col-lg-9">
               <div class="row">
                 <div class="col-md-6">
-                  <h3><i class="bi bi-people"></i> <strong>All Mentors</strong></h3>
+                  <div class="button" id="mentor" onclick="mentor()" style="border-bottom: 2px solid #2aaaff"><i class="bi bi-people"></i> Mentors</div>
+                  <div class="button" id="mentee" onclick="mentee()" style="border-bottom: 2px solid #808080"><i class="bi bi-people"></i> Mentees</div>
                 </div>
               </div>
-              <div class="list-group contact-group">
-                {% for user in users %}
+              <div class="list-group contact-group" id="mentors" style="display: flex">
+                {% for user in mentors %} {% if not user.user.is_superuser %}
                 <a href="#" class="list-group-item">
                   <div class="media">
                     <div class="pull-left">
@@ -250,7 +277,7 @@
                     </div>
                     <div class="media-body">
                       <h4 class="media-heading">
-                        <b>{{ user.user.last_name }}{{ user.user.first_name }} ({{ user.student_id}})</b>
+                        <b>{{ user.user.last_name }}{{ user.user.first_name }}</b>
                         <small>{{ user.department }} {{ user.grade }}학년</small>
                       </h4>
                       <div class="media-content">
@@ -259,7 +286,29 @@
                     </div>
                   </div>
                 </a>
-                {% endfor %}
+                {% endif %} {% endfor %}
+              </div>
+              <div class="list-group contact-group" id="mentees" style="display: none">
+                {% for user in mentees %} {% if not user.user.is_superuser %}
+                <a href="#" class="list-group-item">
+                  <div class="media">
+                    <div class="pull-left">
+                      <div class="user-profile">
+                        <img src="{{ user.profile_img.url }}" class="user-profile-img" />
+                      </div>
+                    </div>
+                    <div class="media-body">
+                      <h4 class="media-heading">
+                        <b>{{ user.user.last_name }}{{ user.user.first_name }}</b>
+                        <small>{{ user.department }} {{ user.grade }}학년</small>
+                      </h4>
+                      <div class="media-content">
+                        <div>{{ user.bio }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                {% endif %} {% endfor %}
               </div>
             </div>
           </div>
