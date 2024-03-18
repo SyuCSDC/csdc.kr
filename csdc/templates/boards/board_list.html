@@ -33,7 +33,7 @@
   });
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
-<div style="padding: 60px">
+<div class="container" style="padding: 60px">
   {% include 'desc.html' %}
   <div class="d-grid gap-1 d-md-flex justify-content-md-end" style="padding: 10px">
     {% if notice %} {% if request.user.is_superuser %}
