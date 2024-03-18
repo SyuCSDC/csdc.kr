@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path ,include
 from django.conf import settings
+from django.views.generic import TemplateView
 from . import views
 
 
@@ -31,6 +32,7 @@ urlpatterns = [
     path('reports/' , include('report.urls')),
     path('mentorship/' , include('mentorship.urls')),
     path('boards/', include('board.urls')),
-    ]
+    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # media 경로 추가
