@@ -1,18 +1,13 @@
-{% extends 'base.html' %} {% load nbsp2space %} {% load static %} {% block title %}
+{% extends 'base.html' %} {% load static %} {% load nbsp2space %} {% block title %}
 <title>{{ board.title }}</title>
-
 <meta name="title" content="{{ board.title }}" />
 <meta name="description" content="{{ board.content | striptags | truncatechars:255 | nbsp2space}}" />
-
-<link rel="icon" href="{% static 'favicon.ico' %}" />
-
 <meta property="og:title" content="{{ board.title }}" />
 <meta property="og:description" content="{{ board.content | striptags | truncatechars:255 | nbsp2space}}" />
+<meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.csdc.kr{{ request.path }}" />
-<meta property="og:type" content="blog" />
-<meta property="og:image" content="" />
+<meta property="og:image" content="{% static 'board-default.png' %}" />
 {% endblock title %} {% block content %}
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
 
