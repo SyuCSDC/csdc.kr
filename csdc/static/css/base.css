@@ -4,11 +4,13 @@
 .bg-light {
   background-color: #f7f6f6 !important;
 }
+
 #holder {
   position: relative;
   height: 500px;
   background-color: black;
 }
+
 #msg {
   position: absolute;
   color: white;
@@ -18,30 +20,4 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: "NanumSquare", sans-serif;
-}
-
-.logo {
-  font-weight: bold;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.flex-1 {
-  display: flex;
-  justify-content: center;
-  padding: 5px;
-}
-
-.flex-2 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.flex-2 > li {
-  margin-inline: 10px;
 }

@@ -54,32 +54,6 @@ canvas#networkCanvas {
   font-family: "NanumSquare", sans-serif;
 }
 
-.logo {
-  font-weight: bold;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.flex-1 {
-  display: flex;
-  justify-content: center;
-  padding: 5px;
-}
-
-.flex-2 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.flex-2 > li {
-  margin-inline: 10px;
-}
-
 .navbar {
   opacity: 0;
   transition: visibility 0s linear 0.5s, opacity 0.5s linear;
