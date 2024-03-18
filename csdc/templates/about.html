@@ -216,8 +216,7 @@
             <div class="col-lg-3">
               {% if user.is_authenticated %}
               <div style="margin-bottom: 20px">
-                <h5><i class="bi bi-person-circle"></i> <b>My Profile</b></h5>
-                <div style="background-color: #dddddd; padding-inline: 15px; border-radius: 5%">
+                <div style="border: 1px solid gray; border-radius: 5px; padding-inline: 15px">
                   <a href="#" class="list-group-item">
                     <div class="media" style="display: grid; place-items: center; padding-block: 15px">
                       <div class="profile">
@@ -228,7 +227,8 @@
                           <h4 class="media-heading">
                             <strong>{{ request.user.last_name }}{{ request.user.first_name }} ({{ request.user.userprofile.student_id }})</strong>
                           </h4>
-                          <small>{{ request.user.userprofile.bio }}</small>
+                          <hr />
+                          <small>{{ request.user.userprofile.bio | linebreaksbr }}</small>
                         </div>
                       </div>
                     </div>
@@ -247,14 +247,14 @@
                 <h5><i class="bi bi-code"></i> <b>Developers</b></h5>
                 <div class="list-group people-group">
                   {% for admin in admins %}
-                  <a href="#" class="list-group-item">
+                  <div class="list-group-item" style="margin-top: 10px">
                     <div class="media">
                       <div class="media-body">
                         <h4 class="media-heading"><strong>{{ admin.last_name }}{{ admin.first_name }}</strong></h4>
                         <small>{{ admin.userprofile.bio | linebreaksbr }}</small>
                       </div>
                     </div>
-                  </a>
+                  </div>
                   {% endfor %}
                 </div>
               </div>
@@ -267,7 +267,7 @@
                 </div>
               </div>
               <div class="list-group contact-group" id="mentors" style="display: flex">
-                {% for user in mentors %} {% if not user.user.is_superuser %}
+                {% for user in mentors %}
                 <a href="#" class="list-group-item">
                   <div class="media">
                     <div class="pull-left">
@@ -286,10 +286,10 @@
                     </div>
                   </div>
                 </a>
-                {% endif %} {% endfor %}
+                {% endfor %}
               </div>
               <div class="list-group contact-group" id="mentees" style="display: none">
-                {% for user in mentees %} {% if not user.user.is_superuser %}
+                {% for user in mentees %}
                 <a href="#" class="list-group-item">
                   <div class="media">
                     <div class="pull-left">
@@ -308,7 +308,7 @@
                     </div>
                   </div>
                 </a>
-                {% endif %} {% endfor %}
+                {% endfor %}
               </div>
             </div>
           </div>
