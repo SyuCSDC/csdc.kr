@@ -20,7 +20,6 @@ def noticeBoard_detail(request, board_id):
     board = get_object_or_404(Board, pk=board_id)
     return render(request, 'boards/board_detail.html', {'board': board})
 
-# 사용 예시
 @login_required
 def noticeBoard_create(request):
     if request.method == "POST":
@@ -114,12 +113,10 @@ def studyBoard_delete(request, board_id):
     board.delete()
     return redirect('board:studyBoard_list')
 
-@login_required
 def freeBoard_list(request):
     boards = Board.objects.filter(type=2).order_by('-id')
     return render(request, 'boards/board_list.html' , {'boards': boards, 'type': 2})
 
-@login_required
 def freeBoard_detail(request, board_id):
     board = get_object_or_404(Board, pk=board_id)
     if request.method == "POST":
