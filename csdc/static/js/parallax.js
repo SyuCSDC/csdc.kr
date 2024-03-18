@@ -260,7 +260,64 @@ const def = new Map([
         },
       ],
     },
-  ]
+  ],
+  [
+    "slide5",
+    {
+      id: "slide5",
+      top: 6100,
+      bottom: 9000,
+      topStyle: {
+        opacity: 0,
+        translateY: -60,
+      },
+      bottomStyle: {
+        opacity: 0,
+        translateY: 60,
+      },
+      animations: [
+        {
+          enabled: false,
+          top: 6100,
+          bottom: 9000,
+          easing: midSlow,
+          styles: [
+            {
+              name: "translateY",
+              topValue: 60,
+              bottomValue: -60,
+            },
+          ],
+        },
+        {
+          enabled: false,
+          top: 6100,
+          bottom: 6700,
+          easing: ease,
+          styles: [
+            {
+              name: "opacity",
+              topValue: 0,
+              bottomValue: 1,
+            },
+          ],
+        },
+        {
+          enabled: false,
+          top: 6800,
+          bottom: 9000,
+          easing: easeIn,
+          styles: [
+            {
+              name: "opacity",
+              topValue: 1,
+              bottomValue: 0,
+            },
+          ],
+        },
+      ],
+    },
+  ],
 //   [
 //     "slide5",
 //     {
@@ -357,7 +414,7 @@ const elements = {
   slide3: document.getElementById("slide3"),
   "moving-background": document.getElementById("moving-background"),
   slide4: document.getElementById("slide4"),
-//   slide5: document.getElementById("slide5"),
+  slide5: document.getElementById("slide5"),
 };
 
 function onScroll() {
@@ -413,7 +470,7 @@ window.addEventListener("scroll", onScroll);
 
 function initAnimation() {
   // Sticky Conainer 의 높이를 설정함.
-  elements["sticky-container"].style.height = `6000px`;
+  elements["sticky-container"].style.height = `9000px`;
 
   // 모든 요소를 disabled 에 넣음.
   def.forEach((obj, id) => {
