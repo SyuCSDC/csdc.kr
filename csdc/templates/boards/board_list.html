@@ -11,6 +11,8 @@
     스터디 모집
     {% elif type == 2 %}
     자유게시판
+    {% elif type == 3 %}
+    질문게시판
     {% endif %}`;
 
   function onDelete() {
@@ -26,7 +28,20 @@
       if (reportIcon) {
         reportIcon.className = "fas fa-exclamation-circle";
       }
-    } else {
+    }
+    else if(window.location.pathname === "/boards/study/"){
+      let studyIcon = document.querySelector(".fas.fa-book");
+      if (studyIcon) {
+        studyIcon.className = "fas fa-university";
+      }
+    } 
+    else if(window.location.pathname === "/boards/question/"){
+      let studyIcon = document.querySelector(".fas.fa-book");
+      if (studyIcon) {
+        studyIcon.className = "fas fa-question-circle";
+      }
+    } 
+    else {
       let reportIcon = document.querySelector(".fas.fa-book");
       reportIcon.className = "fas fa-chalkboard";
     }

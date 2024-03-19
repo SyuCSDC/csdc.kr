@@ -170,6 +170,65 @@ def freeBoard_delete(request, board_id):
 
 
 @login_required
+def question_list(request):
+    boards = Board.objects.filter(type=3).order_by('-id')
+    return render(request, 'boards/board_list.html' , {'boards': boards, 'type': 3})
+
+
+@login_required
+def questionBoard_detail(request, board_id):
+    board = get_object_or_404(Board, pk=board_id)
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.board = board
+            comment.commenter = request.user.userprofile # 현재 로그인한 사용자
+            print(comment.commenter)
+            comment.save()
+            return redirect('board:questionBoard_detail', board_id=board.id)
+    else:
+        comment_form = CommentForm()
+    return render(request, 'boards/board_detail.html', {'board': board, 'comment_form': comment_form})
+
+@login_required
+def questionBoard_create(request):
+    if request.method == "POST":
+        form = BoardForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.type = 3
+            post.author = request.user.userprofile
+            post.created_date = timezone.now()
+            post.save()
+            return redirect("board:questionBoard_list")
+    else:
+        form = BoardForm()
+    return render(request, 'boards/board_create.html', {'form': form})
+
+@login_required
+def questionBoard_update(request , board_id):
+    post = get_object_or_404(Board, pk=board_id)
+    if request.method == "POST":
+        form = BoardForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('board:questionBoard_list')
+    else:
+        form = BoardForm(instance=post)
+    
+    return render(request, 'boards/board_update.html', {'form': form})
+
+@login_required
+def questionBoard_delete(request, board_id):
+    board = get_object_or_404(Board, pk=board_id)
+    if board.author.user != request.user:
+        return HttpResponseForbidden()
+    board.delete()
+    return redirect('board:questionBoard_list')
+
+
+@login_required
 def comment_delete(request, comment_id):
     if request.method == "POST":
         comment = get_object_or_404(Comment, id=comment_id)
@@ -186,3 +245,6 @@ def comment_delete(request, comment_id):
             # return redirect(reverse('board:studyBoard_detail', args=[comment.board.id]))
     else:
         return redirect('/')
+    
+
+
