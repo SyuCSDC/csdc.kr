@@ -262,8 +262,12 @@
             <div class="col-lg-9">
               <div class="row">
                 <div class="col-md-6">
-                  <div class="button" id="mentor" onclick="mentor()" style="border-bottom: 2px solid #2aaaff"><i class="bi bi-people"></i> Mentors</div>
-                  <div class="button" id="mentee" onclick="mentee()" style="border-bottom: 2px solid #808080"><i class="bi bi-people"></i> Mentees</div>
+                  <div class="button" id="mentor" onclick="mentor()" style="border-bottom: 2px solid #2aaaff">
+                    <i class="bi bi-people"></i> {{ mentors | length }} Mentors
+                  </div>
+                  <div class="button" id="mentee" onclick="mentee()" style="border-bottom: 2px solid #808080">
+                    <i class="bi bi-people"></i> {{ mentees | length }} Mentees
+                  </div>
                 </div>
               </div>
               <div class="list-group contact-group" id="mentors" style="display: flex">
