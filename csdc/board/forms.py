@@ -14,6 +14,7 @@ class BoardForm(forms.ModelForm):
         super(BoardForm, self).__init__(*args, **kwargs)
         
         self.fields['title'].widget.attrs.update({'class': 'form-control'})
+        self.fields['title'].widget.attrs['maxlength'] = 50
         self.fields['content'].widget.attrs.update({'id': 'summernote'})
 
 class CommentForm(forms.ModelForm):
