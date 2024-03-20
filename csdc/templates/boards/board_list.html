@@ -74,7 +74,7 @@
           {{ board.title }} <span style="color: red">[{{ board.comments.count }}]</span>
         </td>
         <td onclick="location.href='./{{ board.pk }}/'" style="text-align: right; cursor: pointer">
-          <span style="color: gray; white-space: nowrap;">{{ board.author.user.last_name }}{{ board.author.user.first_name }}-{{board.author.user.userprofile.role}}</span>
+          <span style="color: gray; white-space: nowrap;">{{ board.author.user.last_name }}{{ board.author.user.first_name }}({{board.author.user.userprofile.role}})</span>
         </td>
         <td style="text-align: right">
           {% if board.author.user == request.user %} {% if notice %}
