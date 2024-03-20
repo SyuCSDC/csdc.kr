@@ -71,6 +71,20 @@
     border-radius: 2px;
   }
 </style>
+<style>
+  .profile {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 10px;
+  }
+  .profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
 <div class="container" style="padding: 60px">
   <div style="font-size: 14pt">
     <i class="bi bi-box-arrow-up-left"></i>
@@ -79,14 +93,29 @@
   <div style="margin-block: 20px">
     <div style="font-size: 2.5rem; font-weight: bold">{% if notice %}※{% else %}<i class="bi bi-card-text"></i>{% endif %} {{ board.title }}</div>
     <div style="text-align: right; margin-block: 20px">
-      <span>{{ board.author.user.last_name }}{{ board.author.user.first_name}}({{ board.author.student_id }}) </span>
-      <span style="padding-inline: 5px; color: gray">|</span>
-      <span style="font-weight: bold">{{ board.created_date | date:"Y-m-d H:i:s" }}</span>
+      <!-- <span>{{ board.author.user.last_name }}{{ board.author.user.first_name}}({{ board.author.student_id }}) </span>
+      <span style="padding-inline: 5px; color: gray">|</span> -->
+      <span style="color: #acacac">{{ board.created_date | date:"Y-m-d H:i:s" }}</span>
     </div>
   </div>
   <hr />
   <div class="post-detail" style="margin-block: 30px">
     <div class="content">{{board.content | safe}}</div>
+  </div>
+  <div style="border: 1px solid #f0f0f0">
+    <div class="d-flex flex-wrap align-content-start">
+      <div style="align-self: center; margin: 5px">
+        <div class="profile">
+          <img src="{{ board.author.user.userprofile.profile_img.url }}" class="profile-img" />
+        </div>
+      </div>
+      <div style="align-self: center; margin: 10px">
+        <span style="font-weight: bold">{{ board.author.user.last_name }}{{ board.author.user.first_name}} ({{ board.author.student_id }})</span>
+      </div>
+      <div style="margin: 15px">
+        <span style="color: gray; font-size: 10pt">{{ board.author.user.userprofile.bio | linebreaksbr }}</span>
+      </div>
+    </div>
   </div>
   <div>
     <div class="hr-sect">댓글</div>
