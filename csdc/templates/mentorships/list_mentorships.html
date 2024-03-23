@@ -1,61 +1,153 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
 <script>
   document.getElementById("msg").innerHTML = "멘토쉽 목록";
 </script>
 <script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-    let report = document.querySelector('.fas.fa-book');
-      report.className = 'fas fa-chalkboard-teacher'; 
+  document.addEventListener("DOMContentLoaded", (event) => {
+    let report = document.querySelector(".fas.fa-book");
+    report.className = "fas fa-chalkboard-teacher";
   });
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
+<script>
+  // let user = JSON.parse(`{{ jsonData | safe }}`);
 
+  // function showModal(id) {
+  //   let result = user.filter(function (element) {
+  //     if (element.fields.mentor == id) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   });
+  //   document.getElementById("mentorship").innerHTML = `
+  //     <div>시작 날짜: <strong>${result[0].fields.start_date}</strong></div>
+  //     <div>종료 날짜: <strong>${result[0].fields.end_date}</strong></div>
+  //     `;
+  // }
+  function showMentee(mentees) {
+    let menteesDiv = "";
+    for (mentee of mentees) {
+      menteesDiv += "<div>- <strong>" + mentee + "</strong></div>";
+    }
+    return menteesDiv;
+  }
+  function showModal(mentees, start, end) {
+    document.getElementById("mentorship").innerHTML = `
+      <div>시작 날짜: <strong>${start}</strong></div>
+      <div>종료 날짜: <strong>${end}</strong></div>
+      <hr />
+      <div>멘티 목록:</div>
+      ${showMentee(mentees)}
+    `;
+  }
+</script>
+<style>
+  .modal-dialog {
+    top: calc(30%);
+  }
+</style>
 <div class="container" style="padding: 60px">
   {% include 'desc.html' %}
   <div class="table-responsive-lg">
     <table class="table">
       <thead>
         <tr>
+          <th scope="col">-</th>
           <th scope="col">멘토</th>
           <th scope="col">멘티</th>
-          <th scope="col">활동 상태</th>
-          <th scope="col">시작 날짜</th>
-          <th scope="col">종료 날짜</th>
+          <!-- <th scope="col">시작 날짜</th>
+          <th scope="col">종료 날짜</th> -->
           <th scope="col">책 제목</th>
-          <th scope="col">저자</th>
           <th scope="col">관리</th>
+          <th scope="col">정보</th>
+          <th scope="col">상태</th>
         </tr>
       </thead>
       <tbody>
         {% for mentorship in mentorships %}
         <tr>
-          <td>{{ mentorship.mentor.user.last_name }}{{ mentorship.mentor.user.first_name }}</td>
           <td>
-            {% with mentorship.mentee.all as mentees %} {% if mentees|length > 0 %} {{ mentees.0.user.last_name }}{{ mentees.0.user.first_name }} 
-            {% if mentees|length > 1 %} 외 {{ mentees|length|add:"-1" }}명 {% endif %} {% else %} 멘티 없음 {% endif %} {% endwith %}
+            {{ mentorship.start_date|date:"Y년 " }} {% with month=mentorship.start_date|date:"m" %} {% if month == '03' or month == '04' %}
+            <span>1학기</span>
+            {% elif month == '09' or month >= '10' %}
+            <span>2학기</span>
+            {% else %}
+            <span>알 수 없음</span>
+            {% endif %} {% endwith %}
           </td>
-          <td>{% if mentorship.status == 'Active' %} <div style="color: blue;">활동</div> {% elif mentorship.status == 'Completed' %} <div style="color: green; font-weight: bold;">완료</div> {% else %} <div style="color: gray;">보류</div> {% endif %}</td>
-          <td>{{ mentorship.start_date }}</td>
-          <td>{{ mentorship.end_date }}</td>
-          <td>{{ mentorship.book.title }}</td>
-          <td>{{ mentorship.book.author }}</td>
+          <td><strong>{{ mentorship.mentor.user.last_name }}{{ mentorship.mentor.user.first_name }}</strong></td>
+          <td>{{ mentorship.mentee.all | length }}명</td>
+          <!-- <td>
+            {% with mentorship.mentee.all as mentees %}
+            {% if mentees|length > 0 %}
+            {{ mentees.0.user.last_name }}
+            {{ mentees.0.user.first_name }}
+            {% if mentees|length > 1 %} 외 {{ mentees|length|add:"-1" }}명
+            {% endif %}
+            {% else %}
+            멘티 없음
+            {% endif %}{% endwith %}
+          </td> -->
+          <!-- <td>{{ mentorship.start_date }}</td>
+          <td>{{ mentorship.end_date }}</td> -->
+          <td>{{ mentorship.book.title }} <span style="color: gray">({{ mentorship.book.author }})</span></td>
           <td>
-            {% if request.user.userprofile.role == 'Mentor' and mentorship.mentor.user == request.user %}
-            <i class="bi bi-pencil"></i><a href="{% url 'mentorship:edit_mentorship' pk=mentorship.pk %}" style="color: gray; font-weight: bold; text-decoration: none">수정</a>
+            {% if request.user.userprofile.role == 'Mentor' and mentorship.mentor.user == request.user or request.user.is_superuser %}
+            <i class="bi bi-pencil"></i><a href="{% url 'mentorship:edit_mentorship' pk=mentorship.pk %}" style="color: gray; text-decoration: none">수정</a>
             <form method="post" action="{% url 'mentorship:delete_mentorship' pk=mentorship.pk %}" style="display: inline">
               {% csrf_token %}
-              <i class="bi bi-trash3"></i
-                ><button type="submit" style="background: none; border: none; padding: 0; color: gray; cursor: pointer">삭제</button>
+              <i class="bi bi-trash3"></i><button type="submit" style="background: none; border: none; padding: 0; color: gray; cursor: pointer">삭제</button>
             </form>
             {% endif %}
+          </td>
+          <td>
+            {% with mentorship.mentee.all as mentees %}
+            <a
+              style="cursor: pointer"
+              data-bs-toggle="modal"
+              data-bs-target="#mentor-info"
+              onclick="showModal([{% for mentee in mentees %}'{{ mentee.user.last_name }}{{ mentee.user.first_name }} ({{ mentee.department }} {{ mentee.grade }}학년)',{% endfor %}], '{{ mentorship.start_date }}', '{{ mentorship.end_date }}')"
+            >
+              <strong>확인</strong>
+            </a>
+            {% endwith %}
+          </td>
+          <td>
+            <strong>
+              {% if mentorship.status == 'Active' %}
+              <div style="color: blue">활동</div>
+              {% elif mentorship.status == 'Completed' %}
+              <div style="color: green; font-weight: bold">완료</div>
+              {% else %}
+              <div style="color: gray">보류</div>
+              {% endif %}
+            </strong>
           </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
-  {% endblock %}
 </div>
+<div class="modal fade" id="mentor-info" tabindex="-1" aria-labelledby="mentor-info" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="content" style="font-size: 1.5rem">
+          <span style="font-weight: bold">멘토쉽 정보</span>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <span id="mentorship"></span>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+{% endblock %}

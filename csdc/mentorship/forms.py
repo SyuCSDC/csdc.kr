@@ -16,19 +16,21 @@ class MentorshipForm(forms.ModelForm):
     )
     
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
         super(MentorshipForm, self).__init__(*args, **kwargs)
 
-         # 모든 책을 제목 순으로 정렬
-        books_ordered = Book.objects.all().order_by('title', '-id')
-        # 제목별로 첫 번째 책만 선택
-        unique_books = []
-        for key, group in groupby(books_ordered, lambda x: x.title):
-            unique_books.append(list(group)[0])
+        #  # 모든 책을 제목 순으로 정렬
+        # books_ordered = Book.objects.all().order_by('title', '-id')
+        # # 제목별로 첫 번째 책만 선택
+        # unique_books = []
+        # for key, group in groupby(books_ordered, lambda x: x.title):
+        #     unique_books.append(list(group)[0])
 
-        # 중복 제거된 책 목록으로 book 필드의 queryset 업데이트
-        self.fields['book'].queryset = Book.objects.filter(id__in=[book.id for book in unique_books])
+        # # 중복 제거된 책 목록으로 book 필드의 queryset 업데이트
+        # self.fields['book'].queryset = Book.objects.filter(id__in=[book.id for book in unique_books])
+        self.fields['book'].queryset = Book.objects.all() if self.request.user.is_superuser else Book.objects.filter(requester=self.request.user.pk)
         
-        self.fields['mentees'].empty_label = "멘티를 선택해주세요."
+        self.fields['mentees'].empty_label = '멘티를 선택해주세요.'
         self.fields['mentees'].widget.attrs.update({'class': 'form-select'})
         self.fields['book'].empty_label = '책을 선택해주세요.'
         self.fields['book'].widget.attrs.update({'class': 'form-select'})

@@ -7,9 +7,9 @@
   document.getElementById("msg").innerHTML = "멘토쉽 수정";
 </script>
 <script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-    let report = document.querySelector('.fas.fa-book');
-      report.className = 'fas fa-chalkboard-teacher'; 
+  document.addEventListener("DOMContentLoaded", (event) => {
+    let report = document.querySelector(".fas.fa-book");
+    report.className = "fas fa-chalkboard-teacher";
   });
 </script>
 <script src="{% static 'js/tags-description.js' %}"></script>
@@ -20,14 +20,17 @@
     <form method="post">
       {% csrf_token %}
       <div class="mb-3">{{ form.mentees }}</div>
-      <div class="mb-3">{{ form.book }}</div>
+      <div class="mb-3">
+        <span style="color: red">※ 본인이 신청한 책만 선택할 수 있습니다.</span>
+        {{ form.book }}
+      </div>
       <div class="mb-3">{{ form.start_date }}</div>
       <div class="mb-3">{{ form.end_date }}</div>
       <div class="mb-3">{{ form.status }}</div>
       {% if form.non_field_errors %}
       <div class="alert alert-danger" role="alert">{% for error in form.non_field_errors %} {{ error }} {% endfor %}</div>
       {% endif %}
-      <a href="{% url 'mentorship:list_mentorships' %}" class="a aLightBlue aFloat" style="color: white;"></a>
+      <a href="{% url 'mentorship:list_mentorships' %}" class="a aLightBlue aFloat" style="color: white"></a>
       <button type="submit" class="button btnFloat btnLightBlue"></button>
     </form>
   </div>

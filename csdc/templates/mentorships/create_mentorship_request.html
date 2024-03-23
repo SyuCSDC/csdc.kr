@@ -9,29 +9,32 @@
 <script src="{% static 'js/tags-description.js' %}"></script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-    let report = document.querySelector('.fas.fa-book');
-      report.className = 'fas fa-chalkboard-teacher'; 
+  document.addEventListener("DOMContentLoaded", (event) => {
+    let report = document.querySelector(".fas.fa-book");
+    report.className = "fas fa-chalkboard-teacher";
   });
 </script>
 
 <div class="container" style="padding: 60px">
   {% include 'desc.html' %}
-  <div style="font-size: 17px; margin-left: 40px; color: gray; ">멘토는 본인이 선정한 멘티들을 지정해주세요.</div>
-  <p style="font-size: 17px; margin-left: 40px; color: gray;">Tips: ctrl키로 여러명을 지정할 수 있습니다.</p>
-  <hr>
+  <div style="font-size: 17px; margin-left: 40px; color: gray">멘토는 본인이 선정한 멘티들을 지정해주세요.</div>
+  <p style="font-size: 17px; margin-left: 40px; color: gray">Tips: ctrl키로 여러명을 지정할 수 있습니다.</p>
+  <hr />
   <div style="margin: 25px">
     <form method="post">
       {% csrf_token %}
       <div class="mb-3">{{ form.mentees }}</div>
-      <div class="mb-3">{{ form.book }}</div>
+      <div class="mb-3">
+        <span style="color: red">※ 본인이 신청한 책만 선택할 수 있습니다.</span>
+        {{ form.book }}
+      </div>
       <div class="mb-3">{{ form.start_date }}</div>
       <div class="mb-3">{{ form.end_date }}</div>
       <div class="mb-3">{{ form.status }}</div>
       {% if form.non_field_errors %}
       <div class="alert alert-danger" role="alert">{% for error in form.non_field_errors %} {{ error }} {% endfor %}</div>
       {% endif %}
-      <button type="submit" class="button btnFloat btnLightBlue" ></button>
+      <button type="submit" class="button btnFloat btnLightBlue"></button>
     </form>
   </div>
 </div>

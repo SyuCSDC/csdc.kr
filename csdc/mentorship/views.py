@@ -10,7 +10,7 @@ def is_mentor(user):
     return user.userprofile.role == 'Mentor'
 
 # 멘토만 접근 가능한 데코레이터
-mentor_required = user_passes_test(is_mentor, login_url='/users/login/')
+mentor_required = user_passes_test(is_mentor, login_url='/')
 
 #현재 진행중인 모든 멘토링
 @login_required
@@ -46,7 +46,7 @@ def create_mentorship_request(request):
             available_mentees = UserProfile.objects.filter(role='Mentee').exclude(id__in=engaged_mentee_ids)
             form.fields['mentees'].queryset = available_mentees
     else:
-        form = MentorshipForm()
+        form = MentorshipForm(request=request)
         #멘토링에 이미 참여하고 있는 멘티의 ID 목록
         engaged_mentee_ids = Mentorship.objects.values_list('mentee__id', flat=True)
         # 멘티 역할을 가진 사용자 중에서, 멘토링에 참여하지 않은 사용자만 필터링
@@ -71,7 +71,7 @@ def edit_mentorship(request, pk):
             mentorship.mentee.set(form.cleaned_data['mentees'])
             return redirect('../mentorship_list/')  # 멘토십 목록 페이지로 리다이렉션
     else:
-        form = MentorshipForm(instance=mentorship, initial={'mentees': mentorship.mentee.all()})
+        form = MentorshipForm(instance=mentorship, request=request, initial={'mentees': mentorship.mentee.all()})
     return render(request, 'mentorships/edit_mentorship.html', {'form': form})
 
 
