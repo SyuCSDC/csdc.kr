@@ -7,9 +7,9 @@
 <link rel="stylesheet" href="{% static 'css/report_delbtn.css' %}" />
 <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-    let report = document.querySelector('.fas.fa-book');
-      report.className = 'fas fa-scroll'; 
+  document.addEventListener("DOMContentLoaded", (event) => {
+    let report = document.querySelector(".fas.fa-book");
+    report.className = "fas fa-scroll";
   });
 </script>
 <script>
@@ -23,7 +23,10 @@
   <div style="margin: 25px">
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %} {{ file_formset.management_form }}
-      <div style="margin-block: 20px">{{ form }}</div>
+      <div style="margin-block: 20px">
+        <span style="color: red">※ 본인이 신청한 책만 선택할 수 있습니다.</span>
+        {{ form.book }}
+      </div>
       <div style="margin-block: 25px">
         <span style="color: gray">제출된 파일</span>
         <div class="table-responsive-lg">
@@ -53,9 +56,9 @@
         <span style="color: gray">추가할 파일</span>
         <div id="dynamic-fieldss" class="form-group dynamic-field newFields"></div>
         <div style="padding-block: 20px; text-align: right">
-          <button type="submit" class="button btnfloatreq btnLightreq" style="margin-left: 1px;"></button>
-          <button type="button" id="add-button" class="button btnFloat btnLightBlue" style="margin-left: 1px;"></button>
-          <button type="button" id="remove-button" class="button btnfloat btnLightRed " disabled="disabled"></button>
+          <button type="submit" class="button btnfloatreq btnLightreq" style="margin-left: 1px"></button>
+          <button type="button" id="add-button" class="button btnFloat btnLightBlue" style="margin-left: 1px"></button>
+          <button type="button" id="remove-button" class="button btnfloat btnLightRed" disabled="disabled"></button>
         </div>
       </div>
     </form>

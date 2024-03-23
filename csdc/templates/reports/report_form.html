@@ -10,9 +10,9 @@
   document.getElementById("msg").innerHTML = "레포트 제출";
 </script>
 <script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-    let report = document.querySelector('.fas.fa-book');
-      report.className = 'fas fa-scroll'; 
+  document.addEventListener("DOMContentLoaded", (event) => {
+    let report = document.querySelector(".fas.fa-book");
+    report.className = "fas fa-scroll";
   });
 </script>
 
@@ -20,19 +20,20 @@
 
 <div class="container" style="padding: 60px">
   {% include 'desc.html' %}
-  <div style="font-size: 17px; margin-left: 40px; color: gray;">본인이 신청한 책을 선택후 레포트를 제출해주세요. 레포트는 pdf형식으로 제출 바랍니다.</div>
+  <div style="font-size: 17px; margin-left: 40px; color: gray">본인이 신청한 책을 선택후 레포트를 제출해주세요. 레포트는 pdf형식으로 제출 바랍니다.</div>
   <div style="margin: 25px">
     <form method="post" enctype="multipart/form-data">
-      {% csrf_token %} {{ file_formset.management_form }} {% for f in form %} {% if not f.non_field_errors %} {{ f }} {% endif %} {% endfor %}
+      {% csrf_token %} {{ file_formset.management_form }} {% for f in form %} {% if not f.non_field_errors %}
+      <span style="color: red">※ 본인이 신청한 책만 선택할 수 있습니다.</span>{{ f }} {% endif %} {% endfor %}
       <div id="dynamic-field" class="form-group dynamic-field">
         <label for="field" class="font-weight-bold"></label>
         <input type="file" id="form-0-file" class="form-control" name="form-0-file" data-name="form-0-file" />
       </div>
       <div style="margin-block: 10px; color: red">{% for error in form.non_field_errors %} {{ error }} {% endfor %}</div>
       <div style="padding-block: 20px; text-align: right">
-        <button type="submit" class="button btnfloatreq btnLightreq" style="margin-left: 1px;"></button>
-        <button type="button" id="add-button" class="button btnFloat btnLightBlue" style="margin-left: 1px;"></button>
-        <button type="button" id="remove-button" class="button btnfloat btnLightRed " disabled="disabled"></button>
+        <button type="submit" class="button btnfloatreq btnLightreq" style="margin-left: 1px"></button>
+        <button type="button" id="add-button" class="button btnFloat btnLightBlue" style="margin-left: 1px"></button>
+        <button type="button" id="remove-button" class="button btnfloat btnLightRed" disabled="disabled"></button>
       </div>
     </form>
   </div>

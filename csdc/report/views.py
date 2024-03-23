@@ -22,6 +22,11 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
     template_name = 'reports/report_form.html'
     login_url = '/users/login/'
     success_url = reverse_lazy('report:report_list')  # URL 이름은 프로젝트에 맞게 수정해야 합니다.
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,6 +58,11 @@ class ReportUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ReportForm
     template_name = 'reports/report_update_form.html'
     success_url = reverse_lazy('report:report_list')  # 성공 URL은 필요에 따라 조정
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
