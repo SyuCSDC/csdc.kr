@@ -32,6 +32,7 @@ urlpatterns = [
     path('reports/' , include('report.urls')),
     path('mentorship/' , include('mentorship.urls')),
     path('boards/', include('board.urls')),
+    path('chat/', views.chat_view,name='chat'),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 ]
 
