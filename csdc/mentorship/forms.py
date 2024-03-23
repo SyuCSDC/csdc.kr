@@ -16,7 +16,7 @@ class MentorshipForm(forms.ModelForm):
     )
     
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request')
+        self.request = kwargs.pop('request',None)
         super(MentorshipForm, self).__init__(*args, **kwargs)
 
         #  # 모든 책을 제목 순으로 정렬

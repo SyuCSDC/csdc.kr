@@ -26,7 +26,7 @@ def list_mentorships(request):
 @mentor_required
 def create_mentorship_request(request):
     if request.method == 'POST':
-        form = MentorshipForm(request.POST)
+        form = MentorshipForm(request.POST or None, request=request)
         if form.is_valid():
             # 폼에서 입력받은 데이터로 Mentorship 객체 생성
             mentorship = form.save(commit=False)
@@ -61,7 +61,7 @@ def create_mentorship_request(request):
 def edit_mentorship(request, pk):
     mentorship = get_object_or_404(Mentorship, pk=pk)
     if request.method == "POST":
-        form = MentorshipForm(request.POST, instance=mentorship)
+        form = MentorshipForm(request.POST or None, instance=mentorship , request=request) 
         
         if form.is_valid():
             # 폼에서 입력받은 데이터로 Mentorship 객체를 일단 저장하지만, ManyToMany 관계는 아직 업데이트하지 않음
