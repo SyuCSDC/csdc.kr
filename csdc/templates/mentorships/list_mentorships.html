@@ -56,6 +56,7 @@
       <thead>
         <tr>
           <th scope="col">-</th>
+          <th scope="col">순위</th>
           <th scope="col">멘토</th>
           <th scope="col">멘티</th>
           <!-- <th scope="col">시작 날짜</th>
@@ -77,6 +78,17 @@
             {% else %}
             <span>알 수 없음</span>
             {% endif %} {% endwith %}
+          </td>
+          <td>
+            {% if mentorship.rank == 1%}
+            <img src="/static/gold.png" style="width: 35px; height: 35px;">
+            {% elif mentorship.rank == 2 %}
+            <img src="/static/silver.png"  style="width: 35px; height: 35px;">
+            {% elif mentorship.rank == 3 %}
+            <img src="/static/bronze.png"  style="width: 35px; height: 35px;">
+            {% else %}
+             <div style="position: relative; left: 10px;">{{ mentorship.rank }}</div>
+            {% endif %}
           </td>
           <td><strong>{{ mentorship.mentor.user.last_name }}{{ mentorship.mentor.user.first_name }}</strong></td>
           <td>{{ mentorship.mentee.all | length }}명</td>

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Mentorship
+from .models import Mentorship , WeeklyScore
 
 # Mentorship 모델을 관리자 페이지에 등록
 class MentorshipAdmin(admin.ModelAdmin):
@@ -13,4 +13,7 @@ class MentorshipAdmin(admin.ModelAdmin):
         return obj.get_mentees_display()
     get_mentees_display.short_description = 'Mentees'  # Optional: Set a column name
 
+
+
 admin.site.register(Mentorship, MentorshipAdmin)
+admin.site.register(WeeklyScore)

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import list_mentorships, create_mentorship_request, edit_mentorship , delete_mentorship
+from .views import list_mentorships, create_mentorship_request, edit_mentorship , delete_mentorship 
 
 app_name = 'mentorship'
 
@@ -9,5 +9,6 @@ urlpatterns = [
     # path('<int:id>/', mentorship_detail, name='mentorship_detail'),
     path('<int:pk>/', edit_mentorship , name='edit_mentorship'),
     path('<int:pk>/delete/', delete_mentorship , name='delete_mentorship'),
+    # path('upload_scores/', upload_scores_and_calculate_rankings, name='upload_scores_and_calculate_rankings'),
     
 ]

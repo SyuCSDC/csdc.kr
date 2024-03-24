@@ -4,6 +4,7 @@ from .models import Mentorship
 from user.models import UserProfile
 from .forms import MentorshipForm
 from django.contrib.auth.decorators import login_required ,user_passes_test
+from django.db.models import Sum
 
 # 사용자 역할이 멘토인지 확인하는 함수
 def is_mentor(user):
@@ -15,11 +16,26 @@ mentor_required = user_passes_test(is_mentor, login_url='/')
 #현재 진행중인 모든 멘토링
 @login_required
 def list_mentorships(request):
-     # 현재 로그인한 사용자의 UserProfile 인스턴스를 가져옵니다.
-    # user_profile = UserProfile.objects.get(user=request.user)
-    # mentorships = Mentorship.objects.filter(mentor=user_profile) | Mentorship.objects.filter(mentee=user_profile)
-    mentorships = Mentorship.objects.all()
-    return render(request, 'mentorships/list_mentorships.html', {'mentorships': mentorships})
+    #  # 현재 로그인한 사용자의 UserProfile 인스턴스를 가져옵니다.
+    # # user_profile = UserProfile.objects.get(user=request.user)
+    # # mentorships = Mentorship.objects.filter(mentor=user_profile) | Mentorship.objects.filter(mentee=user_profile)
+    # mentorships = Mentorship.objects.all()
+
+    mentorships_with_scores = Mentorship.objects.annotate(
+        total_score=Sum('weeklyscore__score')
+    ).order_by('-total_score')
+
+    mentorships_with_ranks = []
+    last_score = None
+    last_rank = 0
+    for index, mentorship in enumerate(mentorships_with_scores, start=1):
+        if mentorship.total_score != last_score:
+            last_rank = index
+            last_score = mentorship.total_score
+        mentorship.rank = last_rank
+        mentorships_with_ranks.append(mentorship)
+
+    return render(request, 'mentorships/list_mentorships.html', {'mentorships': mentorships_with_ranks})
 
 # 멘토링 생성
 @login_required

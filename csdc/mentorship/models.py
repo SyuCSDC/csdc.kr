@@ -1,5 +1,6 @@
 # Create your models here.
 from django.db import models
+from django.db.models.constraints import UniqueConstraint
 from user.models import UserProfile
 from report.models import Book 
 
@@ -17,3 +18,17 @@ class Mentorship(models.Model):
     def __str__(self):
         mentees_str = ", ".join([mentee.user.username for mentee in self.mentee.all()])
         return f"{self.mentor.user.username} mentoring {mentees_str} for {self.book.title}"
+    
+
+class WeeklyScore(models.Model):
+    mentorship = models.ForeignKey(Mentorship, on_delete=models.CASCADE)
+    week = models.PositiveIntegerField()
+    score = models.PositiveIntegerField() 
+
+    class Meta:
+        constraints = [
+            UniqueConstraint(fields=['mentorship', 'week'], name='unique_mentorship_week')
+        ]
+
+    def __str__(self):
+        return f"{self.mentorship.mentor}"
