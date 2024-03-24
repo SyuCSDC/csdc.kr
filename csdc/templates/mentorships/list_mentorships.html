@@ -87,7 +87,7 @@
             {% elif mentorship.rank == 3 %}
             <img src="/static/bronze.png"  style="width: 35px; height: 35px;">
             {% else %}
-             <div style="position: relative; left: 10px;">{{ mentorship.rank }}</div>
+             <div style="position: relative; left: 10px; font-weight: bold;">{{ mentorship.rank }}</div>
             {% endif %}
           </td>
           <td><strong>{{ mentorship.mentor.user.last_name }}{{ mentorship.mentor.user.first_name }}</strong></td>
