@@ -17,7 +17,7 @@ class Book(models.Model):
 class Report(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     submitter = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)  # 날짜 필드 추가
+    date = models.DateTimeField(auto_now=True)  # 날짜 필드 추가
 
     def __str__(self):
         return f'Report on {self.book.title} by {self.submitter.username} on {self.date}'

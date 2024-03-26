@@ -21,7 +21,7 @@
           <th scope="col">-</th>
           <th scope="col">책 제목</th>
           <th scope="col">제출자</th>
-          <th scope="col">날짜</th>
+          <th scope="col">수정된 날짜</th>
           <th scope="col" style="text-align: right">관리</th>
         </tr>
       </thead>
@@ -29,7 +29,7 @@
         {% for report in reports %}
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
-          <td><a href="{% url 'report:report_detail' report.pk %}" style=" text-decoration: none; color: black; font-weight: bold;">{{ report.book.title }}</a></td>
+          <td><a href="{% url 'report:report_detail' report.pk %}" style=" text-decoration: none; color: rgb(0, 68, 255); font-weight: bold;">{{ report.book.title }}</a></td>
           <td style="font-weight: bold;">{{ report.submitter.last_name }}{{ report.submitter.first_name }}({{report.submitter.userprofile.student_id}})</td>
           <td style="font-weight: bold;">{{ report.date | date:"Y-m-d H:i:s" }}</td>
           <td style="text-align: right">
