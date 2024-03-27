@@ -1,0 +1,29 @@
+	/* 기존 스타일 */
+    #response {
+        background-color: #f8f9fa;
+        color: #495057;
+        border-radius: .25rem;
+        padding: 1rem;
+        max-height: 300px; 
+        overflow-y: auto; 
+    }
+
+    
+    .chat-bubble {
+        padding: 10px 20px;
+        border-radius: 20px;
+        margin-bottom: 10px;
+        display: inline-block;
+        max-width: 80%; 
+    }
+
+    .user-message {
+        background-color: #007bff;
+        color: white;
+        margin-left: auto; 
+    }
+
+    .system-message {
+        background-color: #eeeeee;
+        color: #333;
+    }
