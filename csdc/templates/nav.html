@@ -1,3 +1,15 @@
+<style>
+  .breathing-effect {
+  display: inline-block;
+  animation: breath-animation 2s ease-out infinite;
+}
+
+@keyframes breath-animation {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+</style>
+
 <nav class="navbar navbar-expand-md navbar-light bg-light" style="padding-inline: 60px">
   <div class="container-fluid">
     <a href="/"><img src="/static/csdc-kr.png" height="42" /></a>
@@ -13,6 +25,7 @@
       <i class="bi bi-three-dots"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav" style="font-weight: bold">
+     <a href="/chat/" class="breathing-effect" style="text-decoration: none; color: black;">Chat-GPT</a>
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item dropdown">
           <button class="nav-link btn btn-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">게시판</button>
