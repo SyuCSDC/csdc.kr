@@ -11,7 +11,7 @@ $(document).ready(function() {
     // 페이지가 로드되었을 때 초기 상태를 비활성화로 설정합니다.
     submitButton.prop('disabled', true);
 
-    $('form').on('submit', function(event) {
+    $('form').not('.logout-form').on('submit', function(event) {
         event.preventDefault();
         submitButton.hide(); 
         loadingSpinner.show(); 
