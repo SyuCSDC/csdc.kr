@@ -85,6 +85,33 @@
     object-fit: cover;
   }
 </style>
+<style>
+  .code {
+    background: #f4f4f4;
+    border-left: 3px solid #008cff;
+    color: #666;
+    page-break-inside: avoid;
+    font-family: "Consolas";
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 0em;
+    max-width: 100%;
+    /* overflow: auto; */
+    display: block;
+    word-wrap: break-word;
+    counter-increment: line;
+  }
+  .code::before {
+    content: counter(line);
+    display: inline-block;
+    width: 2.5em;
+    border-right: 1px solid #ddd;
+    padding: 0 0.5em;
+    margin-right: 0.5em;
+    color: #888;
+    -webkit-user-select: none;
+  }
+</style>
 <div class="container" style="padding: 60px">
   <div style="font-size: 14pt">
     <i class="bi bi-box-arrow-up-left"></i>

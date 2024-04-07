@@ -17,17 +17,15 @@
 <script>
   document.getElementById("msg").innerHTML = "게시글 수정";
 
-  document.addEventListener('DOMContentLoaded', (event) => {
-
+  document.addEventListener("DOMContentLoaded", (event) => {
     let currentPath = window.location.pathname;
     let pattern = /^\/boards\/notice\/(\d+)\/update\/$/;
-    let icon = document.querySelector('.fas.fa-book'); 
+    let icon = document.querySelector(".fas.fa-book");
 
     if (icon && pattern.test(currentPath)) {
-      icon.className = 'fas fa-exclamation-circle';
-    }
-    else{
-      icon.className = 'fas fa-chalkboard';
+      icon.className = "fas fa-exclamation-circle";
+    } else {
+      icon.className = "fas fa-chalkboard";
     }
   });
 </script>
@@ -48,10 +46,49 @@
     <button type="submit" class="btn btn-primary">수정 완료</button>
   </form>
 </div>
+<style>
+  .code {
+    background: #f4f4f4;
+    border-left: 3px solid #008cff;
+    color: #666;
+    page-break-inside: avoid;
+    font-family: "Consolas";
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 0em;
+    max-width: 100%;
+    /* overflow: auto; */
+    display: block;
+    word-wrap: break-word;
+    counter-increment: line;
+  }
+  .code::before {
+    content: counter(line);
+    display: inline-block;
+    width: 2.5em;
+    border-right: 1px solid #ddd;
+    padding: 0 0.5em;
+    margin-right: 0.5em;
+    color: #888;
+    -webkit-user-select: none;
+  }
+</style>
 <script>
   $(document).ready(function () {
-    var fontList = ["sans-serif", "NanumSquare"];
     $("#summernote").summernote({
+      buttons: {
+        code: function (context) {
+          var ui = $.summernote.ui;
+          var button = ui.button({
+            contents: "코드블럭",
+            tooltip: "code",
+            click: function () {
+              $("#summernote").summernote("editor.pasteHTML", "<pre class='code'>Place your code here.</pre>");
+            },
+          });
+          return button.render();
+        },
+      },
       toolbar: [
         ["fontname", ["fontname"]],
         ["fontsize", ["fontsize"]],
@@ -59,14 +96,25 @@
         ["color", ["forecolor", "color"]],
         ["table", ["table"]],
         ["para", ["ul", "ol", "paragraph"]],
-        ["height", ["height"]],
+        ["mybutton", ["code"]],
         ["insert", ["picture", "link", "video"]],
       ],
-      fontNames: fontList,
-      fontNamesIgnoreCheck: fontList,
+      fontNames: ["sans-serif", "NanumSquare"],
+      fontNamesIgnoreCheck: ["sans-serif", "NanumSquare"],
       fontSizes: ["8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "28", "30", "36", "50", "72"],
       height: 280,
     });
+  });
+  // $("#summernote").on("summernote.enter", function (we, e) {
+  //   $(this).summernote("pasteHTML", "<br><br>");
+  //   e.preventDefault();
+  // });
+  $("#summernote").on("summernote.paste", function (e, ne) {
+    let inputText = ((ne.originalEvent || ne).clipboardData || window.clipboardData).getData("Text");
+    ne.preventDefault();
+    // let modifiedText = inputText.replace(/\r?\n/g, "<br>");
+    document.execCommand("insertText", true, inputText);
+    // document.execCommand("insertParagraph", false);
   });
 </script>
 {% endblock %}
