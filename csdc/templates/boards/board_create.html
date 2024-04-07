@@ -74,20 +74,21 @@
   }
 </style>
 <script>
+  const codeblock = function (context) {
+    var ui = $.summernote.ui;
+    var button = ui.button({
+      contents: "코드 블럭",
+      // tooltip: "코드 블럭",
+      click: function () {
+        $("#summernote").summernote("editor.pasteHTML", "<pre class='code'>Place your code here.</pre>");
+      },
+    });
+    return button.render();
+  };
   $(document).ready(function () {
     $("#summernote").summernote({
       buttons: {
-        code: function (context) {
-          var ui = $.summernote.ui;
-          var button = ui.button({
-            contents: "코드블럭",
-            tooltip: "code",
-            click: function () {
-              $("#summernote").summernote("editor.pasteHTML", "<pre class='code'>Place your code here.</pre>");
-            },
-          });
-          return button.render();
-        },
+        code: codeblock,
       },
       toolbar: [
         ["fontname", ["fontname"]],
