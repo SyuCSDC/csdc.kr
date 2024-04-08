@@ -16,8 +16,10 @@ class Mentorship(models.Model):
         return ", ".join([mentee.user.get_full_name() for mentee in self.mentee.all()])
 
     def __str__(self):
-        mentees_str = ", ".join([mentee.user.username for mentee in self.mentee.all()])
-        return f"{self.mentor.user.username} mentoring {mentees_str} for {self.book.title}"
+        mentor_full_name = f"{self.mentor.user.last_name}{self.mentor.user.first_name}".strip()
+        mentee_names = [f"{mentee.user.last_name}{mentee.user.first_name}".strip() for mentee in self.mentee.all()]
+        mentees_str = ", ".join(mentee_names)
+        return f"{mentor_full_name} mentoring {mentees_str} for {self.book.title}"
     
 
 class WeeklyScore(models.Model):
