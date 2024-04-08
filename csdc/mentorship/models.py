@@ -25,7 +25,7 @@ class Mentorship(models.Model):
 class WeeklyScore(models.Model):
     mentorship = models.ForeignKey(Mentorship, on_delete=models.CASCADE)
     week = models.PositiveIntegerField()
-    score = models.PositiveIntegerField() 
+    score = models.IntegerField() 
 
     class Meta:
         constraints = [
